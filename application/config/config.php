@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://ci3-fire-starter.dev/';
+$config['base_url'] = 'http://lucky-gunner.local/';
 
 /*
 |--------------------------------------------------------------------------
@@ -311,7 +311,7 @@ $config['cache_query_string'] = FALSE;
 | http://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = hex2bin('c5cbd013b4a1eaf8654ecf26944faf66');
+$config['encryption_key'] = hex2bin('c5cbd013b4a1eaf7054ecf26944faf66');
 
 /*
 |--------------------------------------------------------------------------
