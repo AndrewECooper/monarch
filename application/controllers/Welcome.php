@@ -25,8 +25,14 @@ class Welcome extends Public_Controller {
         $data = $this->includes;
 
         // set content data
+        if (is_array($this->settings->welcome_message) && array_key_exists($this->session->language, $this->settings->welcome_message)) {
+            $welcome_msg = $this->settings->welcome_message[$this->session->language];
+        } else {
+            $welcome_msg = "Welcome";
+        }
+        
         $content_data = array(
-            'welcome_message' => $this->settings->welcome_message[$this->session->language]
+            'welcome_message' => $welcome_msg
         );
 
         // load views
