@@ -28,7 +28,7 @@ class Welcome extends Public_Controller {
         if (is_array($this->settings->welcome_message) && array_key_exists($this->session->language, $this->settings->welcome_message)) {
             $welcome_msg = $this->settings->welcome_message[$this->session->language];
         } else {
-            $welcome_msg = "Welcome";
+            $welcome_msg = "We will put some very nice instructional text here.";
         }
         
         $content_data = array(

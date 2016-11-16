@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Dashboard extends Admin_Controller {
+class Servers extends Admin_Controller {
 
     /**
      * Constructor
@@ -9,7 +9,7 @@ class Dashboard extends Admin_Controller {
         parent::__construct();
 
         // load the language files
-        $this->lang->load('dashboard');
+        $this->lang->load('servers');
     }
 
 
@@ -24,7 +24,7 @@ class Dashboard extends Admin_Controller {
         $data = $this->includes;
 
         // load views
-        $data['content'] = $this->load->view('admin/dashboard', NULL, TRUE);
+        $data['content'] = $this->load->view('admin/servers', NULL, TRUE);
         $this->load->view($this->template, $data);
     }
 

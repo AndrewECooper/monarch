@@ -44,14 +44,6 @@
                 <a class="navbar-brand" href="/"><?php echo $this->settings->site_name; ?></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-                <?php // Nav bar left ?>
-                <ul class="nav navbar-nav">
-                    <li class="<?php echo (uri_string() == '') ? 'active' : ''; ?>"><a href="<?php echo base_url('/'); ?>"><?php echo lang('core button home'); ?></a></li>
-                    <li class="<?php echo (uri_string() == 'contact') ? 'active' : ''; ?>"><a href="<?php echo base_url('/contact'); ?>"><?php echo lang('core button contact'); ?></a></li>
-                    <?php if ($this->session->userdata('logged_in')) : ?>
-                        <li class="<?php echo (uri_string() == 'profile') ? 'active' : ''; ?>"><a href="<?php echo base_url('/profile'); ?>"><?php echo lang('core button profile'); ?></a></li>
-                    <?php endif; ?>
-                </ul>
                 <?php // Nav bar right ?>
                 <ul class="nav navbar-nav navbar-right">
                     <?php if ($this->session->userdata('logged_in')) : ?>
@@ -118,7 +110,6 @@
                 | PHP v<?php echo phpversion(); ?>
                 | CodeIgniter v<?php echo CI_VERSION; ?>
                 | <?php echo $this->settings->site_name; ?> v<?php echo $this->settings->site_version; ?>
-                | <a href="http://jasonbaier.github.io/ci3-fire-starter/" target="_blank">Github.com</a>
             </p>
         </div>
     </footer>

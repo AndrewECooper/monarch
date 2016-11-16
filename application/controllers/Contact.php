@@ -66,6 +66,8 @@ class Contact extends Public_Controller {
             'img_height' => 50
         ));
 
+        log_message("error", "data: " . $captcha . "<br>");
+        
         $captcha_data = array(
             'captcha_time' => $captcha['time'],
             'ip_address'   => $this->input->ip_address(),

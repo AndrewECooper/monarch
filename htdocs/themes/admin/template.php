@@ -44,16 +44,31 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <?php // Nav bar left ?>
                 <ul class="nav navbar-nav">
-                    <li class="<?php echo (uri_string() == 'admin' OR uri_string() == 'admin/dashboard') ? 'active' : ''; ?>"><a href="<?php echo base_url('/admin'); ?>"><?php echo lang('admin button dashboard'); ?></a></li>
+                    <li class="<?php echo (uri_string() == 'admin' OR uri_string() == 'admin/dashboard') ? 'active' : ''; ?>">
+                        <a href="<?php echo base_url('/admin'); ?>"><?php echo lang('admin button dashboard'); ?></a>
+                    </li>
                     <li class="dropdown<?php echo (strstr(uri_string(), 'admin/users')) ? ' active' : ''; ?>">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><?php echo lang('admin button users'); ?> <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <?php echo lang('admin button users'); ?> <span class="caret"></span>
+                        </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li class="<?php echo (uri_string() == 'admin/users') ? 'active' : ''; ?>"><a href="<?php echo base_url('/admin/users'); ?>"><?php echo lang('admin button users_list'); ?></a></li>
-                            <li class="<?php echo (uri_string() == 'admin/users/add') ? 'active' : ''; ?>"><a href="<?php echo base_url('/admin/users/add'); ?>"><?php echo lang('admin button users_add'); ?></a></li>
+                            <li class="<?php echo (uri_string() == 'admin/users') ? 'active' : ''; ?>">
+                                <a href="<?php echo base_url('/admin/users'); ?>"><?php echo lang('admin button users_list'); ?></a>
+                            </li>
+                            <li class="<?php echo (uri_string() == 'admin/users/add') ? 'active' : ''; ?>">
+                                <a href="<?php echo base_url('/admin/users/add'); ?>"><?php echo lang('admin button users_add'); ?></a>
+                            </li>
                         </ul>
                     </li>
-                    <li class="<?php echo (uri_string() == 'admin/contact') ? 'active' : ''; ?>"><a href="<?php echo base_url('/admin/contact'); ?>"><?php echo lang('admin button messages'); ?></a></li>
-                    <li class="<?php echo (uri_string() == 'admin/settings') ? 'active' : ''; ?>"><a href="<?php echo base_url('/admin/settings'); ?>"><?php echo lang('admin button settings'); ?></a></li>
+                    <li class="<?php echo (uri_string() == 'admin/servers') ? 'active' : ''; ?>">
+                        <a href="<?php echo base_url('/admin/servers'); ?>"><?php echo lang('admin button servers'); ?></a>
+                    </li>
+                    <li class="<?php echo (uri_string() == 'admin/providers') ? 'active' : ''; ?>">
+                        <a href="<?php echo base_url('/admin/providers'); ?>"><?php echo lang('admin button providers'); ?></a>
+                    </li>
+                    <li class="<?php echo (uri_string() == 'admin/websites') ? 'active' : ''; ?>">
+                        <a href="<?php echo base_url('/admin/websites'); ?>"><?php echo lang('admin button websites'); ?></a>
+                    </li>
                 </ul>
                 <?php // Nav bar right ?>
                 <ul class="nav navbar-nav navbar-right">
@@ -107,7 +122,6 @@
                 | PHP v<?php echo phpversion(); ?>
                 | CodeIgniter v<?php echo CI_VERSION; ?>
                 | <?php echo $this->settings->site_name; ?> v<?php echo $this->settings->site_version; ?>
-                | <a href="http://jasonbaier.github.io/ci3-fire-starter/" target="_blank">Github.com</a>
             </p>
         </div>
     </footer>
