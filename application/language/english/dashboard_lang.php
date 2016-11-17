@@ -5,6 +5,7 @@
 
 // Text
 $lang['admin dashboard text welcome']  = "Hello and welcome to the dashboard!";
+$lang["admin dashboard title"] = "Dashboard";
 
 // Buttons
 $lang['admin dashboard btn demo']      = "Click for Jsi18n Demo";
