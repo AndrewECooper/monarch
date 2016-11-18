@@ -19,7 +19,7 @@ class Servers extends Admin_Controller {
     function index() {
         // setup page header data
         $this->add_js_theme( "dashboard_i18n.js", TRUE )
-            ->set_title( lang('admin title admin') );
+            ->set_title( lang('admin servers title') );
 		
         $data = $this->includes;
 

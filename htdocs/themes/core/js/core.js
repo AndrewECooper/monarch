@@ -1,0 +1,1 @@
+// Put javascript dealing with the core theme here.

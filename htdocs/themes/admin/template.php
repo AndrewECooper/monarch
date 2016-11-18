@@ -27,7 +27,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body>
+<body class="modal-open">
 
     <?php // Fixed navbar ?>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -141,6 +141,5 @@
             <?php endif; ?>
         <?php endforeach; ?>
     <?php endif; ?>
-
 </body>
 </html>

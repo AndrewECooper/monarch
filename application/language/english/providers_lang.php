@@ -5,3 +5,4 @@
 
 // Text
 $lang['admin providers text welcome']  = "Hello and welcome to the Providers!";
+$lang["admin providers title"] = "Providers";
