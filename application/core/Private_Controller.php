@@ -3,7 +3,7 @@
 /**
  * Base Private Class - used for all private pages
  */
-class Private_Controller extends MY_Controller {
+class Private_Controller extends Private_Controller {
 
     /**
      * Constructor

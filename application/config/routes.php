@@ -55,7 +55,7 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['login'] = 'user/login';
 $route['logout'] = 'user/logout';
-$route['admin'] = 'admin/dashboard';
+$route['dashboard'] = 'dashboard';
 $route["servers"] = "admin/servers";
 $route["providers"] = "admin/providers";
 $route["websites"] = "admin/websites";

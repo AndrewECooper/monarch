@@ -228,3 +228,9 @@ if ( ! function_exists('get_languages'))
         return $languages;
     }
 }
+
+if (!function_exists("active_if_url_contains")) {
+    function active_if_url_contains($text) {
+        return (uri_string() == $text) ? 'active' : '';
+    }
+}

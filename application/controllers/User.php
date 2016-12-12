@@ -68,13 +68,10 @@ class User extends Public_Controller {
                 else
                 {
                     $logged_in_user = $this->session->userdata('logged_in');
-                    if ($logged_in_user['is_admin'])
-                    {
-                        // redirect to admin dashboard
-                        redirect('admin');
-                    }
-                    else
-                    {
+                    if ($logged_in_user) {
+                        // redirect to dashboard
+                        redirect('dashboard');
+                    } else {
                         // redirect to landing page
                         redirect(base_url());
                     }

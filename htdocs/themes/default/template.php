@@ -32,7 +32,7 @@
 <body>
 
     <?php // Fixed navbar ?>
-    <nav class="navbar navbar-default navbar-static-top">
+    <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -44,34 +44,39 @@
                 <a class="navbar-brand" href="/"><?php echo $this->settings->site_name; ?></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-                <?php // Nav bar right ?>
+                <!-- Navbar left -->
+                <ul class="nav navbar-nav">
+                    <li class="<?php echo active_if_url_contains("dashboard"); ?>">
+                        <a href="<?php echo base_url('/dashboard'); ?>"><?php echo lang('core button dashboard'); ?></a>
+                    </li>
+                    <li class="<?php echo active_if_url_contains("jobs"); ?>">
+                        <a href="<?php echo base_url('/jobs'); ?>"><?php echo lang('core button jobs'); ?></a>
+                    </li>
+                </ul>
+                
+                <!-- Navbar right -->
                 <ul class="nav navbar-nav navbar-right">
                     <?php if ($this->session->userdata('logged_in')) : ?>
-                        <?php if ($this->user['is_admin']) : ?>
-                            <li>
-                                <a href="<?php echo base_url('admin'); ?>"><?php echo lang('core button admin'); ?></a>
-                            </li>
-                        <?php endif; ?>
+                        <li class="<?php echo active_if_url_contains("account"); ?>">
+                            <a href="/account"><?php echo lang('core button account'); ?></a>
+                        </li>
                         <li>
                             <a href="/logout"><?php echo lang('core button logout'); ?></a>
                         </li>
                     <?php else : ?>
-                        <li class="<?php echo (uri_string() == 'login') ? 'active' : ''; ?>">
+                        <li class="<?php echo active_if_url_contains("login"); ?>">
                             <a href="<?php echo base_url('/login'); ?>"><?php echo lang('core button login'); ?></a>
                         </li>
                     <?php endif; ?>
                 </ul>
+                
+                <?php echo $search_form; ?>
             </div>
         </div>
     </nav>
 
     <?php // Main body ?>
     <div class="container theme-showcase" role="main">
-
-        <?php // Page title ?>
-        <div class="page-header">
-            <h1><?php echo $page_header; ?></h1>
-        </div>
 
         <?php // System messages ?>
         <?php if ($this->session->flashdata('message')) : ?>

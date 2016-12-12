@@ -4,15 +4,15 @@
  */
 
 // Buttons
-$lang['core button admin']                  = "Admin";
+$lang['core button dashboard']                  = "Dashboard";
 $lang['core button cancel']              	= "Cancel";
 $lang['core button close']               	= "Close";
 $lang['core button contact']               	= "Contact";
 $lang['core button filter']              	= "Filter";
-$lang['core button home']                	= "Home";
+$lang['core button jobs']                	= "Jobs";
 $lang['core button login']               	= "Login";
 $lang['core button logout']              	= "Logout";
-$lang['core button profile']              	= "Profile";
+$lang['core button account']              	= "Account";
 $lang['core button reset']               	= "Reset";
 $lang['core button save']                	= "Save";
 $lang['core button search']              	= "Search";
@@ -21,7 +21,7 @@ $lang['core button toggle_nav']          	= "Toggle navigation";
 // Text
 $lang['core text no']                    	= "No";
 $lang['core text yes']                   	= "Yes";
-$lang['core text page_rendered']            = "Page rendered in <strong>{elapsed_time}</strong> seconds";
+$lang['core text page_rendered']                = "Page rendered in <strong>{elapsed_time}</strong> seconds";
 
 // Emails
 $lang['core email start']                	= "<!DOCTYPE html><html><head><style>

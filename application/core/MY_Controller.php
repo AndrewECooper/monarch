@@ -24,7 +24,7 @@ class MY_Controller extends CI_Controller {
     function __construct()
     {
         parent::__construct();
-
+        
         // get settings
         $settings = $this->settings_model->get_settings();
         $this->settings = new stdClass();
@@ -34,6 +34,9 @@ class MY_Controller extends CI_Controller {
         }
         $this->settings->site_version = $this->config->item('site_version');
         $this->settings->root_folder  = $this->config->item('root_folder');
+        $this->settings->theme = strtolower($this->config->item('default_theme'));
+        
+        $this->template = "../../{$this->settings->root_folder}/themes/{$this->settings->theme}/template.php";
 
         // get current uri
         $this->current_uri = "/" . uri_string();
@@ -366,7 +369,7 @@ class MY_Controller extends CI_Controller {
             if ( empty( $js ) ) continue;
 
             // using sha1( $js ) as a key to prevent duplicate js to be included
-            $this->includes[ 'js_files_i18n' ][ sha1( $js ) ] = $this->jsi18n->translate( "/themes/{$this->settings->theme}/js/{$js}" );
+            //$this->includes[ 'js_files_i18n' ][ sha1( $js ) ] = $this->jsi18n->translate( "/themes/{$this->settings->theme}/js/{$js}" );
         }
 
         return $this;
