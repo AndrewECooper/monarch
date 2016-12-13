@@ -57,4 +57,5 @@ $route['login'] = 'user/login';
 $route['logout'] = 'user/logout';
 $route['dashboard'] = 'dashboard';
 $route["jobs"] = "jobs";
+$route["jobs/(:num)"] = "jobs/job/$1";
 $route["jobs/(:num)/leads"] = "jobs/leads/$1";

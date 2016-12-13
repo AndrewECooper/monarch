@@ -26,7 +26,9 @@
                             <div class="col-md-4">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">
-                                        <span class="panel-title">Job <?php echo $x + 1; ?></span>
+                                        <a class="panel-title" href="<?php echo base_url('/jobs/' . $x); ?>">
+                                            Job <?php echo $x + 1; ?>
+                                        </a>
                                         <p class="pull-right">Bob / Fred</p>
                                     </div>
                                     <div class="panel-body">

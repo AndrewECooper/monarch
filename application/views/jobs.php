@@ -26,8 +26,12 @@
                             <div class="col-md-3">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">
-                                        <a class="panel-title" href="#">Job <?php echo $x + 1; ?></a>
-                                        <a class="panel-title pull-right" href="<?php echo base_url('/jobs/' . $x . '/leads'); ?>">Leads</a>
+                                        <a class="panel-title" href="<?php echo base_url('/jobs/' . $x); ?>">
+                                            Job <?php echo $x + 1; ?>
+                                        </a>
+                                        <a class="panel-title pull-right" href="<?php echo base_url('/jobs/' . $x . '/leads'); ?>">
+                                            Leads
+                                        </a>
                                     </div>
                                     <div class="panel-body">
                                         <table class="table-striped" width="100%">
