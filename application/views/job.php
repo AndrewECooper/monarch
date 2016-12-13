@@ -9,6 +9,9 @@
                 <div class="panel-heading">
                     <div class="panel-heading">
                         <span class="panel-title"><?php echo $job_name; ?></span>
+                        <a class="btn btn-success pull-right" href="<?php echo base_url('/jobs/' . $job_num . '/leads'); ?>">
+                            Lead List
+                        </a>
                     </div>
                 </div>
                 <div class="panel-body">                        

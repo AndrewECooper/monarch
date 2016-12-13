@@ -54,6 +54,7 @@ class Jobs extends MY_Controller {
         $data = $this->includes;
         
         // load views
+        $data["job_num"] = $job_num;
         $data["job_name"] = "Job " . ($job_num + 1);
         $data["search_form"] = $this->load->view("widgets/search", $data, true);
         $data['content'] = $this->load->view('job', $data, TRUE);
