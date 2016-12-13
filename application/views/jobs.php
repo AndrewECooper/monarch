@@ -34,7 +34,7 @@
                                         </a>
                                     </div>
                                     <div class="panel-body">
-                                        <table class="table-striped" width="100%">
+                                        <table class="table table-striped">
                                             <tbody>
                                                 <tr>
                                                     <th>Sales (week)</th>

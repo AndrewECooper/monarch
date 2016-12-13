@@ -12,50 +12,40 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <div class="container-fluid">
-                        <?php for ($x = 0; $x < 10; $x++):  ?>
-                            
-                            <?php if ($x % 3 == 0): ?>
-                                <?php if ($x > 0): ?>
-                                </div>
-                                <?php endif; ?>
-                    
-                            <div class="row">
-                            <?php endif; ?> 
-                                
-                            <div class="col-md-4">
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                        <a class="panel-title" href="<?php echo base_url('/leads/' . $x); ?>">
-                                            Lead <?php echo $x + 1; ?>
-                                        </a>
-                                        <span class="pull-right">
-                                            Status!
-                                        </span>
-                                    </div>
-                                    <div class="panel-body">
-                                        <table class="table-striped" width="100%">
-                                            <tbody>
-                                                <tr>
-                                                    <th>Company</th>
-                                                    <td>Some Company</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Contact</th>
-                                                    <td>Billy Joe Tom Bob Parker</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Phone</th>
-                                                    <td>956-753-0007</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endfor; ?>
-                            </div>
-                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th>Lead Name</th>
+                                <th>Company</th>
+                                <th>Contact</th>
+                                <th>Phone</th>
+                            </tr>
+                        </thead>    
+                        <tbody>
+                            <?php for ($x = 0; $x < 10; $x++):  ?>    
+                            <tr>
+                                <td>
+                                    New Lead
+                                </td>
+                                <td>
+                                    <a href="<?php echo base_url('/leads/' . $x); ?>">
+                                        Lead <?php echo $x + 1; ?>
+                                    </a>
+                                </td>
+                                <td>
+                                    Some Company
+                                </td>
+                                <td>
+                                    Billy Joe Tom Bob Parker
+                                </td>
+                                <td>
+                                    956-753-0007
+                                </td>
+                            </tr>
+                            <?php endfor; ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

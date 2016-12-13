@@ -59,3 +59,4 @@ $route['dashboard'] = 'dashboard';
 $route["jobs"] = "jobs";
 $route["jobs/(:num)"] = "jobs/job/$1";
 $route["jobs/(:num)/leads"] = "jobs/leads/$1";
+$route["leads/(:num)"] = "leads/lead/$1";

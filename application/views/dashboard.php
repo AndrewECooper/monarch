@@ -32,7 +32,7 @@
                                         <p class="pull-right">Bob / Fred</p>
                                     </div>
                                     <div class="panel-body">
-                                        <table class="table-striped" width="100%">
+                                        <table class="table table-striped" width="100%">
                                             <tbody>
                                                 <tr>
                                                     <th>Sales (week)</th>
