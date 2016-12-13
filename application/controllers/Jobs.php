@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Dashboard extends MY_Controller {
+class Jobs extends MY_Controller {
 
     /**
      * Constructor
@@ -25,10 +25,25 @@ class Dashboard extends MY_Controller {
         
         // load views
         $data["search_form"] = $this->load->view("widgets/search", $data, true);
-        $data['content'] = $this->load->view('dashboard', $data, TRUE);
+        $data['content'] = $this->load->view('jobs', $data, TRUE);
         
         $this->load->view($this->template, $data);
         
     }
+    
+    function leads($job_num) {
+        // setup page header data
+        $this->add_js_theme( "dashboard_i18n.js", TRUE )
+            ->set_title( lang('admin dashboard title') );
+		
+        $data = $this->includes;
+        
+        // load views
+        $data["search_form"] = $this->load->view("widgets/search", $data, true);
+        $data['content'] = $this->load->view('leads', $data, TRUE);
+        
+        $this->load->view($this->template, $data);
+    }
 
 }
+

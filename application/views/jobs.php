@@ -4,7 +4,7 @@
     
     <!-- Active Jobs -->
     <div class="row">
-        <div class="col-md-9" style="padding-left: 0px">
+        <div class="col-md-12" style="padding-left: 0px">
             <div class="panel panel-default" style="margin-right: 10px">
                 <div class="panel-heading">
                     <div class="panel-heading">
@@ -15,7 +15,7 @@
                     <div class="container-fluid">
                         <?php for ($x = 0; $x < 10; $x++):  ?>
                             
-                            <?php if ($x % 3 == 0): ?>
+                            <?php if ($x % 4 == 0): ?>
                                 <?php if ($x > 0): ?>
                                 </div>
                                 <?php endif; ?>
@@ -23,11 +23,11 @@
                             <div class="row">
                             <?php endif; ?> 
                                 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">
-                                        <span class="panel-title">Job <?php echo $x + 1; ?></span>
-                                        <p class="pull-right">Bob / Fred</p>
+                                        <a class="panel-title" href="#">Job <?php echo $x + 1; ?></a>
+                                        <a class="panel-title pull-right" href="<?php echo base_url('/jobs/' . $x . '/leads'); ?>">Leads</a>
                                     </div>
                                     <div class="panel-body">
                                         <table class="table-striped" width="100%">
@@ -39,6 +39,10 @@
                                                 <tr>
                                                     <th>Collected (week)</th>
                                                     <td>$234.00</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Collector</th>
+                                                    <td>Fred</td>
                                                 </tr>
                                                 <tr>
                                                     <td><a href="#">Letter</a></td>
@@ -55,39 +59,6 @@
                 </div>
             </div>
         </div>
-    
-        <div class="col-md-3" style="padding-left: 0px">
-            <div class="panel panel-default" style="margin-right: 10px">
-                <div class="panel-heading">
-                    <div class="panel-heading">
-                        <span class="panel-title">Reminders</span>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <a class="btn btn-success btn-block" href="#" style="white-space: normal">
-                        Do some really cool thing.
-                    </a>
-                    <a class="btn btn-success btn-block" href="#" style="white-space: normal">
-                        Do some other really cool thing.
-                    </a>
-                    <a class="btn btn-success btn-block" href="#" style="white-space: normal">
-                        Call your mother!
-                    </a>
-                </div>
-            </div>
-        </div>
     </div>
-    
-    <!-- <div class="row">
-        <?php echo $current_events_widget; ?>
-    </div>
-    
-    <div class="row">
-        <?php echo $past_events_widget; ?>
-    </div>
-    
-    <div class="row">
-        <?php echo $current_status_widget; ?>
-    </div> -->
 </div>
 

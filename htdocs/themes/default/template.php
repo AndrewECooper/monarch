@@ -46,31 +46,37 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <!-- Navbar left -->
                 <ul class="nav navbar-nav">
+                    <?php if ($this->session->userdata('logged_in')) : ?>
                     <li class="<?php echo active_if_url_contains("dashboard"); ?>">
                         <a href="<?php echo base_url('/dashboard'); ?>"><?php echo lang('core button dashboard'); ?></a>
                     </li>
                     <li class="<?php echo active_if_url_contains("jobs"); ?>">
                         <a href="<?php echo base_url('/jobs'); ?>"><?php echo lang('core button jobs'); ?></a>
                     </li>
+                    <?php endif; ?>
                 </ul>
                 
                 <!-- Navbar right -->
                 <ul class="nav navbar-nav navbar-right">
                     <?php if ($this->session->userdata('logged_in')) : ?>
-                        <li class="<?php echo active_if_url_contains("account"); ?>">
-                            <a href="/account"><?php echo lang('core button account'); ?></a>
-                        </li>
-                        <li>
-                            <a href="/logout"><?php echo lang('core button logout'); ?></a>
-                        </li>
+                    <li class="<?php echo active_if_url_contains("account"); ?>">
+                        <a href="/account"><?php echo lang('core button account'); ?></a>
+                    </li>
+                    <li>
+                        <a href="/logout"><?php echo lang('core button logout'); ?></a>
+                    </li>
                     <?php else : ?>
-                        <li class="<?php echo active_if_url_contains("login"); ?>">
-                            <a href="<?php echo base_url('/login'); ?>"><?php echo lang('core button login'); ?></a>
-                        </li>
+                    <li class="<?php echo active_if_url_contains("login"); ?>">
+                        <a href="<?php echo base_url('/login'); ?>"><?php echo lang('core button login'); ?></a>
+                    </li>
                     <?php endif; ?>
                 </ul>
                 
-                <?php echo $search_form; ?>
+                <?php 
+                if (isset($search_form)) {
+                    echo $search_form;
+                };
+                ?>
             </div>
         </div>
     </nav>

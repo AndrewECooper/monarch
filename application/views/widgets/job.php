@@ -13,7 +13,9 @@
                 <td>
                     <p class="text-center">
                         <strong>Websites</strong> <br/>
-                        4/5
+                        <?php echo $x; ?>
+                        /
+                        <?php echo $x % 6; ?>
                     </p>
                 </td>
             </tr>
