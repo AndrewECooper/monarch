@@ -81,14 +81,11 @@ class MY_Controller extends CI_Controller {
         $this->lang->load('core');
 
         // set global header data - can be merged with or overwritten in controllers
-        // 
-//                    "//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css",
-//                    "//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css",
         $this
             ->add_external_css(
                 array(
                     "//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css",
-                    "/themes/core/css/bootstrap.min.css",
+                    "/themes/core/css/bootstrap-theme.css",
                     "/themes/core/css/core.css"
                 ))
             ->add_external_js(

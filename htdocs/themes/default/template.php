@@ -82,7 +82,7 @@
     </nav>
 
     <?php // Main body ?>
-    <div class="container theme-showcase" role="main">
+    <div class="container-fluid theme-showcase" role="main">
 
         <?php // System messages ?>
         <?php if ($this->session->flashdata('message')) : ?>
