@@ -8,6 +8,9 @@ class Dashboard extends MY_Controller {
     function __construct() {
         parent::__construct();
 
+        // load the users model
+        $this->load->model('users_model');
+        
         // load the language files
         $this->lang->load('dashboard');
     }
@@ -24,6 +27,7 @@ class Dashboard extends MY_Controller {
         $data = $this->includes;
         
         // load views
+        $data["user"] = $this->user;
         $data["search_form"] = $this->load->view("widgets/search", $data, true);
         $data['content'] = $this->load->view('dashboard', $data, TRUE);
         

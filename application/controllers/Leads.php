@@ -7,6 +7,9 @@ class Leads extends MY_Controller {
      */
     function __construct() {
         parent::__construct();
+        
+        // load the users model
+        $this->load->model('users_model');
 
         // load the language files
         $this->lang->load('dashboard');
@@ -27,6 +30,7 @@ class Leads extends MY_Controller {
         $data["lead_num"] = $lead_num;
         $data["menu_artwork"] = "/leads/" . $lead_num . "/artwork";
         $data["lead_name"] = "Lead " . $lead_num;
+        $data["user"] = $this->user;
         $data["search_form"] = $this->load->view("widgets/search", $data, true);
         $data['content'] = $this->load->view('lead', $data, TRUE);
         

@@ -7,6 +7,9 @@ class Jobs extends MY_Controller {
      */
     function __construct() {
         parent::__construct();
+        
+        // load the users model
+        $this->load->model('users_model');
 
         // load the language files
         $this->lang->load('dashboard');
@@ -24,6 +27,7 @@ class Jobs extends MY_Controller {
         $data = $this->includes;
         
         // load views
+        $data["user"] = $this->user;
         $data["search_form"] = $this->load->view("widgets/search", $data, true);
         $data['content'] = $this->load->view('jobs', $data, TRUE);
         
@@ -39,6 +43,7 @@ class Jobs extends MY_Controller {
         $data = $this->includes;
         
         // load views
+        $data["user"] = $this->user;
         $data["job_name"] = "Job " . $job_num;
         $data["search_form"] = $this->load->view("widgets/search", $data, true);
         $data['content'] = $this->load->view('leads', $data, TRUE);
@@ -54,6 +59,7 @@ class Jobs extends MY_Controller {
         $data = $this->includes;
         
         // load views
+        $data["user"] = $this->user;
         $data["job_num"] = $job_num;
         $data["job_name"] = "Job " . ($job_num + 1);
         $data["search_form"] = $this->load->view("widgets/search", $data, true);

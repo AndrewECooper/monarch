@@ -59,9 +59,12 @@
                 <!-- Navbar right -->
                 <ul class="nav navbar-nav navbar-right">
                     <?php if ($this->session->userdata('logged_in')) : ?>
-                    <li class="<?php echo active_if_url_contains("account"); ?>">
-                        <a href="/account"><?php echo lang('core button account'); ?></a>
-                    </li>
+                        <?php if (isset($user)) : ?>
+                        <li class="<?php echo active_if_url_contains("account"); ?>">
+                            <a href="<?php echo base_url('/users/' . $user["id"]); ?>"><?php echo lang('core button account'); ?></a>
+                        </li>
+                        <?php endif; ?>
+                    
                     <li>
                         <a href="/logout"><?php echo lang('core button logout'); ?></a>
                     </li>
