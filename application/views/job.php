@@ -8,10 +8,11 @@
             <div class="panel panel-default" style="margin-right: 10px">
                 <div class="panel-heading">
                     <div class="panel-heading">
-                        <span class="panel-title"><?php echo $job_name; ?></span>
-                        <a class="btn btn-success pull-right" href="<?php echo base_url('/jobs/' . $job_num . '/leads'); ?>">
+                        <p class="panel-title pull-left"><?php echo $job_name; ?></p>
+                        <a class="btn btn-success btn-sm pull-right" href="<?php echo base_url('/jobs/' . $job_num . '/leads'); ?>">
                             Lead List
                         </a>
+                        <div class="clearfix"></div>
                     </div>
                 </div>
                 <div class="panel-body">                        

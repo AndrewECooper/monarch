@@ -17,6 +17,7 @@ $lang['core button reset']               	= "Reset";
 $lang['core button save']                	= "Save";
 $lang['core button search']              	= "Search";
 $lang['core button toggle_nav']          	= "Toggle navigation";
+$lang["core button employees"]                  = "Employees";
 
 // Text
 $lang['core text no']                    	= "No";

@@ -25,7 +25,16 @@ class User extends MY_Controller {
     /**
      * Default
      */
-    function index() {}
+    function index() {
+        $this->set_title( lang('admin dashboard title') );
+        $data = $this->includes;
+        
+        $data["user"] = $this->user;
+        $data["search_form"] = $this->load->view("widgets/search", $data, true);
+        $data['content'] = $this->load->view('employees', $data, TRUE);
+        
+        $this->load->view($this->template, $data);
+    }
 
 
     /**
