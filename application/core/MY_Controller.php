@@ -91,7 +91,6 @@ class MY_Controller extends CI_Controller {
             ->add_external_js(
                 array(
                     "//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js",
-                    "//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js",
                      "/themes/core/js/core.js"
                 ));
 
