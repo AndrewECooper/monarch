@@ -10,13 +10,25 @@
                 <?php echo form_open('', array('class'=>'form-user-edit')); ?>
                 
                 <div class="col-md-8">
+                    <?php if ($add_new): ?>
+                    <div class="form-group">
+                        <label for="first_name">Username:</label>
+                        <?php echo form_input(array('name' => 'username', 
+                            'id' => 'username', 
+                            'class' => 'form-control input-sm', 
+                            'placeholder' => "Username",
+                            "value" => $employee["username"],
+                            is_enabled("edit_self", $user["permissions"]) => "",
+                            'maxlength' => 256)); ?>
+                    </div>
+                    <?php endif; ?>
                     <div class="form-group">
                         <label for="first_name">First Name:</label>
                         <?php echo form_input(array('name' => 'first_name', 
                             'id' => 'first_name', 
                             'class' => 'form-control input-sm', 
                             'placeholder' => "First Name",
-                            "value" => $user["first_name"],
+                            "value" => $employee["first_name"],
                             is_enabled("edit_self", $user["permissions"]) => "",
                             'maxlength' => 256)); ?>
                     </div>
@@ -26,7 +38,7 @@
                             'id' => 'last_name', 
                             'class' => 'form-control input-sm', 
                             'placeholder' => "Last Name", 
-                            "value" => $user["last_name"],
+                            "value" => $employee["last_name"],
                             is_enabled("edit_self", $user["permissions"]) => "",
                             'maxlength' => 256)); ?>
                     </div>
@@ -37,7 +49,7 @@
                             "type" => "email",
                             'class' => 'form-control input-sm', 
                             'placeholder' => "Email", 
-                            "value" => $user["email"],
+                            "value" => $employee["email"],
                             is_enabled("edit_self", $user["permissions"]) => "",
                             'maxlength' => 256)); ?>
                     </div>
@@ -74,7 +86,7 @@
                             'class' => 'checkbox', 
                             "value" => "add_users",
                             is_enabled("edit_users", $user["permissions"]) => "",
-                            "checked" => in_array("add_users", $user["permissions"]))); ?>
+                            "checked" => in_array("add_users", $employee["permissions"]))); ?>
                     </div>
                     <div class="form-group">
                         <label for="first_name">Add Jobs:</label>
@@ -83,7 +95,7 @@
                             'class' => 'checkbox', 
                             "value" => "add_jobs",
                             is_enabled("edit_users", $user["permissions"]) => "",
-                            "checked" => in_array("add_jobs", $user["permissions"]))); ?>
+                            "checked" => in_array("add_jobs", $employee["permissions"]))); ?>
                     </div>
                     <div class="form-group">
                         <label for="first_name">Add Leads:</label>
@@ -92,7 +104,7 @@
                             'class' => 'checkbox', 
                             "value" => "add_leads",
                             is_enabled("edit_users", $user["permissions"]) => "",
-                            "checked" => in_array("add_leads", $user["permissions"]))); ?>
+                            "checked" => in_array("add_leads", $employee["permissions"]))); ?>
                     </div>
                 </div>
                 
@@ -104,7 +116,7 @@
                             'class' => 'checkbox', 
                             "value" => "edit_users",
                             is_enabled("edit_users", $user["permissions"]) => "",
-                            "checked" => in_array("edit_users", $user["permissions"]))); ?>
+                            "checked" => in_array("edit_users", $employee["permissions"]))); ?>
                     </div>
                     <div class="form-group">
                         <label for="first_name">Edit Jobs:</label>
@@ -113,7 +125,7 @@
                             'class' => 'checkbox', 
                             "value" => "edit_jobs",
                             is_enabled("edit_users", $user["permissions"]) => "",
-                            "checked" => in_array("edit_jobs", $user["permissions"]))); ?>
+                            "checked" => in_array("edit_jobs", $employee["permissions"]))); ?>
                     </div>
                     <div class="form-group">
                         <label for="first_name">Edit Leads:</label>
@@ -122,7 +134,7 @@
                             'class' => 'checkbox', 
                             "value" => "edit_leads",
                             is_enabled("edit_users", $user["permissions"]) => "",
-                            "checked" => in_array("edit_leads", $user["permissions"]))); ?>
+                            "checked" => in_array("edit_leads", $employee["permissions"]))); ?>
                     </div>
                 </div>
                 

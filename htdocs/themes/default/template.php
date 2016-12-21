@@ -64,9 +64,13 @@
                             <a href="<?php echo base_url('/users/' . $user["id"]); ?>"><?php echo lang('core button account'); ?></a>
                         </li>
                         <?php endif; ?>
-                    <li>
-                        <a href="<?php echo base_url('/users'); ?>"><?php echo lang('core button employees'); ?></a>
-                    </li>
+                        
+                        <?php if (in_array("add_users", $user["permissions"])): ?>
+                        <li>
+                            <a href="<?php echo base_url('/users'); ?>"><?php echo lang('core button employees'); ?></a>
+                        </li>
+                        <?php endif; ?>
+                    
                     <li>
                         <a href="/logout"><?php echo lang('core button logout'); ?></a>
                     </li>

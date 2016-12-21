@@ -110,11 +110,17 @@ class Users_model extends CI_Model {
      * @return mixed|boolean
      */
     function add_user($data = array()) {
-        if ($data)
-        {
+        if ($data) {
             // secure password
-            $salt     = hash('sha512', uniqid(mt_rand(1, mt_getrandmax()), TRUE));
+            $salt     = hash('sha512', uniqid(mt_rand(1, mt_getrandmax()), TRUE)); 
+            if (!isset($data["password"]) || $data["password"] == "") {
+                $data["password"] = "password";
+            }
             $password = hash('sha512', $data['password'] . $salt);
+            
+            $data["is_admin"] = '0';
+            $data["status"] = '1';
+            $data["deleted"] = '0';
 
             $sql = "
                 INSERT INTO {$this->_db} (
@@ -141,10 +147,10 @@ class Users_model extends CI_Model {
                     " . $this->db->escape($this->config->item('language')) . ",
                     " . $this->db->escape($data['is_admin']) . ",
                     " . $this->db->escape($data['status']) . ",
-                    '0',
+                    " . $this->db->escape($data['deleted']) . ",
                     '" . date('Y-m-d H:i:s') . "',
                     '" . date('Y-m-d H:i:s') . "',
-                    '" . implode("|", $data["permissions"]) . "'
+                    '" . $data["permissions"] . "'
                 )
             ";
 
@@ -177,7 +183,6 @@ class Users_model extends CI_Model {
                 if ($key == "password" && strlen($value) > 0) {
                     $salt     = hash('sha512', uniqid(mt_rand(1, mt_getrandmax()), TRUE));
                     $password = hash('sha512', $data['password'] . $salt);
-                    //echo "<h1>" . $password . "</h1>";
                     $sql .= "
                         password = " . $this->db->escape($password) . ",
                         salt = " . $this->db->escape($salt) . ",

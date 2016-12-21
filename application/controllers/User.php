@@ -30,6 +30,7 @@ class User extends MY_Controller {
         $data = $this->includes;
         
         $data["user"] = $this->user;
+        $data["employees"] = $this->users_model->get_all()["results"];
         $data["search_form"] = $this->load->view("widgets/search", $data, true);
         $data['content'] = $this->load->view('employees', $data, TRUE);
         
@@ -116,16 +117,34 @@ class User extends MY_Controller {
         redirect('login');
     }
     
-    function user($id) {
+    function user($id = null, $add_new = false) {
         $this->load->helper(array("form", "url"));
         $this->set_title( lang('admin dashboard title') );
         $data = $this->includes;
+        $data["add_new"] = $add_new;
+        $post_data = array();
         
-        $data["user"] = $this->users_model->get_user($id);
+        if (is_null($id)) {
+            $data["employee"] = array(
+                "username" => "",
+                "first_name" => "",
+                "last_name" => "",
+                "email" => "",
+                "password" => "",
+                "password_confirm" => "",
+                "permissions" => array("edit_self")
+            );
+        } else {
+            $data["employee"] = $this->users_model->get_user($id);
+        }
+        $data["user"] = $this->user;
         
         if ($this->input->server("REQUEST_METHOD") == "POST") {
             $this->load->library("form_validation");
             
+            if (is_null($id)) {
+                $this->form_validation->set_rules("username", "Username", "required|callback__check_username");
+            }
             $this->form_validation->set_rules("first_name", "First Name", "required");
             $this->form_validation->set_rules("last_name", "Last Name", "required");
             $this->form_validation->set_rules("email", "Email", "required");
@@ -134,19 +153,37 @@ class User extends MY_Controller {
             
             if ($this->form_validation->run() == true) {
                 $post_data = $this->set_post_data($this->input->post(), in_array("edit_users", $data["user"]["permissions"]));
-                $this->users_model->edit_user($id, $post_data);
+                if (is_null($id)) {
+                    $id = $this->users_model->add_user($post_data);
+                    $this->index();
+                    return;
+                } else {
+                    $this->users_model->edit_user($id, $post_data);
+                }
+                $data["employee"] = $this->users_model->get_user($id);
+            } else {
+                $post_data = $this->set_post_data($this->input->post(), true, false);
+                $data["employee"] = $post_data;
             }
         }
         
-        $data["user"] = $this->users_model->get_user($id);
-        $data["bob"] = json_encode($this->input->post());
+        $data["bob"] = json_encode($post_data);
         $data["search_form"] = $this->load->view("widgets/search", $data, true);
         $data['content'] = $this->load->view('account', $data, TRUE);
         
         $this->load->view($this->template, $data);
     }
+    
+    function add() {
+        $this->user(null, true);
+    }
+    
+    function delete($id) {
+        $this->users_model->delete_user($id);
+        $this->index();
+    }
 
-    function set_post_data($data, $edit_perms = false) {
+    function set_post_data($data, $edit_perms = false, $perms_as_string = true) {
         unset($data["submit"]);
         unset($data["password_confirm"]);
         
@@ -160,9 +197,11 @@ class User extends MY_Controller {
                 }
             }
 
-            if (count($perms_array) > 0) {
+            if (count($perms_array) > 0 && $perms_as_string) {
                 $perms = implode("|", $perms_array);
                 $data["permissions"] = $perms;
+            } else {
+                $data["permissions"] = $perms_array;
             }
         }
         return $data;
