@@ -6,30 +6,132 @@
             <div class="panel-heading">
                 My Account
             </div>
-            <div class="panel-primary">
-                <div class="col-md-12">
+            <div class="panel-body">
+                <?php echo form_open('', array('class'=>'form-user-edit')); ?>
+                
+                <div class="col-md-8">
                     <div class="form-group">
                         <label for="first_name">First Name:</label>
-                        <input type="text" class="form-control input-sm" id="first_name">
+                        <?php echo form_input(array('name' => 'first_name', 
+                            'id' => 'first_name', 
+                            'class' => 'form-control input-sm', 
+                            'placeholder' => "First Name",
+                            "value" => $user["first_name"],
+                            is_enabled("edit_self", $user["permissions"]) => "",
+                            'maxlength' => 256)); ?>
                     </div>
                     <div class="form-group">
                         <label for="last_name">Last Name:</label>
-                        <input type="text" class="form-control input-sm" id="last_name">
+                        <?php echo form_input(array('name' => 'last_name', 
+                            'id' => 'last_name', 
+                            'class' => 'form-control input-sm', 
+                            'placeholder' => "Last Name", 
+                            "value" => $user["last_name"],
+                            is_enabled("edit_self", $user["permissions"]) => "",
+                            'maxlength' => 256)); ?>
                     </div>
                     <div class="form-group">
                         <label for="contact_email">Email:</label>
-                        <input type="email" class="form-control" id="contact_email">
+                        <?php echo form_input(array('name' => 'email', 
+                            'id' => 'email',
+                            "type" => "email",
+                            'class' => 'form-control input-sm', 
+                            'placeholder' => "Email", 
+                            "value" => $user["email"],
+                            is_enabled("edit_self", $user["permissions"]) => "",
+                            'maxlength' => 256)); ?>
                     </div>
                     <div class="form-group">
                         <label for="password">Password:</label>
-                        <input type="password" class="form-control" id="password">
+                        <?php echo form_input(array('name' => 'password', 
+                            'id' => 'password',
+                            "type" => "password",
+                            'class' => 'form-control input-sm', 
+                            'placeholder' => "Password", 
+                            is_enabled("edit_self", $user["permissions"]) => "",
+                            'maxlength' => 256)); ?>
                     </div>
                     <div class="form-group">
                         <label for="password_confirm">Confirm Password:</label>
-                        <input type="password" class="form-control" id="password_confirm">
+                        <?php echo form_input(array('name' => 'password_confirm', 
+                            'id' => 'password_confirm',
+                            "type" => "password",
+                            'class' => 'form-control input-sm', 
+                            'placeholder' => "Confirm Password", 
+                            is_enabled("edit_self", $user["permissions"]) => "",
+                            'maxlength' => 256)); ?>
                     </div>
 
-                    <button class="btn btn-primary">Submit Changes</button>
+                    <?php echo form_submit(array('name'=>'submit', 
+                                 'class'=>'btn btn-primary btn-block',
+                                 is_enabled("edit_self", $user["permissions"]) => "",), 
+                                 "Submit Changes"); ?>
+                </div>
+                
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="first_name">Add Users:</label>
+                        <?php echo form_checkbox(array('name' => 'perms_add_users', 
+                            'id' => 'perms_add_users', 
+                            'class' => 'checkbox', 
+                            "value" => "add_users",
+                            is_enabled("edit_users", $user["permissions"]) => "",
+                            "checked" => in_array("add_users", $user["permissions"]))); ?>
+                    </div>
+                    <div class="form-group">
+                        <label for="first_name">Add Jobs:</label>
+                        <?php echo form_checkbox(array('name' => 'perms_add_jobs', 
+                            'id' => 'perms_add_jobs', 
+                            'class' => 'checkbox', 
+                            "value" => "add_jobs",
+                            is_enabled("edit_users", $user["permissions"]) => "",
+                            "checked" => in_array("add_jobs", $user["permissions"]))); ?>
+                    </div>
+                    <div class="form-group">
+                        <label for="first_name">Add Leads:</label>
+                        <?php echo form_checkbox(array('name' => 'perms_add_leads', 
+                            'id' => 'perms_add_leads', 
+                            'class' => 'checkbox', 
+                            "value" => "add_leads",
+                            is_enabled("edit_users", $user["permissions"]) => "",
+                            "checked" => in_array("add_leads", $user["permissions"]))); ?>
+                    </div>
+                </div>
+                
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="first_name">Edit Users:</label>
+                        <?php echo form_checkbox(array('name' => 'perms_edit_users', 
+                            'id' => 'perms_edit_users', 
+                            'class' => 'checkbox', 
+                            "value" => "edit_users",
+                            is_enabled("edit_users", $user["permissions"]) => "",
+                            "checked" => in_array("edit_users", $user["permissions"]))); ?>
+                    </div>
+                    <div class="form-group">
+                        <label for="first_name">Edit Jobs:</label>
+                        <?php echo form_checkbox(array('name' => 'perms_edit_jobs', 
+                            'id' => 'perms_edit_jobs', 
+                            'class' => 'checkbox', 
+                            "value" => "edit_jobs",
+                            is_enabled("edit_users", $user["permissions"]) => "",
+                            "checked" => in_array("edit_jobs", $user["permissions"]))); ?>
+                    </div>
+                    <div class="form-group">
+                        <label for="first_name">Edit Leads:</label>
+                        <?php echo form_checkbox(array('name' => 'perms_edit_leads', 
+                            'id' => 'perms_edit_leads', 
+                            'class' => 'checkbox', 
+                            "value" => "edit_leads",
+                            is_enabled("edit_users", $user["permissions"]) => "",
+                            "checked" => in_array("edit_leads", $user["permissions"]))); ?>
+                    </div>
+                </div>
+                
+                <?php echo form_close(); ?>
+                
+                <div class="col-md-12">
+                    Bob: <?php echo $bob; ?>
                 </div>
             </div>
         </div>

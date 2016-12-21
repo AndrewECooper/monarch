@@ -92,9 +92,10 @@ class Users_model extends CI_Model {
 
             $query = $this->db->query($sql);
 
-            if ($query->num_rows())
-            {
-                return $query->row_array();
+            if ($query->num_rows()) {
+                $user = $query->row_array();
+                $user["permissions"] = explode("|", $user["permissions"]);
+                return $user;
             }
         }
 
@@ -108,8 +109,7 @@ class Users_model extends CI_Model {
      * @param  array $data
      * @return mixed|boolean
      */
-    function add_user($data = array())
-    {
+    function add_user($data = array()) {
         if ($data)
         {
             // secure password
@@ -129,7 +129,8 @@ class Users_model extends CI_Model {
                     status,
                     deleted,
                     created,
-                    updated
+                    updated,
+                    permissions
                 ) VALUES (
                     " . $this->db->escape($data['username']) . ",
                     " . $this->db->escape($password) . ",
@@ -142,7 +143,8 @@ class Users_model extends CI_Model {
                     " . $this->db->escape($data['status']) . ",
                     '0',
                     '" . date('Y-m-d H:i:s') . "',
-                    '" . date('Y-m-d H:i:s') . "'
+                    '" . date('Y-m-d H:i:s') . "',
+                    '" . implode("|", $data["permissions"]) . "'
                 )
             ";
 
@@ -157,103 +159,36 @@ class Users_model extends CI_Model {
         return FALSE;
     }
 
-
-    /**
-     * User creates their own profile
-     *
-     * @param  array $data
-     * @return mixed|boolean
-     */
-    function create_profile($data = array())
-    {
-        if ($data)
-        {
-            // secure password and create validation code
-            $salt            = hash('sha512', uniqid(mt_rand(1, mt_getrandmax()), TRUE));
-            $password        = hash('sha512', $data['password'] . $salt);
-            $validation_code = sha1(microtime(TRUE) . mt_rand(10000, 90000));
-
-            $sql = "
-                INSERT INTO {$this->_db} (
-                    username,
-                    password,
-                    salt,
-                    first_name,
-                    last_name,
-                    email,
-                    language,
-                    is_admin,
-                    status,
-                    deleted,
-                    validation_code,
-                    created,
-                    updated
-                ) VALUES (
-                    " . $this->db->escape($data['username']) . ",
-                    " . $this->db->escape($password) . ",
-                    " . $this->db->escape($salt) . ",
-                    " . $this->db->escape($data['first_name']) . ",
-                    " . $this->db->escape($data['last_name']) . ",
-                    " . $this->db->escape($data['email']) . ",
-                    " . $this->db->escape($data['language']) . ",
-                    '0',
-                    '0',
-                    '0',
-                    " . $this->db->escape($validation_code) . ",
-                    '" . date('Y-m-d H:i:s') . "',
-                    '" . date('Y-m-d H:i:s') . "'
-                )
-            ";
-
-            $this->db->query($sql);
-
-            if ($this->db->insert_id())
-            {
-                return $validation_code;
-            }
-        }
-
-        return FALSE;
-    }
-
-
     /**
      * Edit an existing user
      *
      * @param  array $data
      * @return boolean
      */
-    function edit_user($data = array())
+    function edit_user($id, $data = array())
     {
-        if ($data)
-        {
+        if ($data) {
             $sql = "
                 UPDATE {$this->_db}
                 SET
-                    username = " . $this->db->escape($data['username']) . ",
             ";
 
-            if ($data['password'] != '')
-            {
-                // secure password
-                $salt     = hash('sha512', uniqid(mt_rand(1, mt_getrandmax()), TRUE));
-                $password = hash('sha512', $data['password'] . $salt);
-
-                $sql .= "
-                    password = " . $this->db->escape($password) . ",
-                    salt = " . $this->db->escape($salt) . ",
-                ";
+            foreach ($data as $key => $value) {
+                if ($key == "password" && strlen($value) > 0) {
+                    $salt     = hash('sha512', uniqid(mt_rand(1, mt_getrandmax()), TRUE));
+                    $password = hash('sha512', $data['password'] . $salt);
+                    //echo "<h1>" . $password . "</h1>";
+                    $sql .= "
+                        password = " . $this->db->escape($password) . ",
+                        salt = " . $this->db->escape($salt) . ",
+                    ";
+                } else if ($key != "password") {
+                    $sql .= $key . " = " . $this->db->escape($value) . ", ";
+                }
             }
-
             $sql .= "
-                    first_name = " . $this->db->escape($data['first_name']) . ",
-                    last_name = " . $this->db->escape($data['last_name']) . ",
-                    email = " . $this->db->escape($data['email']) . ",
-                    language = " . $this->db->escape($data['language']) . ",
-                    is_admin = " . $this->db->escape($data['is_admin']) . ",
-                    status = " . $this->db->escape($data['status']) . ",
                     updated = '" . date('Y-m-d H:i:s') . "'
-                WHERE id = " . $this->db->escape($data['id']) . "
+                WHERE id = " . $this->db->escape($id) . "
                     AND deleted = '0'
             ";
 
@@ -267,58 +202,6 @@ class Users_model extends CI_Model {
 
         return FALSE;
     }
-
-
-    /**
-     * User edits their own profile
-     *
-     * @param  array $data
-     * @param  int $user_id
-     * @return boolean
-     */
-    function edit_profile($data = array(), $user_id = NULL)
-    {
-        if ($data && $user_id)
-        {
-            $sql = "
-                UPDATE {$this->_db}
-                SET
-                    username = " . $this->db->escape($data['username']) . ",
-            ";
-
-            if ($data['password'] != '')
-            {
-                // secure password
-                $salt     = hash('sha512', uniqid(mt_rand(1, mt_getrandmax()), TRUE));
-                $password = hash('sha512', $data['password'] . $salt);
-
-                $sql .= "
-                    password = " . $this->db->escape($password) . ",
-                    salt = " . $this->db->escape($salt) . ",
-                ";
-            }
-
-            $sql .= "
-                    first_name = " . $this->db->escape($data['first_name']) . ",
-                    last_name = " . $this->db->escape($data['last_name']) . ",
-                    email = " . $this->db->escape($data['email']) . ",
-                    language = " . $this->db->escape($data['language']) . ",
-                    updated = '" . date('Y-m-d H:i:s') . "'
-                WHERE id = " . $this->db->escape($user_id) . "
-                    AND deleted = '0'
-            ";
-
-            $this->db->query($sql);
-
-            if ($this->db->affected_rows())
-            {
-                return TRUE;
-            }
-        }
-
-        return FALSE;
-    }
-
 
     /**
      * Soft delete an existing user
@@ -326,8 +209,7 @@ class Users_model extends CI_Model {
      * @param  int $id
      * @return boolean
      */
-    function delete_user($id = NULL)
-    {
+    function delete_user($id = NULL) {
         if ($id)
         {
             $sql = "
@@ -377,7 +259,8 @@ class Users_model extends CI_Model {
                     is_admin,
                     status,
                     created,
-                    updated
+                    updated,
+                    permissions
                 FROM {$this->_db}
                 WHERE (username = " . $this->db->escape($username) . "
                         OR email = " . $this->db->escape($username) . ")
@@ -388,16 +271,15 @@ class Users_model extends CI_Model {
 
             $query = $this->db->query($sql);
 
-            if ($query->num_rows())
-            {
+            if ($query->num_rows()) {
                 $results = $query->row_array();
                 $salted_password = hash('sha512', $password . $results['salt']);
 
-                if ($results['password'] == $salted_password)
-                {
+                if ($results['password'] == $salted_password) {
                     unset($results['password']);
                     unset($results['salt']);
-
+                    
+                    $results["permissions"] = explode("|", $results["permissions"]);
                     return $results;
                 }
             }

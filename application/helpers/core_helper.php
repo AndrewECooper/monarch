@@ -1,6 +1,20 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
+ * Returns "enabled" or "disabled" based on permissions in an array.
+ *
+ * @param array $array
+ */
+if ( ! function_exists('is_enabled')) {
+    function is_enabled($permission, $array) {
+        if (in_array($permission, $array)) {
+            return "enabled";
+        }
+        return "disabled";
+    }
+}
+
+/**
  * Outputs an array in a user-readable JSON format
  *
  * @param array $array

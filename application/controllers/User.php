@@ -117,17 +117,56 @@ class User extends MY_Controller {
     }
     
     function user($id) {
+        $this->load->helper(array("form", "url"));
         $this->set_title( lang('admin dashboard title') );
         $data = $this->includes;
         
         $data["user"] = $this->users_model->get_user($id);
+        
+        if ($this->input->server("REQUEST_METHOD") == "POST") {
+            $this->load->library("form_validation");
+            
+            $this->form_validation->set_rules("first_name", "First Name", "required");
+            $this->form_validation->set_rules("last_name", "Last Name", "required");
+            $this->form_validation->set_rules("email", "Email", "required");
+            $this->form_validation->set_rules("password_confirm", "Confirm Password", "matches_if_exists[password]");
+            
+            if ($this->form_validation->run() == true) {
+                $post_data = $this->set_post_data($this->input->post(), in_array("edit_users", $data["user"]["permissions"]));
+                $this->users_model->edit_user($id, $post_data);
+            }
+        }
+        
+        $data["user"] = $this->users_model->get_user($id);
+        $data["bob"] = json_encode($this->input->post());
         $data["search_form"] = $this->load->view("widgets/search", $data, true);
         $data['content'] = $this->load->view('account', $data, TRUE);
         
         $this->load->view($this->template, $data);
     }
 
+    function set_post_data($data, $edit_perms = false) {
+        unset($data["submit"]);
+        unset($data["password_confirm"]);
+        
+        if ($edit_perms) {
+            $perms_array = array("edit_self");
 
+            foreach ($data as $key => $value) {
+                if (strpos($key, "perms_") !== false) {
+                    $perms_array[] = $value;
+                    unset($data[$key]);
+                }
+            }
+
+            if (count($perms_array) > 0) {
+                $perms = implode("|", $perms_array);
+                $data["permissions"] = $perms;
+            }
+        }
+        return $data;
+    }
+    
     /**
      * Registration Form
      */
