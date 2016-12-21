@@ -129,6 +129,7 @@ class User extends MY_Controller {
             $this->form_validation->set_rules("first_name", "First Name", "required");
             $this->form_validation->set_rules("last_name", "Last Name", "required");
             $this->form_validation->set_rules("email", "Email", "required");
+            $this->form_validation->set_rules("password", "Password", "matches_if_exists[password_confirm]");
             $this->form_validation->set_rules("password_confirm", "Confirm Password", "matches_if_exists[password]");
             
             if ($this->form_validation->run() == true) {

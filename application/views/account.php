@@ -47,7 +47,6 @@
                             'id' => 'password',
                             "type" => "password",
                             'class' => 'form-control input-sm', 
-                            'placeholder' => "Password", 
                             is_enabled("edit_self", $user["permissions"]) => "",
                             'maxlength' => 256)); ?>
                     </div>
@@ -57,7 +56,6 @@
                             'id' => 'password_confirm',
                             "type" => "password",
                             'class' => 'form-control input-sm', 
-                            'placeholder' => "Confirm Password", 
                             is_enabled("edit_self", $user["permissions"]) => "",
                             'maxlength' => 256)); ?>
                     </div>
