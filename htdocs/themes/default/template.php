@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=<?php echo $this->settings->site_version; ?>">
 	<link rel="icon" type="image/x-icon" href="/favicon.ico?v=<?php echo $this->settings->site_version; ?>">
-    <title><?php echo $page_title; ?> - <?php echo $this->settings->site_name; ?></title>
+    <title><?php echo $this->settings->site_name; ?></title>
     <meta name="keywords" content="<?php echo $this->settings->meta_keywords; ?>">
     <meta name="description" content="<?php echo $this->settings->meta_description; ?>">
 
