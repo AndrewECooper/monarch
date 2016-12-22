@@ -1,64 +1,88 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
-<div class="container-fluid">
+<div class="container">
     
     <!-- Active Jobs -->
     <div class="row">
         <div class="col-md-12" style="padding-left: 0px">
-            <div class="panel panel-default" style="margin-right: 10px">
+            <div class="panel panel-primary" style="margin-right: 10px">
                 <div class="panel-heading">
                     <div class="panel-heading">
                         <span class="panel-title">Active Jobs</span>
                     </div>
                 </div>
                 <div class="panel-body">
-                    <div class="container-fluid">
-                        <?php for ($x = 0; $x < 10; $x++):  ?>
-                            
-                            <?php if ($x % 4 == 0): ?>
-                                <?php if ($x > 0): ?>
-                                </div>
-                                <?php endif; ?>
-                    
-                            <div class="row">
-                            <?php endif; ?> 
-                                
-                            <div class="col-md-3">
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                        <a class="panel-title" href="<?php echo base_url('/jobs/' . $x); ?>">
-                                            Job <?php echo $x + 1; ?>
+                    <div class="col-md-12">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Year
+                                    </th>
+                                    <th>
+                                        Job
+                                    </th>
+                                    <th>
+                                        Sales
+                                    </th>
+                                    <th>
+                                        Collected
+                                    </th>
+                                    <th>
+                                        Collector
+                                    </th>
+                                    <th>
+                                        &nbsp;
+                                    </th>
+                                    <th>
+                                        &nbsp;
+                                    </th>
+                                    <th>
+                                        &nbsp;
+                                    </th>
+                                    <th>
+                                        &nbsp;
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($jobs as $job): ?>
+                                <tr>
+                                    <td>
+                                        <?php echo $job["year"]; ?>
+                                    </td>
+                                    <td>
+                                        <a href="<?php echo base_url('/jobs/' . $job["id"]); ?>">
+                                            <?php echo $job["name"]; ?>
                                         </a>
-                                        <a class="panel-title pull-right" href="<?php echo base_url('/jobs/' . $x . '/leads'); ?>">
+                                    </td>
+                                    <td>
+                                        <?php echo $job["sales"]; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $job["collected"]; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $job["collector"]; ?>
+                                    </td>
+                                    <td>
+                                        Letter
+                                    </td>
+                                    <td>
+                                        Calendar
+                                    </td>
+                                    <td>
+                                        <a href="<?php echo base_url('/jobs/' . $job["id"] . '/leads'); ?>">
                                             Leads
                                         </a>
-                                    </div>
-                                    <div class="panel-body">
-                                        <table class="table table-striped">
-                                            <tbody>
-                                                <tr>
-                                                    <th>Sales (week)</th>
-                                                    <td>$234.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Collected (week)</th>
-                                                    <td>$234.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Collector</th>
-                                                    <td>Fred</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a href="#">Letter</a></td>
-                                                    <td><a href="#">Calendar</a></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endfor; ?>
-                            </div>
+                                    </td>
+                                    <td>
+                                        Clone
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

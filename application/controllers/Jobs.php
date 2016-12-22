@@ -26,6 +26,41 @@ class Jobs extends MY_Controller {
 		
         $data = $this->includes;
         
+        $data["jobs"] = array(
+            array(
+                "id" => 1,
+                "year" => "2017",
+                "name" => "Laredo Border Patrol TX",
+                "collector" => "Bob Barker",
+                "sales" => "$6,150.00",
+                "collected" => "$150.00"
+            ),
+            array(
+                "id" => 1,
+                "year" => "2017",
+                "name" => "Orangeburg Co, SC",
+                "collector" => "Bill Bixby",
+                "sales" => "$53,854.00",
+                "collected" => "$15,000.00"
+            ),
+            array(
+                "id" => 1,
+                "year" => "2017",
+                "name" => "Jackson County, GA",
+                "collector" => "Bob Barker",
+                "sales" => "$28,010.00",
+                "collected" => "$150.00"
+            ),
+            array(
+                "id" => 1,
+                "year" => "2017",
+                "name" => "Liberty County, GA",
+                "collector" => "Bob Barker",
+                "sales" => "$65,130.00",
+                "collected" => "$23,500.00"
+            )
+        );
+        
         // load views
         $data["user"] = $this->user;
         $data["search_form"] = $this->load->view("widgets/search", $data, true);

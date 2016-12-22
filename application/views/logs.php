@@ -35,28 +35,28 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach($logs as $log): ?>
+                            <?php foreach($logs as $job): ?>
                             <tr>
                                 <td>
-                                    <?php echo $log["last_name"]; ?>
+                                    <?php echo $job["last_name"]; ?>
                                 </td>
                                 <td>
-                                    <?php echo $log["first_name"]; ?>
+                                    <?php echo $job["first_name"]; ?>
                                 </td>
                                 <td>
-                                    <?php echo $log["username"]; ?>
+                                    <?php echo $job["username"]; ?>
                                 </td>
                                 <td width="250px">
-                                    <?php echo $log["short_description"]; ?>
+                                    <?php echo $job["short_description"]; ?>
                                 </td>
                                 <td style="word-break: break-word">
-                                    <?php echo $log["description"]; ?>
+                                    <?php echo $job["description"]; ?>
                                 </td>
                                 <td>
-                                    <?php echo $log["code"]; ?>
+                                    <?php echo $job["code"]; ?>
                                 </td>
                                 <td width="150px">
-                                    <?php echo $log["created"]; ?>
+                                    <?php echo $job["created"]; ?>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
