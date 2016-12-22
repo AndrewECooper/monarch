@@ -53,6 +53,11 @@
                     <li class="<?php echo active_if_url_contains("jobs"); ?>">
                         <a href="<?php echo base_url('/jobs'); ?>"><?php echo lang('core button jobs'); ?></a>
                     </li>
+                        <?php if (in_array("view_logs", $user["permissions"])): ?>
+                        <li>
+                            <a href="<?php echo base_url('/logs'); ?>">Logs</a>
+                        </li>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </ul>
                 

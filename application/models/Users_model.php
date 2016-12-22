@@ -458,8 +458,7 @@ class Users_model extends CI_Model {
      * @param  string $username
      * @return boolean
      */
-    function username_exists($username)
-    {
+    function username_exists($username) {
         $sql = "
             SELECT id
             FROM {$this->_db}
@@ -469,9 +468,9 @@ class Users_model extends CI_Model {
 
         $query = $this->db->query($sql);
 
-        if ($query->num_rows())
-        {
-            return TRUE;
+        if ($query->num_rows()) {
+            $results = $query->row_array();
+            return $results["id"];
         }
 
         return FALSE;

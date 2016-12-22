@@ -106,6 +106,15 @@
                             is_enabled("edit_users", $user["permissions"]) => "",
                             "checked" => in_array("add_leads", $employee["permissions"]))); ?>
                     </div>
+                    <div class="form-group">
+                        <label for="first_name">View Logs:</label>
+                        <?php echo form_checkbox(array('name' => 'perms_view_logs', 
+                            'id' => 'perms_view_logs', 
+                            'class' => 'checkbox', 
+                            "value" => "view_logs",
+                            is_enabled("edit_users", $user["permissions"]) => "",
+                            "checked" => in_array("view_logs", $employee["permissions"]))); ?>
+                    </div>
                 </div>
                 
                 <div class="col-md-2">

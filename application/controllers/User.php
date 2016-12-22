@@ -1,7 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User extends MY_Controller {
-
+    const SUCCESSFUL_LOGIN = 1001;
+    const FAILED_LOGIN = 1002;
+    const CREATED_NEW_USER = 1003;
+    const EDITED_USER = 1004;
+    
     /**
      * Constructor
      */
@@ -41,17 +45,12 @@ class User extends MY_Controller {
     /**
      * Validate login credentials
      */
-    function login()
-    {
-        if ($this->session->userdata('logged_in'))
-        {
+    function login() {
+        if ($this->session->userdata('logged_in')) {
             $logged_in_user = $this->session->userdata('logged_in');
-            if ($logged_in_user['is_admin'])
-            {
+            if ($logged_in_user['is_admin']) {
                 redirect('admin');
-            }
-            else
-            {
+            } else {
                 redirect(base_url());
             }
         }
@@ -59,24 +58,20 @@ class User extends MY_Controller {
         // set form validation rules
         $this->form_validation->set_error_delimiters($this->config->item('error_delimeter_left'), $this->config->item('error_delimeter_right'));
         $this->form_validation->set_rules('username', lang('users input username_email'), 'required|trim|max_length[256]');
-        $this->form_validation->set_rules('password', lang('users input password'), 'required|trim|max_length[72]|callback__check_login');
+        $this->form_validation->set_rules('password', lang('users input password'), 'required|trim|max_length[72]');
 
         $ok_to_login = $this->users_model->login_attempts();
 
         // limit number of login attempts
-        if ($ok_to_login)
-        {
-            if ($this->form_validation->run() == TRUE)
-            {
-                if ($this->session->userdata('redirect'))
-                {
+        if ($ok_to_login) {
+            if ($this->form_validation->run() == TRUE) {
+                $this->check_login($this->input->post("username"), $this->input->post("password"));
+                if ($this->session->userdata('redirect')) {
                     // redirect to desired page
                     $redirect = $this->session->userdata('redirect');
                     $this->session->unset_userdata('redirect');
                     redirect($redirect);
-                }
-                else
-                {
+                } else {
                     $logged_in_user = $this->session->userdata('logged_in');
                     if ($logged_in_user) {
                         // redirect to dashboard
@@ -91,15 +86,11 @@ class User extends MY_Controller {
 
         // setup page header data
         $this->set_title(lang('users title login'));
-
-		$this->add_css_theme('login.css');
-
+        $this->add_css_theme('login.css');
         $data = $this->includes;
 
         // set content data
-        $content_data = array(
-            'ok_to_login' => $ok_to_login
-        );
+        $content_data = array('ok_to_login' => $ok_to_login);
 
         // load views
         $data['content'] = $this->load->view('user/login', $content_data, TRUE);
@@ -155,10 +146,22 @@ class User extends MY_Controller {
                 $post_data = $this->set_post_data($this->input->post(), in_array("edit_users", $data["user"]["permissions"]));
                 if (is_null($id)) {
                     $id = $this->users_model->add_user($post_data);
+                    $this->log_model->create(
+                        $data["user"]["id"], 
+                        self::CREATED_NEW_USER, 
+                        $data["user"]["username"] . " created new user, " . $id,
+                        json_encode($post_data)
+                    );
                     $this->index();
                     return;
                 } else {
                     $this->users_model->edit_user($id, $post_data);
+                    $this->log_model->create(
+                        $data["user"]["id"], 
+                        self::EDITED_USER, 
+                        $data["user"]["username"] . " edited user, " . $id,
+                        json_encode($post_data)
+                    );
                 }
                 $data["employee"] = $this->users_model->get_user($id);
             } else {
@@ -180,6 +183,12 @@ class User extends MY_Controller {
     
     function delete($id) {
         $this->users_model->delete_user($id);
+        $this->log_model->create(
+            $this->user["id"], 
+            self::EDITED_USER, 
+            "Deleted user.",
+            $this->user["username"] . " deleted user, " . $id
+        );
         $this->index();
     }
 
@@ -384,17 +393,28 @@ class User extends MY_Controller {
      * @param  string $password
      * @return boolean
      */
-    function _check_login($password)
-    {
+    private function check_login($username, $password) {
         $login = $this->users_model->login($this->input->post('username', TRUE), $password);
 
-        if ($login)
-        {
+        if ($login) {
+            $this->log_model->create(
+                $this->users_model->username_exists($username), 
+                self::SUCCESSFUL_LOGIN, 
+                "Successful login.", 
+                "User, $username, successfully logged in."
+            );
             $this->session->set_userdata('logged_in', $login);
             return TRUE;
         }
-
-        $this->form_validation->set_message('_check_login', lang('users error invalid_login'));
+        
+        $this->log_model->create(
+            -1, 
+            self::FAILED_LOGIN, 
+            "Failed login.", 
+            "User, $username, failed to log in."
+        );
+        
+        $this->session->set_flashdata('error', "User failed to log on. Invaild username or password.");
         return FALSE;
     }
 

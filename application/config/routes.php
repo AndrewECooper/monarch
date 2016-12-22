@@ -56,6 +56,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['login'] = 'user/login';
 $route['logout'] = 'user/logout';
 $route['dashboard'] = 'dashboard';
+$route["logs"] = "logs";
 $route["jobs"] = "jobs";
 $route["jobs/(:num)"] = "jobs/job/$1";
 $route["jobs/(:num)/leads"] = "jobs/leads/$1";

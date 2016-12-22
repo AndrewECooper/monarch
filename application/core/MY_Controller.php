@@ -25,6 +25,8 @@ class MY_Controller extends CI_Controller {
     {
         parent::__construct();
         
+        $this->load->model('log_model');
+        
         // get settings
         $settings = $this->settings_model->get_settings();
         $this->settings = new stdClass();
