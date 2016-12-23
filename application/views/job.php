@@ -19,10 +19,18 @@
                         </button>
                         <?php endif; ?>
                         
-                        <?php if (has_perm("start_end_jobs", $user)): ?>
-                        <button class="btn btn-info btn-sm pull-right" style="margin-right: 5px">
-                            Activate
-                        </button>
+                        <?php if (has_perm("start_end_jobs", $user)): ?>                        
+                            <?php if ($job["status"] == "active"): ?>
+                                <a class="btn btn-info btn-sm pull-right" style="margin-right: 5px"
+                                   href="<?php echo base_url('/jobs/' . $job["id"] . '/' . $job["year"] . '/deactivate'); ?>">
+                                    Deactivate
+                                </a>
+                            <?php else: ?>
+                                <a class="btn btn-info btn-sm pull-right" style="margin-right: 5px"
+                                   href="<?php echo base_url('/jobs/' . $job["id"] . '/' . $job["year"] . '/activate'); ?>">
+                                    Activate
+                                </a>
+                            <?php endif; ?>
                         <?php endif; ?>
                         <div class="clearfix"></div>
                     </div>
@@ -190,70 +198,18 @@
                                 </div>
 
                                 <table class="table table-condensed">
+                                    <?php foreach ($job["notes"] as $note): ?>
                                     <tr>
-                                        <th>
-                                            01/01/2016
+                                        <th class="info">
+                                            <?php echo $note["created"]; ?>
                                         </th>
-                                        <td>
-                                            This is a really cool note.
-                                        </td>
                                     </tr>
                                     <tr>
-                                        <th>
-                                            01/02/2016
-                                        </th>
                                         <td>
-                                            Top Cat! The most effectual Top Cat! Who's intellectual close friends get to call him T.C., providing it's with dignity. Top Cat! The indisputable leader of the gang. He's the boss, he's a pip, he's the championship. He's the most tip top, Top Cat.
+                                            <?php echo $note["message"]; ?>
                                         </td>
                                     </tr>
-                                    <tr class="warning">
-                                        <th>
-                                            01/07/2016
-                                        </th>
-                                        <td>
-                                            This is a really cool note. You should pay attention to it.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            01/10/2016
-                                        </th>
-                                        <td>
-                                            This is my boss, Jonathan Hart, a self-made millionaire, he's quite a guy. This is Mrs H., she's gorgeous, she's one lady who knows how to take care of herself. By the way, my name is Max. I take care of both of them, which ain't easy, 'cause when they met it was MURDER!
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            01/01/2016
-                                        </th>
-                                        <td>
-                                            This is a really cool note.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            01/02/2016
-                                        </th>
-                                        <td>
-                                            Top Cat! The most effectual Top Cat! Who's intellectual close friends get to call him T.C., providing it's with dignity. Top Cat! The indisputable leader of the gang. He's the boss, he's a pip, he's the championship. He's the most tip top, Top Cat.
-                                        </td>
-                                    </tr>
-                                    <tr class="warning">
-                                        <th>
-                                            01/07/2016
-                                        </th>
-                                        <td>
-                                            This is a really cool note. You should pay attention to it.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            01/10/2016
-                                        </th>
-                                        <td>
-                                            This is my boss, Jonathan Hart, a self-made millionaire, he's quite a guy. This is Mrs H., she's gorgeous, she's one lady who knows how to take care of herself. By the way, my name is Max. I take care of both of them, which ain't easy, 'cause when they met it was MURDER!
-                                        </td>
-                                    </tr>
+                                    <?php endforeach; ?>
                                 </table>
                             </div>
                         </div>

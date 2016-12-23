@@ -7,6 +7,7 @@ class Jobs_model extends CI_Model {
      */
     private $jobs_table = "jobs";
     private $years_table = "years";
+    private $job_notes_table = "job_notes";
 
 
     /**
@@ -76,8 +77,8 @@ class Jobs_model extends CI_Model {
             y.status as status,
             y.start_date as start_date,
             y.end_date as end_date
-        from luckygunner.jobs as j
-        inner join luckygunner.years as y on j.id = y.job_id
+        from " . $this->jobs_table . " as j
+        inner join " . $this->years_table . " as y on j.id = y.job_id
         where y.year = '" . $year . "' and j.id = " . $id . "
         order by y.year, y.start_date asc";
         
@@ -85,8 +86,84 @@ class Jobs_model extends CI_Model {
         
         if ($query->num_rows() > 0) {
             $results = $query->result_array()[0];
+            $results["notes"] = $this->get_job_notes($id);
         }
 
         return $results;
+    }
+    
+    function get_job_notes($id) {
+        $results = array();
+        
+        $sql = "select created, message "
+                . "from " . $this->job_notes_table 
+                . " where job_id = " . $id
+                . " order by created";
+        
+        $query = $this->db->query($sql);
+        
+        if ($query->num_rows() > 0) {
+            $results = $query->result_array();
+        }
+        
+        return $results;
+    }
+    
+    function deactivate($id, $year) {
+        $date = new DateTime();
+        $date->setTimestamp(now());
+        
+        $sql = "update " . $this->years_table . " "
+                . "set status = 'inactive', end_date = '" . $date->format("Y-m-d") . "' "
+                . "where job_id = " . $id . " and year = '" . $year . "'";
+        
+        $this->db->query($sql);
+
+        if ($this->db->affected_rows()) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    function activate($id, $year) {
+        $date = new DateTime();
+        $date->setTimestamp(now());
+        
+        $sql = "update " . $this->years_table . " "
+                . "set status = 'active' ";
+                
+        if (is_null($this->get_job_start_date($id, $year))) {
+            $sql .= ", start_date = '" . $date->format("Y-m-d") . "' ";
+        }
+        
+        $sql .= "where job_id = " . $id . " and year = '" . $year . "'";
+        
+        $this->db->query($sql);
+
+        if ($this->db->affected_rows()) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    private function get_job_start_date($id, $year) {
+        $start_date = null;
+        
+        $sql = "
+        select 
+            y.start_date as start_date
+        from " . $this->jobs_table . " as j
+        inner join " . $this->years_table . " as y on j.id = y.job_id
+        where y.year = '" . $year . "' and j.id = " . $id;
+        
+        $query = $this->db->query($sql);
+        
+        if ($query->num_rows() > 0) {
+            $start_date = $query->result_array()[0]["start_date"];
+        }
+
+        return $start_date;
     }
 }

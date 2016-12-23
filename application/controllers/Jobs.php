@@ -1,6 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Jobs extends MY_Controller {
+    const ACTIVATE_JOB = "2001";
+    const DEACTIVATE_JOB = "2002";
 
     /**
      * Constructor
@@ -72,6 +74,28 @@ class Jobs extends MY_Controller {
         $data['content'] = $this->load->view('job', $data, TRUE);
         
         $this->load->view($this->template, $data);
+    }
+    
+    function deactivate($job_num, $year) {
+        $this->jobs_model->deactivate($job_num, $year);
+        $this->log_model->create(
+            $this->user["id"], 
+            self::DEACTIVATE_JOB, 
+            "Deactivated Job.",
+            $this->user["username"] . " deactivated Job " . $job_num . " for year " . $year . "."
+        );
+        $this->job($job_num, $year);
+    }
+    
+    function activate($job_num, $year) {
+        $this->jobs_model->activate($job_num, $year);
+        $this->log_model->create(
+            $this->user["id"], 
+            self::ACTIVATE_JOB, 
+            "Activated Job.",
+            $this->user["username"] . " activated Job " . $job_num . " for year " . $year . "."
+        );
+        $this->job($job_num, $year);
     }
 
 }
