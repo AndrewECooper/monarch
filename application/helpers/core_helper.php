@@ -15,6 +15,15 @@ if ( ! function_exists('is_enabled')) {
 }
 
 /**
+ *  Return a boolean indicating if the user has the indicated permission.
+ */
+if ( ! function_exists('has_perm')) {
+    function has_perm($permission, $user) {
+        return in_array($permission, $user["permissions"]);
+    }
+}
+
+/**
  * Outputs an array in a user-readable JSON format
  *
  * @param array $array

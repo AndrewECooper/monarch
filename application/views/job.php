@@ -5,101 +5,260 @@
     <!-- Active Jobs -->
     <div class="row">
         <div class="col-md-12" style="padding-left: 0px">
-            <div class="panel panel-default" style="margin-right: 10px">
+            <div class="panel panel-primary" style="margin-right: 10px">
                 <div class="panel-heading">
                     <div class="panel-heading">
-                        <p class="panel-title pull-left"><?php echo $job_name; ?></p>
-                        <a class="btn btn-success btn-sm pull-right" href="<?php echo base_url('/jobs/' . $job_num . '/leads'); ?>">
+                        <p class="panel-title pull-left"><?php echo $job["name"] . " - " . $job["year"]; ?></p>
+                        <a class="btn btn-success btn-sm pull-right" href="<?php echo base_url('/jobs/' . $job["id"] . '/leads'); ?>">
                             Lead List
                         </a>
+                        
+                        <?php if (has_perm("clone_jobs", $user)): ?>
+                        <button class="btn btn-info btn-sm pull-right" style="margin-right: 5px">
+                            Clone
+                        </button>
+                        <?php endif; ?>
+                        
+                        <?php if (has_perm("start_end_jobs", $user)): ?>
+                        <button class="btn btn-info btn-sm pull-right" style="margin-right: 5px">
+                            Activate
+                        </button>
+                        <?php endif; ?>
                         <div class="clearfix"></div>
                     </div>
                 </div>
                 <div class="panel-body">                        
                     <div class="container-fluid">
-                        <form>
-                            <div class="col-md-9">
-                                <div class="btn-group form-group" data-toggle="buttons">
-                                    <label class="btn btn-primary active">
-                                        <input type="radio" name="options" id="option1" autocomplete="off" checked>Dare
-                                    </label>
-                                    <label class="btn btn-primary">
-                                        <input type="radio" name="options" id="option2" autocomplete="off">Explorers
-                                    </label>
-                                    <label class="btn btn-primary">
-                                        <input type="radio" name="options" id="option3" autocomplete="off">Sheriff's Office
-                                    </label>
-                                    <label class="btn btn-primary">
-                                        <input type="radio" name="options" id="option2" autocomplete="off">Police Dept
-                                    </label>
-                                    <label class="btn btn-primary">
-                                        <input type="radio" name="options" id="option2" autocomplete="off">Fire Dept
-                                    </label>
-                                    <label class="btn btn-primary">
-                                        <input type="radio" name="options" id="option2" autocomplete="off">EMS
-                                    </label>
-                                    <label class="btn btn-primary">
-                                        <input type="radio" name="options" id="option2" autocomplete="off">Other
-                                    </label>
+                        
+                        <!-- Main left panel -->
+                        <div class="col-md-9">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <!-- General Job Info -->
+                                    <div class="panel panel-default col-md-6">
+                                        <div class="panel-body">
+                                            <div class="btn-group form-group" data-toggle="buttons">
+                                                <label class="btn btn-primary active">
+                                                    <input type="radio" name="options" id="option1" autocomplete="off" 
+                                                        <?php echo ($job["type"] == "dare") ? "checked" : ""; ?>>
+                                                    Dare
+                                                </label>
+                                                <label class="btn btn-primary">
+                                                    <input type="radio" name="options" id="option2" autocomplete="off" 
+                                                        <?php echo ($job["type"] == "explorers") ? "checked" : ""; ?>>
+                                                    Explorers
+                                                </label>
+                                                <label class="btn btn-primary">
+                                                    <input type="radio" name="options" id="option3" autocomplete="off"
+                                                            <?php echo ($job["type"] == "sheriff") ? "checked" : ""; ?>>
+                                                    Sheriff's Office
+                                                </label>
+                                                <label class="btn btn-primary">
+                                                    <input type="radio" name="options" id="option2" autocomplete="off"
+                                                            <?php echo ($job["type"] == "police") ? "checked" : ""; ?>>
+                                                    Police Dept
+                                                </label>
+                                                <label class="btn btn-primary">
+                                                    <input type="radio" name="options" id="option2" autocomplete="off"
+                                                            <?php echo ($job["type"] == "fire") ? "checked" : ""; ?>>
+                                                    Fire Dept
+                                                </label>
+                                                <label class="btn btn-primary">
+                                                    <input type="radio" name="options" id="option2" autocomplete="off"
+                                                            <?php echo ($job["type"] == "ems") ? "checked" : ""; ?>>
+                                                    EMS
+                                                </label>
+                                                <label class="btn btn-primary">
+                                                    <input type="radio" name="options" id="option2" autocomplete="off"
+                                                            <?php echo ($job["type"] == "other") ? "checked" : ""; ?>>
+                                                    Other
+                                                </label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="type_other_note">If Job Type is "Other":</label>
+                                                <input type="text" class="form-control" id="type_other_note">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="job_name">Job Name:</label>
+                                                <input type="text" class="form-control" id="job_name" 
+                                                       value="<?php echo $job["name"]; ?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="status">Status:</label>
+                                                <input type="text" class="form-control" id="status" 
+                                                       value="<?php echo $job["status"]; ?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="first_name">Primary Contact First Name:</label>
+                                                <input type="text" class="form-control" id="first_name" 
+                                                       value="<?php echo $job["contact_first_name"]; ?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="last_name">Primary Contact First Name:</label>
+                                                <input type="text" class="form-control" id="last_name" 
+                                                       value="<?php echo $job["contact_last_name"]; ?>">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="email">Primary Contact Email Address:</label>
+                                                <input type="email" class="form-control" id="email" 
+                                                       value="<?php echo $job["contact_email"]; ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Address Info -->
+                                    <div class="col-md-6">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <ul class="nav nav-tabs">
+                                                    <li class="active"><a href="#address-physical" data-toggle="tab">Physical Address</a></li>
+                                                    <li><a href="#address-mailing" data-toggle="tab">Mailing Address</a></li>
+                                                </ul>
+                                                <div id="myTabContent" class="tab-content">
+                                                    <div class="tab-pane fade active in" id="address-physical">
+                                                        <div class="form-group">
+                                                            <label for="physical_address">Physical Address:</label>
+                                                            <input type="text" class="form-control" id="physical_address" 
+                                                                value="<?php echo $job["physical_address"]; ?>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="physical_address_city">City:</label>
+                                                            <input type="text" class="form-control" id="physical_address_city"
+                                                                   value="<?php echo $job["physical_address_city"]; ?>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="physical_address_state">State:</label>
+                                                            <input type="text" class="form-control" id="physical_address_state"
+                                                                   value="<?php echo $job["physical_address_state"]; ?>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="physical_address_zip">Zip:</label>
+                                                            <input type="text" class="form-control" id="physical_address_zip"
+                                                                   value="<?php echo $job["physical_address_zip"]; ?>">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="tab-pane fade" id="address-mailing">
+                                                        <div class="form-group">
+                                                            <label for="mailing_address">Mailing Address:</label>
+                                                            <input type="text" class="form-control" id="mailing_address"
+                                                                   value="<?php echo $job["mailing_address"]; ?>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="mailing_address_city">City:</label>
+                                                            <input type="text" class="form-control" id="mailing_address_city"
+                                                                   value="<?php echo $job["mailing_address_city"]; ?>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="mailing_address_state">State:</label>
+                                                            <input type="text" class="form-control" id="mailing_address_state"
+                                                                   value="<?php echo $job["mailing_address_state"]; ?>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="mailing_address_zip">Zip:</label>
+                                                            <input type="text" class="form-control" id="mailing_address_zip"
+                                                                   value="<?php echo $job["mailing_address_zip"]; ?>">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="type_other_note">If Job Type is "Other":</label>
-                                    <input type="text" class="form-control" id="type_other_note">
-                                </div>
-                                <div class="form-group">
-                                    <label for="job_name">Job Name:</label>
-                                    <input type="text" class="form-control" id="job_name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="status">Status:</label>
-                                    <input type="text" class="form-control" id="status">
-                                </div>
-                                <div class="form-group">
-                                    <label for="first_name">Primary Contant First Name:</label>
-                                    <input type="text" class="form-control" id="first_name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="last_name">Primary Contant First Name:</label>
-                                    <input type="text" class="form-control" id="last_name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">Primary Contant Email Address:</label>
-                                    <input type="email" class="form-control" id="email">
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-default">Submit</button>
+                                
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                        </div>
+                        
+                        <!-- Notes Panel -->
+                        <div class="panel panel-default col-md-3">
+                            <div class="panel-body">
+                                <h4 class="pull-left">Notes</h4>
+                                <button class="pull-right btn btn-primary btn-xs">Add</button>
                                 <div class="form-group">
-                                    <label for="physical_address">Physical Address:</label>
-                                    <input type="text" class="form-control" id="physical_address">
+
+                                    <div>
+                                      <textarea class="form-control" rows="3" id="job_new_note"></textarea>
+                                      <span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="mailing_address">Mailing Address:</label>
-                                    <input type="text" class="form-control" id="mailing_address">
-                                </div>
-                                <div class="form-group">
-                                    <label for="notes">Notes:</label>
-                                    <textarea class="form-control" rows="5" id="notes"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="start_date">Start Date:</label>
-                                    <input type="text" class="form-control" id="start_date">
-                                </div>
-                                <div class="form-group">
-                                    <button class="btn btn-primary">
-                                        End Job (only if admin)
-                                    </button>
-                                </div>
-                                <div class="form-group">
-                                    <button class="btn btn-primary">
-                                        Clone Job (only if ended)
-                                    </button>
-                                </div>
+
+                                <table class="table table-condensed">
+                                    <tr>
+                                        <th>
+                                            01/01/2016
+                                        </th>
+                                        <td>
+                                            This is a really cool note.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            01/02/2016
+                                        </th>
+                                        <td>
+                                            Top Cat! The most effectual Top Cat! Who's intellectual close friends get to call him T.C., providing it's with dignity. Top Cat! The indisputable leader of the gang. He's the boss, he's a pip, he's the championship. He's the most tip top, Top Cat.
+                                        </td>
+                                    </tr>
+                                    <tr class="warning">
+                                        <th>
+                                            01/07/2016
+                                        </th>
+                                        <td>
+                                            This is a really cool note. You should pay attention to it.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            01/10/2016
+                                        </th>
+                                        <td>
+                                            This is my boss, Jonathan Hart, a self-made millionaire, he's quite a guy. This is Mrs H., she's gorgeous, she's one lady who knows how to take care of herself. By the way, my name is Max. I take care of both of them, which ain't easy, 'cause when they met it was MURDER!
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            01/01/2016
+                                        </th>
+                                        <td>
+                                            This is a really cool note.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            01/02/2016
+                                        </th>
+                                        <td>
+                                            Top Cat! The most effectual Top Cat! Who's intellectual close friends get to call him T.C., providing it's with dignity. Top Cat! The indisputable leader of the gang. He's the boss, he's a pip, he's the championship. He's the most tip top, Top Cat.
+                                        </td>
+                                    </tr>
+                                    <tr class="warning">
+                                        <th>
+                                            01/07/2016
+                                        </th>
+                                        <td>
+                                            This is a really cool note. You should pay attention to it.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            01/10/2016
+                                        </th>
+                                        <td>
+                                            This is my boss, Jonathan Hart, a self-made millionaire, he's quite a guy. This is Mrs H., she's gorgeous, she's one lady who knows how to take care of herself. By the way, my name is Max. I take care of both of them, which ain't easy, 'cause when they met it was MURDER!
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
-                        </form>
+                        </div>
                     </div>
+                    Job: <?php echo json_encode($job); ?>
                 </div>
             </div>
         </div>

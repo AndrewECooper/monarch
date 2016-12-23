@@ -29,6 +29,9 @@
                                         Collected
                                     </th>
                                     <th>
+                                        Invoiced
+                                    </th>
+                                    <th>
                                         Collector
                                     </th>
                                     <th>
@@ -52,7 +55,7 @@
                                         <?php echo $job["year"]; ?>
                                     </td>
                                     <td>
-                                        <a href="<?php echo base_url('/jobs/' . $job["id"]); ?>">
+                                        <a href="<?php echo base_url("/jobs/" . $job["id"] . "/" . $job["year"]); ?>">
                                             <?php echo $job["name"]; ?>
                                         </a>
                                     </td>
@@ -61,6 +64,9 @@
                                     </td>
                                     <td>
                                         <?php echo $job["collected"]; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $job["invoiced"]; ?>
                                     </td>
                                     <td>
                                         <?php echo $job["collector"]; ?>

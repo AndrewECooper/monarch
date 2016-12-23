@@ -10,6 +10,7 @@ class Jobs extends MY_Controller {
         
         // load the users model
         $this->load->model('users_model');
+        $this->load->model("jobs_model");
 
         // load the language files
         $this->lang->load('dashboard');
@@ -26,40 +27,11 @@ class Jobs extends MY_Controller {
 		
         $data = $this->includes;
         
-        $data["jobs"] = array(
-            array(
-                "id" => 1,
-                "year" => "2017",
-                "name" => "Laredo Border Patrol TX",
-                "collector" => "Bob Barker",
-                "sales" => "$6,150.00",
-                "collected" => "$150.00"
-            ),
-            array(
-                "id" => 1,
-                "year" => "2017",
-                "name" => "Orangeburg Co, SC",
-                "collector" => "Bill Bixby",
-                "sales" => "$53,854.00",
-                "collected" => "$15,000.00"
-            ),
-            array(
-                "id" => 1,
-                "year" => "2017",
-                "name" => "Jackson County, GA",
-                "collector" => "Bob Barker",
-                "sales" => "$28,010.00",
-                "collected" => "$150.00"
-            ),
-            array(
-                "id" => 1,
-                "year" => "2017",
-                "name" => "Liberty County, GA",
-                "collector" => "Bob Barker",
-                "sales" => "$65,130.00",
-                "collected" => "$23,500.00"
-            )
-        );
+        if (in_array("view_all_jobs", $this->user["permissions"])) {
+            $data["jobs"] = $this->jobs_model->get_active_jobs_summary();
+        } else {
+            $data["jobs"] = $this->jobs_model->get_active_jobs_summary($this->user["id"]);
+        }
         
         // load views
         $data["user"] = $this->user;
@@ -86,7 +58,7 @@ class Jobs extends MY_Controller {
         $this->load->view($this->template, $data);
     }
     
-    function job($job_num) {
+    function job($job_num, $year) {
         // setup page header data
         $this->add_js_theme( "dashboard_i18n.js", TRUE )
             ->set_title( lang('admin dashboard title') );
@@ -95,8 +67,7 @@ class Jobs extends MY_Controller {
         
         // load views
         $data["user"] = $this->user;
-        $data["job_num"] = $job_num;
-        $data["job_name"] = "Job " . ($job_num + 1);
+        $data["job"] = $this->jobs_model->get_job($job_num, $year);
         $data["search_form"] = $this->load->view("widgets/search", $data, true);
         $data['content'] = $this->load->view('job', $data, TRUE);
         

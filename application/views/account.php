@@ -115,6 +115,15 @@
                             is_enabled("edit_users", $user["permissions"]) => "",
                             "checked" => in_array("view_logs", $employee["permissions"]))); ?>
                     </div>
+                    <div class="form-group">
+                        <label for="first_name">Start/End Jobs:</label>
+                        <?php echo form_checkbox(array('name' => 'perms_start_end_jobs', 
+                            'id' => 'perms_start_end_jobs', 
+                            'class' => 'checkbox', 
+                            "value" => "start_end_jobs",
+                            is_enabled("edit_users", $user["permissions"]) => "",
+                            "checked" => in_array("start_end_jobs", $employee["permissions"]))); ?>
+                    </div>
                 </div>
                 
                 <div class="col-md-2">
@@ -144,6 +153,15 @@
                             "value" => "edit_leads",
                             is_enabled("edit_users", $user["permissions"]) => "",
                             "checked" => in_array("edit_leads", $employee["permissions"]))); ?>
+                    </div>
+                    <div class="form-group">
+                        <label for="first_name">Clone Jobs:</label>
+                        <?php echo form_checkbox(array('name' => 'perms_clone_jobs', 
+                            'id' => 'perms_clone_jobs', 
+                            'class' => 'checkbox', 
+                            "value" => "clone_jobs",
+                            is_enabled("edit_users", $user["permissions"]) => "",
+                            "checked" => in_array("clone_jobs", $employee["permissions"]))); ?>
                     </div>
                 </div>
                 
