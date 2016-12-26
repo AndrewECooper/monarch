@@ -62,7 +62,7 @@ class Jobs extends MY_Controller {
         $this->load->view($this->template, $data);
     }
     
-    function job($job_num = null, $year = null) {
+    function job($job_num, $year) {
         $this->load->helper(array("form", "url"));
         
         // setup page header data
@@ -105,39 +105,52 @@ class Jobs extends MY_Controller {
             $this->form_validation->set_rules("contact_last_name", "Contact Last Name", "required");
             $this->form_validation->set_rules("contact_first_name", "Contact First Name", "required");
             $this->form_validation->set_rules("contact_email", "Contact Email", "required");
+            $this->form_validation->set_rules("physical_address", "Physical Address", "required");
+            $this->form_validation->set_rules("physical_address_city", "Contact Email", "required");
+            $this->form_validation->set_rules("physical_address_state", "Contact Email", "required");
+            $this->form_validation->set_rules("physical_address_zip", "Contact Email", "required");
+            $this->form_validation->set_rules("type_other_note", "Other Note", "placeholder");
+            $this->form_validation->set_rules("type", "Type", "required|other_must_be_set[type_other_note]");
             
             if ($this->form_validation->run() == true) {
                 $post_data = $this->input->post();
-                if (is_null($job_num)) {
-                    $job = $this->jobs_model->add_job($post_data);
-                    $this->log_model->create(
-                        $data["user"]["id"], 
-                        self::CREATED_NEW_JOB, 
-                        $data["user"]["username"] . " created new job, (" . $job["number"] . ", " . $job["year"] . ").",
-                        json_encode($post_data)
-                    );
-                    $this->index();
-                    return;
-                } else {
-                    $this->jobs_model->edit_job($job_num, $year, $post_data);
-                    $this->log_model->create(
-                        $data["user"]["id"], 
-                        self::EDITED_JOB, 
-                        $data["user"]["username"] . " edited job, (" . $job_num . ", " . $year . ").",
-                        json_encode($post_data)
-                    );
-                }
-                $data["job"] = $this->jobs_model->get_job();
+                $post_data = $this->set_address_info($post_data);
+                $this->jobs_model->edit_job($job_num, $year, $post_data);
+                
+                $this->log_model->create(
+                    $data["user"]["id"], 
+                    self::EDITED_JOB, 
+                    $data["user"]["username"] . " edited job, (" . $job_num . ", " . $year . ").",
+                    json_encode($post_data)
+                );
+                
+                $data["job"] = $this->jobs_model->get_job($job_num, $year);
             } else {
-                $post_data = $this->set_post_data($this->input->post(), true, false);
-                $data["employee"] = $post_data;
+                $post_data = $this->input->post();
             }
         }
         
+        $data["post_data"] = $post_data;
         $data["search_form"] = $this->load->view("widgets/search", $data, true);
         $data['content'] = $this->load->view('job', $data, TRUE);
         
         $this->load->view($this->template, $data);
+    }
+    
+    private function set_address_info($data) {
+        if (empty($data["mailing_address"])) {
+            $data["mailing_address"] = $data["physical_address"];
+        }
+        if (empty($data["mailing_address_city"])) {
+            $data["mailing_address_city"] = $data["physical_address_city"];
+        }
+        if (empty($data["mailing_address_state"])) {
+            $data["mailing_address_state"] = $data["physical_address_state"];
+        }
+        if (empty($data["mailing_address_zip"])) {
+            $data["mailing_address_zip"] = $data["physical_address_zip"];
+        }
+        return $data;
     }
     
     function add() {

@@ -47,8 +47,8 @@
                                     <div class="panel panel-default col-md-6">
                                         <div class="panel-body">
                                             <div class="btn-group form-group" data-toggle="buttons">
-                                                <label class="btn btn-primary active">
-                                                    <?php echo form_radio(array('name' => 'job_type', 
+                                                <label class="btn btn-primary <?php echo ($job["type"] == "dare") ? "active" : "" ?>">
+                                                    <?php echo form_radio(array('name' => 'type', 
                                                         'id' => 'job_type_dare', 
                                                         'class' => 'radio', 
                                                         "value" => "dare",
@@ -56,8 +56,8 @@
                                                         "checked" => ($job["type"] == "dare"))); ?>
                                                     Dare
                                                 </label>
-                                                <label class="btn btn-primary">
-                                                    <?php echo form_radio(array('name' => 'job_type', 
+                                                <label class="btn btn-primary <?php echo ($job["type"] == "explorers") ? "active" : "" ?>">
+                                                    <?php echo form_radio(array('name' => 'type', 
                                                         'id' => 'job_type_explorers', 
                                                         'class' => 'radio', 
                                                         "value" => "explorers",
@@ -65,8 +65,8 @@
                                                         "checked" => ($job["type"] == "explorers"))); ?>
                                                     Explorers
                                                 </label>
-                                                <label class="btn btn-primary">
-                                                    <?php echo form_radio(array('name' => 'job_type', 
+                                                <label class="btn btn-primary <?php echo ($job["type"] == "sheriff") ? "active" : "" ?>">
+                                                    <?php echo form_radio(array('name' => 'type', 
                                                         'id' => 'job_type_sheriff', 
                                                         'class' => 'radio', 
                                                         "value" => "sheriff",
@@ -74,8 +74,8 @@
                                                         "checked" => ($job["type"] == "sheriff"))); ?>
                                                     Sheriff's Office
                                                 </label>
-                                                <label class="btn btn-primary">
-                                                    <?php echo form_radio(array('name' => 'job_type', 
+                                                <label class="btn btn-primary <?php echo ($job["type"] == "police") ? "active" : "" ?>">
+                                                    <?php echo form_radio(array('name' => 'type', 
                                                         'id' => 'job_type_police', 
                                                         'class' => 'radio', 
                                                         "value" => "police",
@@ -83,8 +83,8 @@
                                                         "checked" => ($job["type"] == "police"))); ?>
                                                     Police Dept
                                                 </label>
-                                                <label class="btn btn-primary">
-                                                    <?php echo form_radio(array('name' => 'job_type', 
+                                                <label class="btn btn-primary <?php echo ($job["type"] == "fire") ? "active" : "" ?>">
+                                                    <?php echo form_radio(array('name' => 'type', 
                                                         'id' => 'job_type_fire', 
                                                         'class' => 'radio', 
                                                         "value" => "fire",
@@ -92,8 +92,8 @@
                                                         "checked" => ($job["type"] == "fire"))); ?>
                                                     Fire Dept
                                                 </label>
-                                                <label class="btn btn-primary">
-                                                    <?php echo form_radio(array('name' => 'job_type', 
+                                                <label class="btn btn-primary <?php echo ($job["type"] == "ems") ? "active" : "" ?>">
+                                                    <?php echo form_radio(array('name' => 'type', 
                                                         'id' => 'job_type_ems', 
                                                         'class' => 'radio', 
                                                         "value" => "ems",
@@ -101,8 +101,8 @@
                                                         "checked" => ($job["type"] == "ems"))); ?>
                                                     EMS
                                                 </label>
-                                                <label class="btn btn-primary">
-                                                    <?php echo form_radio(array('name' => 'job_type', 
+                                                <label class="btn btn-primary <?php echo ($job["type"] == "other") ? "active" : "" ?>">
+                                                    <?php echo form_radio(array('name' => 'type', 
                                                         'id' => 'job_type_other', 
                                                         'class' => 'radio', 
                                                         "value" => "other",
@@ -114,42 +114,49 @@
                                             <div class="form-group">
                                                 <label for="type_other_note">If Job Type is "Other":</label>
                                                 <?php echo form_input(array('id' => 'type_other_note', 
+                                                        "name" => "type_other_note",
                                                         'class' => 'form-control', 
                                                         "value" => $job["type_other_note"])); ?>
                                             </div>
                                             <div class="form-group">
                                                 <label for="job_name">Year:</label>
-                                                <?php echo form_input(array('id' => 'year', 
+                                                <?php echo form_input(array('id' => 'year',  
+                                                        "name" => "year",
                                                         'class' => 'form-control', 
                                                         "value" => $job["year"])); ?>
                                             </div>
                                             <div class="form-group">
                                                 <label for="year">Job Name:</label>
                                                 <?php echo form_input(array('id' => 'name', 
+                                                        "name" => "name", 
                                                         'class' => 'form-control', 
                                                         "value" => $job["name"])); ?>
                                             </div>
                                             <div class="form-group">
                                                 <label for="status">Status:</label>
                                                 <?php echo form_input(array('id' => 'status', 
+                                                        "name" => "status", 
                                                         'class' => 'form-control', 
                                                         "value" => $job["status"])); ?>
                                             </div>
                                             <div class="form-group">
                                                 <label for="first_name">Primary Contact First Name:</label>
-                                                <?php echo form_input(array('id' => 'contact_first_name', 
+                                                <?php echo form_input(array('id' => 'contact_first_name',  
+                                                        "name" => "contact_first_name",
                                                         'class' => 'form-control', 
                                                         "value" => $job["contact_first_name"])); ?>
                                             </div>
                                             <div class="form-group">
-                                                <label for="last_name">Primary Contact First Name:</label>
-                                                <?php echo form_input(array('id' => 'contact_last_name', 
+                                                <label for="last_name">Primary Contact Last Name:</label>
+                                                <?php echo form_input(array('id' => 'contact_last_name',  
+                                                        "name" => "contact_last_name",
                                                         'class' => 'form-control', 
                                                         "value" => $job["contact_last_name"])); ?>
                                             </div>
                                             <div class="form-group">
                                                 <label for="email">Primary Contact Email Address:</label>
-                                                <?php echo form_input(array('id' => 'contact_email', 
+                                                <?php echo form_input(array('id' => 'contact_email',  
+                                                        "name" => "contact_email",
                                                         'class' => 'form-control', 
                                                         "value" => $job["contact_email"])); ?>
                                             </div>
@@ -169,54 +176,72 @@
                                                         <div class="form-group">
                                                             <label for="physical_address">Physical Address:</label>
                                                             <?php echo form_input(array('id' => 'physical_address', 
+                                                                "name" => "physical_address",
                                                                 'class' => 'form-control', 
                                                                 "value" => $job["physical_address"])); ?>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="physical_address_city">City:</label>
                                                             <?php echo form_input(array('id' => 'physical_address_city', 
+                                                                "name" => "physical_address_city",
                                                                 'class' => 'form-control', 
                                                                 "value" => $job["physical_address_city"])); ?>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="physical_address_state">State:</label>
                                                             <?php echo form_input(array('id' => 'physical_address_state', 
+                                                                "name" => "physical_address_state",
                                                                 'class' => 'form-control', 
                                                                 "value" => $job["physical_address_state"])); ?>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="physical_address_zip">Zip:</label>
                                                             <?php echo form_input(array('id' => 'physical_address_zip', 
+                                                                "name" => "physical_address_zip",
                                                                 'class' => 'form-control', 
                                                                 "value" => $job["physical_address_zip"])); ?>
                                                         </div>
+                                                        
+                                                        <div class="alert alert-warning">
+                                                            <h4>If Mailing Address is not set, the Physical Address will be used.</h4>
+                                                        </div>
+                                                        
                                                     </div>
 
                                                     <div class="tab-pane fade" id="address-mailing">
                                                         <div class="form-group">
                                                             <label for="mailing_address">Mailing Address:</label>
                                                             <?php echo form_input(array('id' => 'mailing_address', 
+                                                                "name" => "mailing_address",
                                                                 'class' => 'form-control', 
                                                                 "value" => $job["mailing_address"])); ?>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="mailing_address_city">City:</label>
                                                             <?php echo form_input(array('id' => 'mailing_address_city', 
+                                                                "name" => "mailing_address_city",
                                                                 'class' => 'form-control', 
                                                                 "value" => $job["mailing_address_city"])); ?>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="mailing_address_state">State:</label>
                                                             <?php echo form_input(array('id' => 'mailing_address_state', 
+                                                                "name" => "mailing_address_state",
                                                                 'class' => 'form-control', 
                                                                 "value" => $job["mailing_address_state"])); ?>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="mailing_address_zip">Zip:</label>
                                                             <?php echo form_input(array('id' => 'mailing_address_zip', 
+                                                                "name" => "mailing_address_zip",
                                                                 'class' => 'form-control', 
                                                                 "value" => $job["mailing_address_zip"])); ?>
                                                         </div>
+                                                        
+                                                        <div class="alert alert-warning">
+                                                            <h4>If Mailing Address is not set, the Physical Address will be used.</h4>
+                                                        </div>
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -269,6 +294,8 @@
                         </div>
                     </div>
                     Job: <?php echo json_encode($job); ?>
+                    <br>
+                    Post Data: <?php echo json_encode($post_data); ?>
                 </div>
             </div>
         </div>

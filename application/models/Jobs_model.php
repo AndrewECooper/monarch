@@ -117,6 +117,38 @@ class Jobs_model extends CI_Model {
         return $results;
     }
     
+    function edit_job($job_id, $year, $data) {
+        $year_data = array(
+            "year" => $data["year"],
+            "status" => $data["status"]
+        );
+        unset($data["year"]);
+        unset($data["status"]);
+        unset($data["submit"]);
+        
+        $sql = "
+            UPDATE {$this->jobs_table}
+            SET
+        ";
+            
+        foreach ($data as $key => $value) {
+            $sql .= $key . " = " . $this->db->escape($value) . ", ";
+        }
+        
+        $sql = substr($sql, 0, strlen($sql) - 2);
+        
+        $sql .= "
+            WHERE id = " . $this->db->escape($job_id);
+
+        $this->db->query($sql);
+
+        if ($this->db->affected_rows()) {
+            return true;
+        }
+
+        return false;
+    }
+    
     function add_job($data) {
         $result = array();
         
