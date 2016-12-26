@@ -39,7 +39,7 @@ class Log_model extends CI_Model {
             l.created as created 
         FROM " .$this->_db . " as l
         inner join users as u on u.id = l.user_id
-        order by l.created asc";
+        order by l.created desc";
 
         $query = $this->db->query($sql);
 

@@ -163,13 +163,22 @@
                             is_enabled("edit_users", $user["permissions"]) => "",
                             "checked" => in_array("clone_jobs", $employee["permissions"]))); ?>
                     </div>
+                    <div class="form-group">
+                        <label for="first_name">View All Jobs:</label>
+                        <?php echo form_checkbox(array('name' => 'perms_view_all_jobs', 
+                            'id' => 'perms_view_all_jobs', 
+                            'class' => 'checkbox', 
+                            "value" => "view_all_jobs",
+                            is_enabled("edit_users", $user["permissions"]) => "",
+                            "checked" => in_array("view_all_jobs", $employee["permissions"]))); ?>
+                    </div>
                 </div>
                 
                 <?php echo form_close(); ?>
                 
-                <div class="col-md-12">
-                    Bob: <?php echo $bob; ?>
-                </div>
+                <!-- <div class="col-md-12">
+                    Data: <?php echo $bob; ?>
+                </div> -->
             </div>
         </div>
     </div>

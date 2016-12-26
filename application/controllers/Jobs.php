@@ -3,6 +3,8 @@
 class Jobs extends MY_Controller {
     const ACTIVATE_JOB = "2001";
     const DEACTIVATE_JOB = "2002";
+    const CREATED_NEW_JOB = "2003";
+    const EDITED_JOB = "2004";
 
     /**
      * Constructor
@@ -30,9 +32,9 @@ class Jobs extends MY_Controller {
         $data = $this->includes;
         
         if (in_array("view_all_jobs", $this->user["permissions"])) {
-            $data["jobs"] = $this->jobs_model->get_active_jobs_summary();
+            $data["jobs"] = $this->jobs_model->get_jobs_summary();
         } else {
-            $data["jobs"] = $this->jobs_model->get_active_jobs_summary($this->user["id"]);
+            $data["jobs"] = $this->jobs_model->get_jobs_summary($this->user["id"]);
         }
         
         // load views
@@ -60,20 +62,112 @@ class Jobs extends MY_Controller {
         $this->load->view($this->template, $data);
     }
     
-    function job($job_num, $year) {
+    function job($job_num = null, $year = null) {
+        $this->load->helper(array("form", "url"));
+        
         // setup page header data
         $this->add_js_theme( "dashboard_i18n.js", TRUE )
             ->set_title( lang('admin dashboard title') );
 		
         $data = $this->includes;
-        
-        // load views
         $data["user"] = $this->user;
-        $data["job"] = $this->jobs_model->get_job($job_num, $year);
+        $post_data = array();
+        
+        if (is_null($job_num)) {
+            $data["job"] = array(
+                "name" => "",
+                "type" => "",
+                "contact_last_name" => "",
+                "contact_first_name" => "",
+                "contact_email" => "",
+                "physical_address" => "",
+                "physical_address_city" => "",
+                "physical_address_state" => "",
+                "physical_address_zip" => "",
+                "mailing_address" => "",
+                "mailing_address_city" => "",
+                "mailing_address_state" => "",
+                "mailing_address_zip" => "",
+                "year" => "",
+                "status" => "active",
+                "start_date" => null,
+                "end_date" => null,
+                "notes" => array()
+            );
+        } else {
+            $data["job"] = $this->jobs_model->get_job($job_num, $year);
+        }
+        
+        if ($this->input->server("REQUEST_METHOD") == "POST") {
+            $this->load->library("form_validation");
+            
+            $this->form_validation->set_rules("name", "Name", "required");
+            $this->form_validation->set_rules("contact_last_name", "Contact Last Name", "required");
+            $this->form_validation->set_rules("contact_first_name", "Contact First Name", "required");
+            $this->form_validation->set_rules("contact_email", "Contact Email", "required");
+            
+            if ($this->form_validation->run() == true) {
+                $post_data = $this->input->post();
+                if (is_null($job_num)) {
+                    $job = $this->jobs_model->add_job($post_data);
+                    $this->log_model->create(
+                        $data["user"]["id"], 
+                        self::CREATED_NEW_JOB, 
+                        $data["user"]["username"] . " created new job, (" . $job["number"] . ", " . $job["year"] . ").",
+                        json_encode($post_data)
+                    );
+                    $this->index();
+                    return;
+                } else {
+                    $this->jobs_model->edit_job($job_num, $year, $post_data);
+                    $this->log_model->create(
+                        $data["user"]["id"], 
+                        self::EDITED_JOB, 
+                        $data["user"]["username"] . " edited job, (" . $job_num . ", " . $year . ").",
+                        json_encode($post_data)
+                    );
+                }
+                $data["job"] = $this->jobs_model->get_job();
+            } else {
+                $post_data = $this->set_post_data($this->input->post(), true, false);
+                $data["employee"] = $post_data;
+            }
+        }
+        
         $data["search_form"] = $this->load->view("widgets/search", $data, true);
         $data['content'] = $this->load->view('job', $data, TRUE);
         
         $this->load->view($this->template, $data);
+    }
+    
+    function add() {
+        $data = array(
+            "name" => "",
+            "type" => "",
+            "contact_last_name" => "",
+            "contact_first_name" => "",
+            "contact_email" => "",
+            "physical_address" => "",
+            "physical_address_city" => "",
+            "physical_address_state" => "",
+            "physical_address_zip" => "",
+            "mailing_address" => "",
+            "mailing_address_city" => "",
+            "mailing_address_state" => "",
+            "mailing_address_zip" => "",
+            "year" => date("Y")
+        );
+        
+        $job = $this->jobs_model->add_job($data);
+        
+        $this->log_model->create(
+            $this->user["id"], 
+            self::CREATED_NEW_JOB, 
+            "Created new job.",
+            $this->user["username"] . " created new job, (" . $job["id"] . ", " . $job["year"] . ")."
+        );
+        
+        $this->job($job["id"], $job["year"]);
     }
     
     function deactivate($job_num, $year) {
