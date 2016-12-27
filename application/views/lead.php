@@ -5,23 +5,23 @@
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h2 class="panel-title pull-left">
-                    2MCS Billing Svc
+                    <?php echo $lead["company_name"]; ?>
                 </h2>
                 
                 <button type="button" data-toggle="modal" data-target="#job-stage" class="btn btn-info pull-right btn-xs">
-                    Invoiced
+                    <?php echo $lead["stage"]; ?>
                 </button>
                 <button data-toggle="modal" data-target="#job-status" 
                         class="btn btn-info pull-right btn-xs" style="margin-right: 5px">
-                    Left Message Machine
+                    <?php echo $lead["status"]; ?>
                 </button>
                 
                 <div class="pull-right" style="margin-right: 20px">
-                    Salesman / Collector
+                    <?php echo $lead["salesman"]; ?> / <?php echo $lead["collector"]; ?>
                 </div>
                 
                 <div class="pull-right" style="margin-right: 20px">
-                    Line of Business
+                    <?php echo $lead["line_of_business"]; ?>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -36,26 +36,29 @@
                                         <div class="panel-body">
                                             <div class="form-group">
                                                 <label for="contact_first_name">First Name:</label>
-                                                <input type="text" class="form-control input-sm" id="contact_first_name">
+                                                <input type="text" class="form-control input-sm" id="contact_first_name"
+                                                       value="<?php echo $lead["contact_first_name"]; ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label for="contact_last_name">Last Name:</label>
-                                                <input type="text" class="form-control input-sm" id="contact_last_name">
+                                                <input type="text" class="form-control input-sm" id="contact_last_name"
+                                                       value="<?php echo $lead["contact_last_name"]; ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label for="contact_email">Email:</label>
-                                                <input type="email" class="form-control" id="contact_email">
+                                                <input type="email" class="form-control" id="contact_email"
+                                                       value="<?php echo $lead["contact_email"]; ?>">
                                             </div>
                                             <div class="form-group">
-                                                <label for="contact_phone_primary">Primary Phone:</label>
-                                                <input type="text" class="form-control" id="contact_phone_primary">
+                                                <label for="primary_phone">Primary Phone:</label>
+                                                <input type="text" class="form-control" id="primary_phone"
+                                                       value="<?php echo $lead["primary_phone"]; ?>">
                                             </div>
                                             <div class="form-group">
-                                                <label for="contact_phone_alternate">Alternate Phone:</label>
-                                                <input type="text" class="form-control" id="contact_phone_alternate">
+                                                <label for="alternate_phone">Alternate Phone:</label>
+                                                <input type="text" class="form-control" id="alternate_phone"
+                                                       value="<?php echo $lead["alternate_phone"]; ?>">
                                             </div>
-
-                                            <button class="btn btn-primary">Submit Changes</button>
                                         </div>
                                     </div>
 
@@ -70,43 +73,68 @@
                                                 <div id="myTabContent" class="tab-content">
                                                     <div class="tab-pane fade active in" id="address-physical">
                                                         <div class="form-group">
-                                                            <label for="contact_address_physical_address">Address:</label>
-                                                            <input type="text" class="form-control input-sm" id="contact_address_physical_address">
+                                                            <label for="physical_address">Address:</label>
+                                                            <input type="text" class="form-control input-sm" id="physical_address"
+                                                                   value="<?php echo $lead["physical_address"]; ?>">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="contact_address_physical_city">City:</label>
-                                                            <input type="text" class="form-control input-sm" id="contact_address_physical_city">
+                                                            <label for="physical_address_city">City:</label>
+                                                            <input type="text" class="form-control input-sm" id="physical_address_city"
+                                                                   value="<?php echo $lead["physical_address_city"]; ?>">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="contact_address_physical_state">State:</label>
-                                                            <input type="text" class="form-control" id="contact_address_physical_state">
+                                                            <label for="physical_address_state">State:</label>
+                                                            <input type="text" class="form-control" id="physical_address_state"
+                                                                   value="<?php echo $lead["physical_address_state"]; ?>">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="contact_address_physical_zip">Zip Code:</label>
-                                                            <input type="text" class="form-control" id="contact_address_physical_zip">
+                                                            <label for="physical_address_zip">Zip Code:</label>
+                                                            <input type="text" class="form-control" id="physical_address_zip"
+                                                                   value="<?php echo $lead["physical_address_zip"]; ?>">
+                                                        </div>
+                                                        <div class="alert alert-warning">
+                                                            <h4>If Mailing Address is not set, the Physical Address will be used.</h4>
                                                         </div>
                                                     </div>
 
                                                     <div class="tab-pane fade" id="address-mailing">
                                                         <div class="form-group">
-                                                            <label for="contact_address_physical_address">Address:</label>
-                                                            <input type="text" class="form-control input-sm" id="contact_address_physical_address">
+                                                            <label for="mailing_address">Address:</label>
+                                                            <input type="text" class="form-control input-sm" id="mailing_address"
+                                                                   value="<?php echo $lead["mailing_address"]; ?>">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="contact_address_physical_city">City:</label>
-                                                            <input type="text" class="form-control input-sm" id="contact_address_physical_city">
+                                                            <label for="mailing_address_city">City:</label>
+                                                            <input type="text" class="form-control input-sm" id="mailing_address_city"
+                                                                   value="<?php echo $lead["mailing_address_city"]; ?>">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="contact_address_physical_state">State:</label>
-                                                            <input type="text" class="form-control" id="contact_address_physical_state">
+                                                            <label for="mailing_address_state">State:</label>
+                                                            <input type="text" class="form-control" id="mailing_address_state"
+                                                                   value="<?php echo $lead["mailing_address_state"]; ?>">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="contact_address_physical_zip">Zip Code:</label>
-                                                            <input type="text" class="form-control" id="contact_address_physical_zip">
+                                                            <label for="mailing_address_zip">Zip Code:</label>
+                                                            <input type="text" class="form-control" id="mailing_address_zip"
+                                                                   value="<?php echo $lead["mailing_address_zip"]; ?>">
+                                                        </div>
+                                                        <div class="alert alert-warning">
+                                                            <h4>If Mailing Address is not set, the Physical Address will be used.</h4>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <?php echo form_submit(array('name'=>'submit', 
+                                                'class'=>'btn btn-primary btn-block',
+                                                is_enabled("edit_jobs", $user["permissions"]) => "",), 
+                                                "Submit Changes"); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -185,78 +213,26 @@
                                 <h4 class="pull-left">Notes</h4>
                                 <button class="pull-right btn btn-primary btn-xs">Add</button>
                                 <div class="form-group">
-                                    
+
                                     <div>
                                       <textarea class="form-control" rows="3" id="job_new_note"></textarea>
                                       <span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>
                                     </div>
                                 </div>
-                                
+
                                 <table class="table table-condensed">
+                                    <?php foreach ($lead["notes"] as $note): ?>
                                     <tr>
-                                        <th>
-                                            01/01/2016
+                                        <th class="info">
+                                            <?php echo $note["created"]; ?>
                                         </th>
-                                        <td>
-                                            This is a really cool note.
-                                        </td>
                                     </tr>
                                     <tr>
-                                        <th>
-                                            01/02/2016
-                                        </th>
                                         <td>
-                                            Top Cat! The most effectual Top Cat! Who's intellectual close friends get to call him T.C., providing it's with dignity. Top Cat! The indisputable leader of the gang. He's the boss, he's a pip, he's the championship. He's the most tip top, Top Cat.
+                                            <?php echo $note["message"]; ?>
                                         </td>
                                     </tr>
-                                    <tr class="warning">
-                                        <th>
-                                            01/07/2016
-                                        </th>
-                                        <td>
-                                            This is a really cool note. You should pay attention to it.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            01/10/2016
-                                        </th>
-                                        <td>
-                                            This is my boss, Jonathan Hart, a self-made millionaire, he's quite a guy. This is Mrs H., she's gorgeous, she's one lady who knows how to take care of herself. By the way, my name is Max. I take care of both of them, which ain't easy, 'cause when they met it was MURDER!
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            01/01/2016
-                                        </th>
-                                        <td>
-                                            This is a really cool note.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            01/02/2016
-                                        </th>
-                                        <td>
-                                            Top Cat! The most effectual Top Cat! Who's intellectual close friends get to call him T.C., providing it's with dignity. Top Cat! The indisputable leader of the gang. He's the boss, he's a pip, he's the championship. He's the most tip top, Top Cat.
-                                        </td>
-                                    </tr>
-                                    <tr class="warning">
-                                        <th>
-                                            01/07/2016
-                                        </th>
-                                        <td>
-                                            This is a really cool note. You should pay attention to it.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            01/10/2016
-                                        </th>
-                                        <td>
-                                            This is my boss, Jonathan Hart, a self-made millionaire, he's quite a guy. This is Mrs H., she's gorgeous, she's one lady who knows how to take care of herself. By the way, my name is Max. I take care of both of them, which ain't easy, 'cause when they met it was MURDER!
-                                        </td>
-                                    </tr>
+                                    <?php endforeach; ?>
                                 </table>
                             </div>
                         </div>
