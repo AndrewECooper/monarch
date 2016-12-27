@@ -4,30 +4,31 @@
     <div class="col-md-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h2 class="panel-title pull-left">
-                    <?php echo $lead["company_name"]; ?>
-                </h2>
+                <div class="panel-title pull-left" style="margin-right: 20px">
+                    <?php echo $lead["company_name"]; ?> 
+                </div>
                 
-                <button type="button" data-toggle="modal" data-target="#job-stage" class="btn btn-info pull-right btn-xs">
+                <div class="panel-title pull-left">
+                    (<?php echo $lead["line_of_business"]; ?>)
+                </div>
+                
+                <button type="button" data-toggle="modal" data-target="#lead-stage" class="btn btn-info pull-right btn-xs">
                     <?php echo $lead["stage"]; ?>
                 </button>
-                <button data-toggle="modal" data-target="#job-status" 
+                <button data-toggle="modal" data-target="#lead-status" 
                         class="btn btn-info pull-right btn-xs" style="margin-right: 5px">
                     <?php echo $lead["status"]; ?>
                 </button>
                 
-                <div class="pull-right" style="margin-right: 20px">
+                <button data-toggle="modal" data-target="#lead-employees" class="btn btn-info btn-xs pull-right" style="margin-right: 5px">
                     <?php echo $lead["salesman"]; ?> / <?php echo $lead["collector"]; ?>
-                </div>
-                
-                <div class="pull-right" style="margin-right: 20px">
-                    <?php echo $lead["line_of_business"]; ?>
-                </div>
+                </button>
                 <div class="clearfix"></div>
             </div>
             <div class="panel-body">
                 <div class="container-fluid">
                     <div class="row">
+                        <?php echo form_open('', array('class'=>'form-lead-edit')); ?>
                         <div class="col-md-8">
                             <div class="container-fluid">
                                 <div class="row">
@@ -35,29 +36,53 @@
                                     <div class="col-md-6 panel panel-default">
                                         <div class="panel-body">
                                             <div class="form-group">
+                                                <label for="company_name">Company Name:</label>
+                                                <?php echo form_input(array('id' => 'company_name', 
+                                                        "name" => "company_name",
+                                                        'class' => 'form-control', 
+                                                        "value" => $lead["company_name"])); ?>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="company_name">Line of Business:</label>
+                                                <?php echo form_input(array('id' => 'line_of_business', 
+                                                        "name" => "line_of_business",
+                                                        'class' => 'form-control', 
+                                                        "value" => $lead["line_of_business"])); ?>
+                                            </div>
+                                            <div class="form-group">
                                                 <label for="contact_first_name">First Name:</label>
-                                                <input type="text" class="form-control input-sm" id="contact_first_name"
-                                                       value="<?php echo $lead["contact_first_name"]; ?>">
+                                                <?php echo form_input(array('id' => 'contact_first_name', 
+                                                        "name" => "contact_first_name",
+                                                        'class' => 'form-control', 
+                                                        "value" => $lead["contact_first_name"])); ?>
                                             </div>
                                             <div class="form-group">
                                                 <label for="contact_last_name">Last Name:</label>
-                                                <input type="text" class="form-control input-sm" id="contact_last_name"
-                                                       value="<?php echo $lead["contact_last_name"]; ?>">
+                                                <?php echo form_input(array('id' => 'contact_last_name', 
+                                                        "name" => "contact_last_name",
+                                                        'class' => 'form-control', 
+                                                        "value" => $lead["contact_last_name"])); ?>
                                             </div>
                                             <div class="form-group">
                                                 <label for="contact_email">Email:</label>
-                                                <input type="email" class="form-control" id="contact_email"
-                                                       value="<?php echo $lead["contact_email"]; ?>">
+                                                <?php echo form_input(array('id' => 'contact_email', 
+                                                        "name" => "contact_email",
+                                                        'class' => 'form-control', 
+                                                        "value" => $lead["contact_email"])); ?>
                                             </div>
                                             <div class="form-group">
                                                 <label for="primary_phone">Primary Phone:</label>
-                                                <input type="text" class="form-control" id="primary_phone"
-                                                       value="<?php echo $lead["primary_phone"]; ?>">
+                                                <?php echo form_input(array('id' => 'primary_phone', 
+                                                        "name" => "primary_phone",
+                                                        'class' => 'form-control', 
+                                                        "value" => $lead["primary_phone"])); ?>
                                             </div>
                                             <div class="form-group">
                                                 <label for="alternate_phone">Alternate Phone:</label>
-                                                <input type="text" class="form-control" id="alternate_phone"
-                                                       value="<?php echo $lead["alternate_phone"]; ?>">
+                                                <?php echo form_input(array('id' => 'alternate_phone', 
+                                                        "name" => "alternate_phone",
+                                                        'class' => 'form-control', 
+                                                        "value" => $lead["alternate_phone"])); ?>
                                             </div>
                                         </div>
                                     </div>
@@ -74,23 +99,31 @@
                                                     <div class="tab-pane fade active in" id="address-physical">
                                                         <div class="form-group">
                                                             <label for="physical_address">Address:</label>
-                                                            <input type="text" class="form-control input-sm" id="physical_address"
-                                                                   value="<?php echo $lead["physical_address"]; ?>">
+                                                            <?php echo form_input(array('id' => 'physical_address', 
+                                                                "name" => "physical_address",
+                                                                'class' => 'form-control', 
+                                                                "value" => $lead["physical_address"])); ?>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="physical_address_city">City:</label>
-                                                            <input type="text" class="form-control input-sm" id="physical_address_city"
-                                                                   value="<?php echo $lead["physical_address_city"]; ?>">
+                                                            <?php echo form_input(array('id' => 'physical_address_city', 
+                                                                "name" => "physical_address_city",
+                                                                'class' => 'form-control', 
+                                                                "value" => $lead["physical_address_city"])); ?>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="physical_address_state">State:</label>
-                                                            <input type="text" class="form-control" id="physical_address_state"
-                                                                   value="<?php echo $lead["physical_address_state"]; ?>">
+                                                            <?php echo form_input(array('id' => 'physical_address_state', 
+                                                                "name" => "physical_address_state",
+                                                                'class' => 'form-control', 
+                                                                "value" => $lead["physical_address_state"])); ?>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="physical_address_zip">Zip Code:</label>
-                                                            <input type="text" class="form-control" id="physical_address_zip"
-                                                                   value="<?php echo $lead["physical_address_zip"]; ?>">
+                                                            <?php echo form_input(array('id' => 'physical_address_zip', 
+                                                                "name" => "physical_address_zip",
+                                                                'class' => 'form-control', 
+                                                                "value" => $lead["physical_address_zip"])); ?>
                                                         </div>
                                                         <div class="alert alert-warning">
                                                             <h4>If Mailing Address is not set, the Physical Address will be used.</h4>
@@ -100,23 +133,31 @@
                                                     <div class="tab-pane fade" id="address-mailing">
                                                         <div class="form-group">
                                                             <label for="mailing_address">Address:</label>
-                                                            <input type="text" class="form-control input-sm" id="mailing_address"
-                                                                   value="<?php echo $lead["mailing_address"]; ?>">
+                                                            <?php echo form_input(array('id' => 'mailing_address', 
+                                                                "name" => "mailing_address",
+                                                                'class' => 'form-control', 
+                                                                "value" => $lead["mailing_address"])); ?>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="mailing_address_city">City:</label>
-                                                            <input type="text" class="form-control input-sm" id="mailing_address_city"
-                                                                   value="<?php echo $lead["mailing_address_city"]; ?>">
+                                                            <?php echo form_input(array('id' => 'mailing_address_city', 
+                                                                "name" => "mailing_address_city",
+                                                                'class' => 'form-control', 
+                                                                "value" => $lead["mailing_address_city"])); ?>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="mailing_address_state">State:</label>
-                                                            <input type="text" class="form-control" id="mailing_address_state"
-                                                                   value="<?php echo $lead["mailing_address_state"]; ?>">
+                                                            <?php echo form_input(array('id' => 'mailing_address_state', 
+                                                                "name" => "mailing_address_state",
+                                                                'class' => 'form-control', 
+                                                                "value" => $lead["mailing_address_state"])); ?>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="mailing_address_zip">Zip Code:</label>
-                                                            <input type="text" class="form-control" id="mailing_address_zip"
-                                                                   value="<?php echo $lead["mailing_address_zip"]; ?>">
+                                                            <?php echo form_input(array('id' => 'mailing_address_zip', 
+                                                                "name" => "mailing_address_zip",
+                                                                'class' => 'form-control', 
+                                                                "value" => $lead["mailing_address_zip"])); ?>
                                                         </div>
                                                         <div class="alert alert-warning">
                                                             <h4>If Mailing Address is not set, the Physical Address will be used.</h4>
@@ -133,7 +174,7 @@
                                         <div class="form-group">
                                             <?php echo form_submit(array('name'=>'submit', 
                                                 'class'=>'btn btn-primary btn-block',
-                                                is_enabled("edit_jobs", $user["permissions"]) => "",), 
+                                                is_enabled("edit_leads", $user["permissions"]) => "",), 
                                                 "Submit Changes"); ?>
                                         </div>
                                     </div>
@@ -245,7 +286,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="job-status" role="dialog">
+<div class="modal fade" id="lead-status" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -333,7 +374,7 @@
     </div>
 </div>
     
-<div class="modal fade" id="job-stage" role="dialog">
+<div class="modal fade" id="lead-stage" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -381,6 +422,48 @@
                             Return to Rep
                         </label>
                     </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="lead-employees" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <div class="input-group" style="margin-bottom: 10px">
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
+                                aria-haspopup="true" aria-expanded="false">Sales <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <?php foreach ($sales as $employee): ?>
+                            <li><a href="#"><?php echo $employee["last_name"] . ", " . $employee["first_name"]; ?></a></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div><!-- /btn-group -->
+                    <input type="text" class="form-control" aria-label="...">
+                </div>
+                
+                <div class="input-group">
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
+                                aria-haspopup="true" aria-expanded="false">Collector <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <?php foreach ($collectors as $employee): ?>
+                            <li><a href="#"><?php echo $employee["last_name"] . ", " . $employee["first_name"]; ?></a></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div><!-- /btn-group -->
+                    <input type="text" class="form-control" aria-label="...">
                 </div>
             </div>
             <div class="modal-footer">

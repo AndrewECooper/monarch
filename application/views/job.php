@@ -14,6 +14,13 @@
                             Lead List
                         </a>
                         
+                        <?php if (has_perm("add_leads", $user)): ?>
+                        <a class="btn btn-info btn-sm pull-right" style="margin-right: 5px"
+                           href="<?php echo base_url('/leads/add/' . $job["id"] . '/' . $job["year"]); ?>">
+                            Add New Lead
+                        </a>
+                        <?php endif; ?>
+                        
                         <?php if (has_perm("clone_jobs", $user)): ?>
                         <button class="btn btn-info btn-sm pull-right" style="margin-right: 5px">
                             Clone
@@ -33,6 +40,7 @@
                                 </a>
                             <?php endif; ?>
                         <?php endif; ?>
+                       
                         <div class="clearfix"></div>
                     </div>
                 </div>

@@ -80,6 +80,15 @@
                 
                 <div class="col-md-2">
                     <div class="form-group">
+                        <label for="first_name">Sales:</label>
+                        <?php echo form_checkbox(array('name' => 'perms_sales', 
+                            'id' => 'perms_sales', 
+                            'class' => 'checkbox', 
+                            "value" => "sales",
+                            is_enabled("edit_users", $user["permissions"]) => "",
+                            "checked" => in_array("sales", $employee["permissions"]))); ?>
+                    </div>
+                    <div class="form-group">
                         <label for="first_name">Add Users:</label>
                         <?php echo form_checkbox(array('name' => 'perms_add_users', 
                             'id' => 'perms_add_users', 
@@ -127,6 +136,15 @@
                 </div>
                 
                 <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="first_name">Collector:</label>
+                        <?php echo form_checkbox(array('name' => 'perms_collector', 
+                            'id' => 'perms_collector', 
+                            'class' => 'checkbox', 
+                            "value" => "collector",
+                            is_enabled("edit_users", $user["permissions"]) => "",
+                            "checked" => in_array("collector", $employee["permissions"]))); ?>
+                    </div>
                     <div class="form-group">
                         <label for="first_name">Edit Users:</label>
                         <?php echo form_checkbox(array('name' => 'perms_edit_users', 

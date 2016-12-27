@@ -6,6 +6,7 @@ class Leads_model extends CI_Model {
      * @vars
      */
     private $leads_table = "leads";
+    private $years_table = "years";
 
 
     /**
@@ -75,6 +76,74 @@ class Leads_model extends CI_Model {
         }
 
         return $results;
+    }
+    
+    function edit_lead($lead_id, $data) {
+        unset($data["submit"]);
+        unset($data["options_status"]);
+        unset($data["options_stage"]);
+        
+        $sql = "
+            UPDATE {$this->leads_table}
+            SET
+        ";
+            
+        foreach ($data as $key => $value) {
+            $sql .= $key . " = " . $this->db->escape($value) . ", ";
+        }
+        
+        $sql = substr($sql, 0, strlen($sql) - 2);
+        
+        $sql .= "
+            WHERE id = " . $this->db->escape($lead_id);
+
+        $this->db->query($sql);
+
+        if ($this->db->affected_rows()) {
+            return true;
+        }
+
+        return false;
+    }
+    
+    function add_lead($job_id, $year) {
+        $sql = "select id from " . $this->years_table 
+                . " where job_id = " . $job_id . " and year = '" . $year . "'";
+        $query = $this->db->query($sql);
+        $job_year_id = $query->result_array()[0]["id"];
+        
+        $sql = "insert into " . $this->leads_table . " ("
+            . "company_name, line_of_business, contact_first_name, contact_last_name, contact_email, "
+            . "physical_address, physical_address_city, physical_address_state, physical_address_zip, "
+            . "mailing_address, mailing_address_city, mailing_address_state, mailing_address_zip, "
+            . "sales_id, collector_id, status, stage, job_year_id) "
+            . "values ("
+            . "'New Company', "
+            . "'Unknown', "
+            . "'', "
+            . "'', "
+            . "'', "
+            . "'', "
+            . "'', "
+            . "'', "
+            . "'', "
+            . "'', "
+            . "'', "
+            . "'', "
+            . "'', "
+            . "1, "
+            . "1, "
+            . "'New Lead', "
+            . "'Invoiced', "
+            . $job_year_id . ")";
+        
+        $this->db->query($sql);
+
+        if ($lead_id = $this->db->insert_id()) {
+            return $lead_id;
+        }
+        
+        return false;
     }
     
     function get_notes($lead_id) {

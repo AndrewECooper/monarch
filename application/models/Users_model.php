@@ -71,7 +71,22 @@ class Users_model extends CI_Model {
 
         return $results;
     }
+    
+    function get_sales() {
+        $sql = "select id, first_name, last_name from users where permissions like '%sales%'";
+        $query = $this->db->query($sql);
+        $results = $query->result_array();
+        
+        return $results;
+    }
 
+    function get_collectors() {
+        $sql = "select id, first_name, last_name from users where permissions like '%collector%'";
+        $query = $this->db->query($sql);
+        $results = $query->result_array();
+        
+        return $results;
+    }
 
     /**
      * Get specific user
