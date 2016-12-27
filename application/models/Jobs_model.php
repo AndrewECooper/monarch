@@ -98,6 +98,7 @@ class Jobs_model extends CI_Model {
             j.mailing_address_state as mailing_address_state,
             j.mailing_address_zip as mailing_address_zip,
             j.type_other_note as type_other_note,
+            y.id as job_year_id,
             y.year as year,
             y.status as status,
             y.start_date as start_date,

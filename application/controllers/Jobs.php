@@ -46,16 +46,21 @@ class Jobs extends MY_Controller {
         
     }
     
-    function leads($job_num) {
+    function leads($job_num, $year) {
+        $this->load->model("leads_model");
         // setup page header data
         $this->add_js_theme( "dashboard_i18n.js", TRUE )
             ->set_title( lang('admin dashboard title') );
+        
+        $job = $this->jobs_model->get_job($job_num, $year);
+        $leads = $this->leads_model->get_leads_summary($job["job_year_id"]);
 		
         $data = $this->includes;
         
         // load views
         $data["user"] = $this->user;
-        $data["job_name"] = "Job " . $job_num;
+        $data["job_name"] = $job["name"];
+        $data["leads"] = $leads;
         $data["search_form"] = $this->load->view("widgets/search", $data, true);
         $data['content'] = $this->load->view('leads', $data, TRUE);
         

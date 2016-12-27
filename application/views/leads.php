@@ -1,11 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
-<div class="container-fluid">
+<div class="container">
     
     <!-- Active Jobs -->
     <div class="row">
         <div class="col-md-12" style="padding-left: 0px">
-            <div class="panel panel-default" style="margin-right: 10px">
+            <div class="panel panel-primary" style="margin-right: 10px">
                 <div class="panel-heading">
                     <div class="panel-heading">
                         <span class="panel-title">Leads for <?php echo $job_name; ?></span>
@@ -16,34 +16,34 @@
                         <thead>
                             <tr>
                                 <th>Status</th>
-                                <th>Lead Name</th>
                                 <th>Company</th>
                                 <th>Contact</th>
-                                <th>Phone</th>
+                                <th>Primary Phone</th>
+                                <th>Alternate Phone</th>
                             </tr>
                         </thead>    
                         <tbody>
-                            <?php for ($x = 0; $x < 10; $x++):  ?>    
+                            <?php foreach($leads as $lead):  ?>    
                             <tr>
                                 <td>
-                                    New Lead
+                                    <?php echo $lead["status"] ?>
                                 </td>
                                 <td>
-                                    <a href="<?php echo base_url('/leads/' . $x); ?>">
-                                        Lead <?php echo $x + 1; ?>
+                                    <a href="<?php echo base_url('/leads/' . $lead["id"]); ?>">
+                                        <?php echo $lead["company_name"]; ?>
                                     </a>
                                 </td>
                                 <td>
-                                    Some Company
+                                    <?php echo $lead["contact_first_name"] . " " . $lead["contact_last_name"]; ?>
                                 </td>
                                 <td>
-                                    Billy Joe Tom Bob Parker
+                                    <?php echo $lead["primary_phone"]; ?>
                                 </td>
                                 <td>
-                                    956-753-0007
+                                    <?php echo $lead["alternate_phone"]; ?>
                                 </td>
                             </tr>
-                            <?php endfor; ?>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
