@@ -10,8 +10,20 @@ $(document).ready(function() {
         }
     });
 
+    $( "#dialog-status" ).dialog({
+        dialogClass: "no-close",
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        buttons: {
+           Cancel: function() {$(this).dialog("close");},
+           Save: editStatus
+        }
+    });
+
     $("#btn-add-note").click(addNote);
     $("#btn-stage").click(openStage);
+    $("#btn-status").click(openStatus);
 });
 
 function addNote() {
@@ -51,5 +63,25 @@ function editStage() {
     }).done(function(data) {
         $("#dialog-stage").dialog("close");
         $("#btn-stage").html(stage);
+    });
+}
+
+function openStatus() {
+    $("#dialog-status").dialog("open");
+}
+
+function editStatus() {
+    var id = $("input[name='lead-id']").val();
+    var status = $("input[name='options_status']:checked").val();
+
+    $.ajax({
+        url: "/api/lead/status/edit",
+        data: {
+            id: id,
+            status: status
+        }
+    }).done(function(data) {
+        $("#dialog-status").dialog("close");
+        $("#btn-status").html(status);
     });
 }

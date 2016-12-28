@@ -56,6 +56,16 @@ class Ajax extends Public_Controller {
         $this->output(array("success" => "false", "message" => "Problem changing the stage."));
     }
 
+    public function edit_lead_status() {
+        $this->load->model("leads_model");
+
+        if ($this->leads_model->edit_status($this->data["id"], $this->data["status"])) {
+            $this->output(array("success" => "true", "message" => "Status changed."));
+        }
+
+        $this->output(array("success" => "false", "message" => "Problem changing the status."));
+    }
+
     private function output($array) {
         echo json_encode($array);
         die;

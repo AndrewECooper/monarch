@@ -162,6 +162,20 @@ class Leads_model extends CI_Model {
         return false;
     }
 
+    function edit_status($id, $status) {
+        $sql = "update " . $this->leads_table . " set "
+            . "status = " . $this->db->escape($status) . " "
+            . "where id = " . $id;
+
+        $this->db->query($sql);
+
+        if ($this->db->affected_rows()) {
+            return true;
+        }
+
+        return false;
+    }
+
     function get_notes($lead_id) {
         $sql = "
             select ln.id as id,
