@@ -42,8 +42,18 @@ class Ajax extends Public_Controller {
         if ($insert_id > 0) {
             $this->output(array("success" => "true", "message" => "Note added."));
         }
-        
+
         $this->output(array("success" => "false", "message" => "Problem adding Note."));
+    }
+
+    public function edit_lead_stage() {
+        $this->load->model("leads_model");
+
+        if ($this->leads_model->edit_stage($this->data["id"], $this->data["stage"])) {
+            $this->output(array("success" => "true", "message" => "Stage changed."));
+        }
+
+        $this->output(array("success" => "false", "message" => "Problem changing the stage."));
     }
 
     private function output($array) {

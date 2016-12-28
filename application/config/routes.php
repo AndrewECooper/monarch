@@ -76,3 +76,4 @@ $route["users/delete/(:num)"] = "user/delete/$1";
 $route["users/(:num)"] = "user/user/$1";
 
 $route["api/lead/note/add"] = "ajax/add_lead_note";
+$route["api/lead/stage/edit"] = "ajax/edit_lead_stage";

@@ -12,7 +12,7 @@
                     (<?php echo $lead["line_of_business"]; ?>)
                 </div>
 
-                <button type="button" data-toggle="modal" data-target="#lead-stage" class="btn btn-info pull-right btn-xs">
+                <button type="button" class="btn btn-info pull-right btn-xs" id="btn-stage">
                     <?php echo $lead["stage"]; ?>
                 </button>
                 <button data-toggle="modal" data-target="#lead-status"
@@ -252,7 +252,7 @@
                         <div class="col-md-4 panel panel-default">
                             <div class="panel-body">
                                 <h4 class="pull-left">Notes</h4>
-                                <button class="pull-right btn btn-primary btn-xs" id="btn-add-note">Add</button>
+                                <button class="pull-right btn btn-primary btn-xs" id="btn-add-note">Add Note</button>
                                 <div class="form-group">
 
                                     <div>
@@ -285,8 +285,7 @@
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="lead-status" role="dialog">
+<!-- <div class="modal fade" id="lead-status" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -372,67 +371,57 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
-<div class="modal fade" id="lead-stage" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Modal title</h4>
-            </div>
-            <div class="modal-body">
-                <div>
-                    <h4>
-                        Stage
-                    </h4>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="options_stage" id="option12" value="option12" checked>
-                            Collected
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="options_stage" id="option13" value="option13">
-                            Invoiced
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="options_stage" id="option14" value="option14">
-                            Direct Bill
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="options_stage" id="option15" value="option15">
-                            Cancelled
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="options_stage" id="option16" value="option16">
-                            Written Up
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="options_stage" id="option17" value="option17">
-                            Return to Rep
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
+<div id="dialog-stage" title="Edit Stage">
+    <h4>
+        Stage
+    </h4>
+    <div class="radio">
+        <label>
+            <input type="radio" name="options_stage" id="option12" value="Collected"
+                <?php echo $lead["stage"] == "Collected" ? "checked" : ""; ?>>
+            Collected
+        </label>
+    </div>
+    <div class="radio">
+        <label>
+            <input type="radio" name="options_stage" id="option13" value="Invoiced"
+                <?php echo $lead["stage"] == "Invoiced" ? "checked" : ""; ?>>
+            Invoiced
+        </label>
+    </div>
+    <div class="radio">
+        <label>
+            <input type="radio" name="options_stage" id="option14" value="Direct Bill"
+                <?php echo $lead["stage"] == "Direct Bill" ? "checked" : ""; ?>>
+            Direct Bill
+        </label>
+    </div>
+    <div class="radio">
+        <label>
+            <input type="radio" name="options_stage" id="option15" value="Cancelled"
+                <?php echo $lead["stage"] == "Cancelled" ? "checked" : ""; ?>>
+            Cancelled
+        </label>
+    </div>
+    <div class="radio">
+        <label>
+            <input type="radio" name="options_stage" id="option16" value="Written Up"
+                <?php echo $lead["stage"] == "Written Up" ? "checked" : ""; ?>>
+            Written Up
+        </label>
+    </div>
+    <div class="radio">
+        <label>
+            <input type="radio" name="options_stage" id="option17" value="Return to Rep"
+                <?php echo $lead["stage"] == "Return to Rep" ? "checked" : ""; ?>>
+            Return to Rep
+        </label>
     </div>
 </div>
 
-<div class="modal fade" id="lead-employees" role="dialog">
+<!-- <div class="modal fade" id="lead-employees" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -449,7 +438,7 @@
                             <li><a href="#"><?php echo $employee["last_name"] . ", " . $employee["first_name"]; ?></a></li>
                             <?php endforeach; ?>
                         </ul>
-                    </div><!-- /btn-group -->
+                    </div>
                     <input type="text" class="form-control" aria-label="...">
                 </div>
 
@@ -462,7 +451,7 @@
                             <li><a href="#"><?php echo $employee["last_name"] . ", " . $employee["first_name"]; ?></a></li>
                             <?php endforeach; ?>
                         </ul>
-                    </div><!-- /btn-group -->
+                    </div>
                     <input type="text" class="form-control" aria-label="...">
                 </div>
             </div>
@@ -472,4 +461,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

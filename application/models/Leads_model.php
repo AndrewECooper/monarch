@@ -148,6 +148,20 @@ class Leads_model extends CI_Model {
         return false;
     }
 
+    function edit_stage($id, $stage) {
+        $sql = "update " . $this->leads_table . " set "
+            . "stage = " . $this->db->escape($stage) . " "
+            . "where id = " . $id;
+
+        $this->db->query($sql);
+
+        if ($this->db->affected_rows()) {
+            return true;
+        }
+
+        return false;
+    }
+
     function get_notes($lead_id) {
         $sql = "
             select ln.id as id,
@@ -155,7 +169,7 @@ class Leads_model extends CI_Model {
                 ln.created as created
             from lead_notes as ln
             where ln.lead_id = " . $lead_id . "
-            order by ln.created asc";
+            order by ln.created desc";
 
         $query = $this->db->query($sql);
 

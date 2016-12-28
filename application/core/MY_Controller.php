@@ -78,13 +78,17 @@ class MY_Controller extends CI_Controller {
         $this->add_external_css(
 	        array(
 	            "//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css",
+				"/js/jquery-ui.min.css",
+				"/js/jquery-ui.structure.min.css",
+				"/js/jquery-ui.theme.min.css",
 	            "/themes/core/css/bootstrap-theme.css",
 	            "/themes/core/css/core.css"
 	        )
 		)->add_external_js(
             array(
                 "//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js",
-                 "/themes/core/js/core.js"
+				"/js/jquery-ui.min.js",
+                "/themes/core/js/core.js"
             )
 		);
 
