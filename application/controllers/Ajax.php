@@ -7,12 +7,18 @@
  */
 class Ajax extends Public_Controller {
 
+    private $data = array();
+
     /**
      * Constructor
      */
     function __construct()
     {
         parent::__construct();
+
+        $qs = $_SERVER['QUERY_STRING'] ? $_SERVER['QUERY_STRING'] : "";
+        parse_str($qs, $temp);
+        $this->data = $temp;
     }
 
 
@@ -27,5 +33,22 @@ class Ajax extends Public_Controller {
         echo json_encode($results);
         die();
 	}
+
+    public function add_lead_note() {
+        $this->load->model("leads_model");
+
+        $insert_id = $this->leads_model->add_note($this->data["id"], $this->data["message"]);
+
+        if ($insert_id > 0) {
+            $this->output(array("success" => "true", "message" => "Note added."));
+        }
+        
+        $this->output(array("success" => "false", "message" => "Problem adding Note."));
+    }
+
+    private function output($array) {
+        echo json_encode($array);
+        die;
+    }
 
 }

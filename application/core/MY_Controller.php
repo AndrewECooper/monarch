@@ -21,23 +21,21 @@ class MY_Controller extends CI_Controller {
     /**
      * Constructor
      */
-    function __construct()
-    {
+    function __construct() {
         parent::__construct();
-        
+
         $this->load->model('log_model');
-        
+
         // get settings
         $settings = $this->settings_model->get_settings();
         $this->settings = new stdClass();
-        foreach ($settings as $setting)
-        {
+        foreach ($settings as $setting) {
             $this->settings->{$setting['name']} = (@unserialize($setting['value']) !== FALSE) ? unserialize($setting['value']) : $setting['value'];
         }
         $this->settings->site_version = $this->config->item('site_version');
         $this->settings->root_folder  = $this->config->item('root_folder');
         $this->settings->theme = strtolower($this->config->item('default_theme'));
-        
+
         $this->template = "../../{$this->settings->root_folder}/themes/{$this->settings->theme}/template.php";
 
         // get current uri
@@ -45,8 +43,7 @@ class MY_Controller extends CI_Controller {
 
         // set the time zone
         $timezones = $this->config->item('timezones');
-        if (function_exists('date_default_timezone_set'))
-        {
+        if (function_exists('date_default_timezone_set')) {
             date_default_timezone_set($timezones[$this->settings->timezones]);
         }
 
@@ -60,18 +57,13 @@ class MY_Controller extends CI_Controller {
         //   1) First, check session
         //   2) If session not set, use the users language
         //   3) Finally, if no user, use the configured languauge
-        if ($this->session->language)
-        {
+        if ($this->session->language) {
             // language selected from nav
             $this->config->set_item('language', $this->session->language);
-        }
-        elseif ($this->user['language'])
-        {
+        } elseif ($this->user['language']) {
             // user's saved language
             $this->config->set_item('language', $this->user['language']);
-        }
-        else
-        {
+        } else {
             // default language
             $this->config->set_item('language', $this->config->item('language'));
         }
@@ -83,18 +75,18 @@ class MY_Controller extends CI_Controller {
         $this->lang->load('core');
 
         // set global header data - can be merged with or overwritten in controllers
-        $this
-            ->add_external_css(
-                array(
-                    "//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css",
-                    "/themes/core/css/bootstrap-theme.css",
-                    "/themes/core/css/core.css"
-                ))
-            ->add_external_js(
-                array(
-                    "//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js",
-                     "/themes/core/js/core.js"
-                ));
+        $this->add_external_css(
+	        array(
+	            "//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css",
+	            "/themes/core/css/bootstrap-theme.css",
+	            "/themes/core/css/core.css"
+	        )
+		)->add_external_js(
+            array(
+                "//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js",
+                 "/themes/core/js/core.js"
+            )
+		);
 
         $this->includes[ 'js_files_i18n' ] = array(
             $this->jsi18n->translate("/themes/core/js/core_i18n.js")
@@ -135,17 +127,14 @@ class MY_Controller extends CI_Controller {
      * @param string, default = NULL
      * @return  chained object
      */
-    function add_external_css($css_files, $path = NULL)
-    {
+    function add_external_css($css_files, $path = NULL) {
         // make sure that $this->includes has array value
-        if ( ! is_array( $this->includes ) )
-            $this->includes = array();
+        if (!is_array( $this->includes )) $this->includes = array();
 
         // if $css_files is string, then convert into array
         $css_files = is_array( $css_files ) ? $css_files : explode( ",", $css_files );
 
-        foreach( $css_files as $css )
-        {
+        foreach( $css_files as $css ) {
             // remove white space if any
             $css = trim( $css );
 
@@ -190,17 +179,14 @@ class MY_Controller extends CI_Controller {
      * @param string, default = NULL
      * @return  chained object
      */
-    function add_external_js( $js_files, $path = NULL )
-    {
+    function add_external_js( $js_files, $path = NULL ) {
         // make sure that $this->includes has array value
-        if ( ! is_array( $this->includes ) )
-            $this->includes = array();
+        if (!is_array( $this->includes )) $this->includes = array();
 
         // if $js_files is string, then convert into array
         $js_files = is_array( $js_files ) ? $js_files : explode( ",", $js_files );
 
-        foreach( $js_files as $js )
-        {
+        foreach( $js_files as $js ) {
             // remove white space if any
             $js = trim( $js );
 
@@ -240,8 +226,7 @@ class MY_Controller extends CI_Controller {
      * @param   mixed
      * @return  chained object
      */
-    function add_css_theme( $css_files )
-    {
+    function add_css_theme( $css_files ) {
         // make sure that $this->includes has array value
         if ( ! is_array( $this->includes ) )
             $this->includes = array();
@@ -249,8 +234,7 @@ class MY_Controller extends CI_Controller {
         // if $css_files is string, then convert into array
         $css_files = is_array( $css_files ) ? $css_files : explode( ",", $css_files );
 
-        foreach( $css_files as $css )
-        {
+        foreach( $css_files as $css ) {
             // remove white space if any
             $css = trim( $css );
 
@@ -294,20 +278,16 @@ class MY_Controller extends CI_Controller {
      * @param   boolean
      * @return  chained object
      */
-    function add_js_theme( $js_files, $is_i18n = FALSE )
-    {
-        if ( $is_i18n )
-            return $this->add_jsi18n_theme( $js_files );
+    function add_js_theme( $js_files, $is_i18n = FALSE ) {
+        if ( $is_i18n ) return $this->add_jsi18n_theme( $js_files );
 
         // make sure that $this->includes has array value
-        if ( ! is_array( $this->includes ) )
-            $this->includes = array();
+        if (!is_array( $this->includes )) $this->includes = array();
 
         // if $css_files is string, then convert into array
         $js_files = is_array( $js_files ) ? $js_files : explode( ",", $js_files );
 
-        foreach( $js_files as $js )
-        {
+        foreach( $js_files as $js ) {
             // remove white space if any
             $js = trim( $js );
 
@@ -351,17 +331,14 @@ class MY_Controller extends CI_Controller {
      * @param   mixed
      * @return  chained object
      */
-    function add_jsi18n_theme( $js_files )
-    {
+    function add_jsi18n_theme( $js_files ) {
         // make sure that $this->includes has array value
-        if ( ! is_array( $this->includes ) )
-            $this->includes = array();
+        if (!is_array( $this->includes )) $this->includes = array();
 
         // if $css_files is string, then convert into array
         $js_files = is_array( $js_files ) ? $js_files : explode( ",", $js_files );
 
-        foreach( $js_files as $js )
-        {
+        foreach( $js_files as $js ) {
             // remove white space if any
             $js = trim( $js );
 
@@ -384,8 +361,7 @@ class MY_Controller extends CI_Controller {
      * @param   string
      * @return  chained object
      */
-    function set_title( $page_title )
-    {
+    function set_title( $page_title ) {
         $this->includes[ 'page_title' ] = $page_title;
 
         /* check wether page_header has been set or has a value
@@ -406,8 +382,7 @@ class MY_Controller extends CI_Controller {
      * @param   string
      * @return  chained object
      */
-    function set_page_header( $page_header )
-    {
+    function set_page_header( $page_header ) {
         $this->includes[ 'page_header' ] = $page_header;
         return $this;
     }
@@ -424,8 +399,7 @@ class MY_Controller extends CI_Controller {
      * @param   string, template file name
      * @return  chained object
      */
-    function set_template( $template_file = 'template.php' )
-    {
+    function set_template( $template_file = 'template.php' ) {
         // make sure that $template_file has .php extension
         $template_file = substr( $template_file, -4 ) == '.php' ? $template_file : ( $template_file . ".php" );
 

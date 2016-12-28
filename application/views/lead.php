@@ -5,21 +5,21 @@
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="panel-title pull-left" style="margin-right: 20px">
-                    <?php echo $lead["company_name"]; ?> 
+                    <?php echo $lead["company_name"]; ?>
                 </div>
-                
+
                 <div class="panel-title pull-left">
                     (<?php echo $lead["line_of_business"]; ?>)
                 </div>
-                
+
                 <button type="button" data-toggle="modal" data-target="#lead-stage" class="btn btn-info pull-right btn-xs">
                     <?php echo $lead["stage"]; ?>
                 </button>
-                <button data-toggle="modal" data-target="#lead-status" 
+                <button data-toggle="modal" data-target="#lead-status"
                         class="btn btn-info pull-right btn-xs" style="margin-right: 5px">
                     <?php echo $lead["status"]; ?>
                 </button>
-                
+
                 <button data-toggle="modal" data-target="#lead-employees" class="btn btn-info btn-xs pull-right" style="margin-right: 5px">
                     <?php echo $lead["salesman"]; ?> / <?php echo $lead["collector"]; ?>
                 </button>
@@ -28,7 +28,7 @@
             <div class="panel-body">
                 <div class="container-fluid">
                     <div class="row">
-                        <?php echo form_open('', array('class'=>'form-lead-edit')); ?>
+                        <?php echo form_open('', array('class'=>'form-lead-edit'), array("lead-id" => $lead["id"])); ?>
                         <div class="col-md-8">
                             <div class="container-fluid">
                                 <div class="row">
@@ -37,51 +37,51 @@
                                         <div class="panel-body">
                                             <div class="form-group">
                                                 <label for="company_name">Company Name:</label>
-                                                <?php echo form_input(array('id' => 'company_name', 
+                                                <?php echo form_input(array('id' => 'company_name',
                                                         "name" => "company_name",
-                                                        'class' => 'form-control', 
+                                                        'class' => 'form-control',
                                                         "value" => $lead["company_name"])); ?>
                                             </div>
                                             <div class="form-group">
                                                 <label for="company_name">Line of Business:</label>
-                                                <?php echo form_input(array('id' => 'line_of_business', 
+                                                <?php echo form_input(array('id' => 'line_of_business',
                                                         "name" => "line_of_business",
-                                                        'class' => 'form-control', 
+                                                        'class' => 'form-control',
                                                         "value" => $lead["line_of_business"])); ?>
                                             </div>
                                             <div class="form-group">
                                                 <label for="contact_first_name">First Name:</label>
-                                                <?php echo form_input(array('id' => 'contact_first_name', 
+                                                <?php echo form_input(array('id' => 'contact_first_name',
                                                         "name" => "contact_first_name",
-                                                        'class' => 'form-control', 
+                                                        'class' => 'form-control',
                                                         "value" => $lead["contact_first_name"])); ?>
                                             </div>
                                             <div class="form-group">
                                                 <label for="contact_last_name">Last Name:</label>
-                                                <?php echo form_input(array('id' => 'contact_last_name', 
+                                                <?php echo form_input(array('id' => 'contact_last_name',
                                                         "name" => "contact_last_name",
-                                                        'class' => 'form-control', 
+                                                        'class' => 'form-control',
                                                         "value" => $lead["contact_last_name"])); ?>
                                             </div>
                                             <div class="form-group">
                                                 <label for="contact_email">Email:</label>
-                                                <?php echo form_input(array('id' => 'contact_email', 
+                                                <?php echo form_input(array('id' => 'contact_email',
                                                         "name" => "contact_email",
-                                                        'class' => 'form-control', 
+                                                        'class' => 'form-control',
                                                         "value" => $lead["contact_email"])); ?>
                                             </div>
                                             <div class="form-group">
                                                 <label for="primary_phone">Primary Phone:</label>
-                                                <?php echo form_input(array('id' => 'primary_phone', 
+                                                <?php echo form_input(array('id' => 'primary_phone',
                                                         "name" => "primary_phone",
-                                                        'class' => 'form-control', 
+                                                        'class' => 'form-control',
                                                         "value" => $lead["primary_phone"])); ?>
                                             </div>
                                             <div class="form-group">
                                                 <label for="alternate_phone">Alternate Phone:</label>
-                                                <?php echo form_input(array('id' => 'alternate_phone', 
+                                                <?php echo form_input(array('id' => 'alternate_phone',
                                                         "name" => "alternate_phone",
-                                                        'class' => 'form-control', 
+                                                        'class' => 'form-control',
                                                         "value" => $lead["alternate_phone"])); ?>
                                             </div>
                                         </div>
@@ -99,30 +99,30 @@
                                                     <div class="tab-pane fade active in" id="address-physical">
                                                         <div class="form-group">
                                                             <label for="physical_address">Address:</label>
-                                                            <?php echo form_input(array('id' => 'physical_address', 
+                                                            <?php echo form_input(array('id' => 'physical_address',
                                                                 "name" => "physical_address",
-                                                                'class' => 'form-control', 
+                                                                'class' => 'form-control',
                                                                 "value" => $lead["physical_address"])); ?>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="physical_address_city">City:</label>
-                                                            <?php echo form_input(array('id' => 'physical_address_city', 
+                                                            <?php echo form_input(array('id' => 'physical_address_city',
                                                                 "name" => "physical_address_city",
-                                                                'class' => 'form-control', 
+                                                                'class' => 'form-control',
                                                                 "value" => $lead["physical_address_city"])); ?>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="physical_address_state">State:</label>
-                                                            <?php echo form_input(array('id' => 'physical_address_state', 
+                                                            <?php echo form_input(array('id' => 'physical_address_state',
                                                                 "name" => "physical_address_state",
-                                                                'class' => 'form-control', 
+                                                                'class' => 'form-control',
                                                                 "value" => $lead["physical_address_state"])); ?>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="physical_address_zip">Zip Code:</label>
-                                                            <?php echo form_input(array('id' => 'physical_address_zip', 
+                                                            <?php echo form_input(array('id' => 'physical_address_zip',
                                                                 "name" => "physical_address_zip",
-                                                                'class' => 'form-control', 
+                                                                'class' => 'form-control',
                                                                 "value" => $lead["physical_address_zip"])); ?>
                                                         </div>
                                                         <div class="alert alert-warning">
@@ -133,30 +133,30 @@
                                                     <div class="tab-pane fade" id="address-mailing">
                                                         <div class="form-group">
                                                             <label for="mailing_address">Address:</label>
-                                                            <?php echo form_input(array('id' => 'mailing_address', 
+                                                            <?php echo form_input(array('id' => 'mailing_address',
                                                                 "name" => "mailing_address",
-                                                                'class' => 'form-control', 
+                                                                'class' => 'form-control',
                                                                 "value" => $lead["mailing_address"])); ?>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="mailing_address_city">City:</label>
-                                                            <?php echo form_input(array('id' => 'mailing_address_city', 
+                                                            <?php echo form_input(array('id' => 'mailing_address_city',
                                                                 "name" => "mailing_address_city",
-                                                                'class' => 'form-control', 
+                                                                'class' => 'form-control',
                                                                 "value" => $lead["mailing_address_city"])); ?>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="mailing_address_state">State:</label>
-                                                            <?php echo form_input(array('id' => 'mailing_address_state', 
+                                                            <?php echo form_input(array('id' => 'mailing_address_state',
                                                                 "name" => "mailing_address_state",
-                                                                'class' => 'form-control', 
+                                                                'class' => 'form-control',
                                                                 "value" => $lead["mailing_address_state"])); ?>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="mailing_address_zip">Zip Code:</label>
-                                                            <?php echo form_input(array('id' => 'mailing_address_zip', 
+                                                            <?php echo form_input(array('id' => 'mailing_address_zip',
                                                                 "name" => "mailing_address_zip",
-                                                                'class' => 'form-control', 
+                                                                'class' => 'form-control',
                                                                 "value" => $lead["mailing_address_zip"])); ?>
                                                         </div>
                                                         <div class="alert alert-warning">
@@ -168,19 +168,19 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <?php echo form_submit(array('name'=>'submit', 
+                                            <?php echo form_submit(array('name'=>'submit',
                                                 'class'=>'btn btn-primary btn-block',
-                                                is_enabled("edit_leads", $user["permissions"]) => "",), 
+                                                is_enabled("edit_leads", $user["permissions"]) => "",),
                                                 "Submit Changes"); ?>
                                         </div>
                                     </div>
                                 </div>
-                                
-                                <div class="row">     
+
+                                <div class="row">
                                     <!-- Artwork -->
                                     <div class="col-md-12 panel panel-default">
                                         <div class="panel-body">
@@ -198,7 +198,7 @@
                                                                 2016
                                                             </div>
                                                             <div class="panel-body">
-                                                                <img height="100" width="100" src="<?php echo base_url('/img/job_1.jpg'); ?>" 
+                                                                <img height="100" width="100" src="<?php echo base_url('/img/job_1.jpg'); ?>"
                                                                      alt="2016" class="img-thumbnail center-block">
                                                             </div>
                                                         </div>
@@ -210,7 +210,7 @@
                                                                 2015
                                                             </div>
                                                             <div class="panel-body">
-                                                                <img height="100" width="100" src="<?php echo base_url('/img/job_2.jpg'); ?>" 
+                                                                <img height="100" width="100" src="<?php echo base_url('/img/job_2.jpg'); ?>"
                                                                      alt="2015" class="img-thumbnail center-block">
                                                             </div>
                                                         </div>
@@ -222,7 +222,7 @@
                                                                 2014
                                                             </div>
                                                             <div class="panel-body">
-                                                                <img height="100" width="100" src="<?php echo base_url('/img/job_3.jpg'); ?>" 
+                                                                <img height="100" width="100" src="<?php echo base_url('/img/job_3.jpg'); ?>"
                                                                      alt="2014" class="img-thumbnail center-block">
                                                             </div>
                                                         </div>
@@ -234,7 +234,7 @@
                                                                 2013
                                                             </div>
                                                             <div class="panel-body">
-                                                                <img height="100" width="100" src="<?php echo base_url('/img/job_4.png'); ?>" 
+                                                                <img height="100" width="100" src="<?php echo base_url('/img/job_4.png'); ?>"
                                                                      alt="2013" class="img-thumbnail center-block">
                                                             </div>
                                                         </div>
@@ -246,17 +246,17 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        
+
+
                         <!-- Notes -->
                         <div class="col-md-4 panel panel-default">
                             <div class="panel-body">
                                 <h4 class="pull-left">Notes</h4>
-                                <button class="pull-right btn btn-primary btn-xs">Add</button>
+                                <button class="pull-right btn btn-primary btn-xs" id="btn-add-note">Add</button>
                                 <div class="form-group">
 
                                     <div>
-                                      <textarea class="form-control" rows="3" id="job_new_note"></textarea>
+                                      <textarea class="form-control" rows="3" id="job-new-note"></textarea>
                                       <span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>
                                     </div>
                                 </div>
@@ -278,8 +278,8 @@
                             </div>
                         </div>
                     </div>
-                    
-                    
+
+
                 </div>
             </div>
         </div>
@@ -373,7 +373,7 @@
         </div>
     </div>
 </div>
-    
+
 <div class="modal fade" id="lead-stage" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -442,7 +442,7 @@
             <div class="modal-body">
                 <div class="input-group" style="margin-bottom: 10px">
                     <div class="input-group-btn">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">Sales <span class="caret"></span></button>
                         <ul class="dropdown-menu">
                             <?php foreach ($sales as $employee): ?>
@@ -452,10 +452,10 @@
                     </div><!-- /btn-group -->
                     <input type="text" class="form-control" aria-label="...">
                 </div>
-                
+
                 <div class="input-group">
                     <div class="input-group-btn">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" 
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">Collector <span class="caret"></span></button>
                         <ul class="dropdown-menu">
                             <?php foreach ($collectors as $employee): ?>
