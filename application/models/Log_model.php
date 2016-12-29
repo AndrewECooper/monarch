@@ -25,21 +25,28 @@ class Log_model extends CI_Model {
      *
      * @return array|null
      */
-    function get_logs()
+    function get_logs($filter = null)
     {
         $results = NULL;
-        
+
         $sql = "
-        SELECT u.first_name as first_name, 
-            u.last_name as last_name, 
-            u.username as username, 
-            l.code as code, 
-            l.short_description as short_description, 
-            l.description as description, 
-            l.created as created 
+        SELECT u.first_name as first_name,
+            u.last_name as last_name,
+            u.username as username,
+            l.code as code,
+            l.short_description as short_description,
+            l.description as description,
+            l.created as created
         FROM " .$this->_db . " as l
-        inner join users as u on u.id = l.user_id
-        order by l.created desc
+        inner join users as u on u.id = l.user_id ";
+
+        if (!is_null($filter)) {
+            if ($filter["filter_type"] != "none") {
+                $sql .= "where " . $filter["filter_type"] . " = " . $this->db->escape($filter["filter_text"]);
+            }
+        }
+
+        $sql .= " order by l.created desc
         limit 100";
 
         $query = $this->db->query($sql);
@@ -56,7 +63,7 @@ class Log_model extends CI_Model {
 
     /**
      * Creates a log entry.
-     * 
+     *
      * @param integer $user_id
      * @param integer $code
      * @param string $short_desc
@@ -70,13 +77,13 @@ class Log_model extends CI_Model {
         $sql .= $code . ", ";
         $sql .= "'" . $short_desc . "', ";
         $sql .= "'" . $desc . "')";
-        
+
         $this->db->query($sql);
 
         if ($this->db->affected_rows() > 0) {
             return TRUE;
         }
-        
+
         return FALSE;
     }
 

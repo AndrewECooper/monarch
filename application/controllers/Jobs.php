@@ -5,6 +5,7 @@ class Jobs extends MY_Controller {
     const DEACTIVATE_JOB = "2002";
     const CREATED_NEW_JOB = "2003";
     const EDITED_JOB = "2004";
+    const CLONED_JOB = "2005";
 
     /**
      * Constructor
@@ -225,6 +226,12 @@ class Jobs extends MY_Controller {
         }
 
         if ($this->jobs_model->clone_job($job)) {
+            $this->log_model->create(
+                $this->user["id"],
+                self::CLONED_JOB,
+                "Cloned Job.",
+                $this->user["username"] . " Cloned Job " . $job["id"] . " for year " . $job["year"] . "."
+            );
             $this->job($job["id"], $job["year"]);
             return;
         }
