@@ -154,6 +154,14 @@ class Jobs_model extends CI_Model {
     function add_job($data) {
         $result = array();
 
+        echo json_encode($data);
+        die;
+
+        $job = $this->get_job($data["id"], $data["year"]);
+        if (!empty($job)) {
+            return $results;
+        }
+
         $sql = "insert into " . $this->jobs_table . " ("
             . "name, type, contact_first_name, contact_last_name, contact_email, "
             . "physical_address, physical_address_city, physical_address_state, physical_address_zip, "
@@ -195,6 +203,38 @@ class Jobs_model extends CI_Model {
         }
 
         return $result;
+    }
+
+    function job_exists($job_id, $year) {
+        $sql = "select job_id, year
+            from luckygunner.years
+            where job_id = " . $job_id . " and year = " . $year;
+
+        $query = $this->db->query($sql);
+
+        if ($query->num_rows() > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    function clone_job($data) {
+        $sql = "insert into " . $this->years_table . " ("
+                . "year, job_id, status, start_date, end_date) "
+                . "values ("
+                . "'" . $data["year"] . "', "
+                . $data["id"] . ", "
+                . "'inactive', "
+                . "null, "
+                . "null)";
+
+        $this->db->query($sql);
+
+        if ($id = $this->db->insert_id()) {
+            return $data;
+        }
+        return false;
     }
 
     function get_job_notes($id) {

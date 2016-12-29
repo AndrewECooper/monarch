@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 <div class="container">
-    
+
     <!-- Active Jobs -->
     <div class="row">
         <div class="col-md-12" style="padding-left: 0px">
@@ -85,7 +85,9 @@
                                         </a>
                                     </td>
                                     <td>
-                                        Clone
+                                        <a href="<?php echo base_url('/jobs/clone/' . $job["id"] . '/' . $job["year"]); ?>">
+                                            Clone
+                                        </a>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
@@ -96,7 +98,7 @@
             </div>
         </div>
     </div>
-    
+
     <?php if (has_perm("view_all_jobs", $user)): ?>
     <!-- Inactive Jobs -->
     <div class="row">
@@ -180,7 +182,9 @@
                                         </a>
                                     </td>
                                     <td>
-                                        Clone
+                                        <a href="<?php echo base_url('/jobs/clone/' . $job["id"] . '/' . $job["year"]); ?>">
+                                            Clone
+                                        </a>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
@@ -193,4 +197,3 @@
     </div>
     <?php endif; ?>
 </div>
-

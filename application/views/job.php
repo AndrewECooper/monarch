@@ -22,9 +22,10 @@
                         <?php endif; ?>
 
                         <?php if (has_perm("clone_jobs", $user)): ?>
-                        <button class="btn btn-info btn-sm pull-right" style="margin-right: 5px">
+                        <a class="btn btn-info btn-sm pull-right" style="margin-right: 5px"
+                            href="<?php echo base_url('/jobs/clone/' . $job["id"] . '/' . $job["year"]); ?>">
                             Clone
-                        </button>
+                        </a>
                         <?php endif; ?>
 
                         <?php if (has_perm("start_end_jobs", $user)): ?>

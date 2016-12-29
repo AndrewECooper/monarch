@@ -63,6 +63,7 @@ $route["logs"] = "logs";
 $route["jobs"] = "jobs";
 $route["jobs/add"] = "jobs/add";
 $route["jobs/(:num)/(:num)"] = "jobs/job/$1/$2";
+$route["jobs/clone/(:num)/(:num)"] = "jobs/clone/$1/$2";
 $route["jobs/(:num)/(:num)/deactivate"] = "jobs/deactivate/$1/$2";
 $route["jobs/(:num)/(:num)/activate"] = "jobs/activate/$1/$2";
 $route["jobs/(:num)/(:num)/leads"] = "jobs/leads/$1/$2";

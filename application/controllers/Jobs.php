@@ -160,23 +160,25 @@ class Jobs extends MY_Controller {
         return $data;
     }
 
-    function add() {
-        $data = array(
-            "name" => "",
-            "type" => "",
-            "contact_last_name" => "",
-            "contact_first_name" => "",
-            "contact_email" => "",
-            "physical_address" => "",
-            "physical_address_city" => "",
-            "physical_address_state" => "",
-            "physical_address_zip" => "",
-            "mailing_address" => "",
-            "mailing_address_city" => "",
-            "mailing_address_state" => "",
-            "mailing_address_zip" => "",
-            "year" => date("Y")
-        );
+    function add($data = null) {
+        if (is_null($data)) {
+            $data = array(
+                "name" => "",
+                "type" => "",
+                "contact_last_name" => "",
+                "contact_first_name" => "",
+                "contact_email" => "",
+                "physical_address" => "",
+                "physical_address_city" => "",
+                "physical_address_state" => "",
+                "physical_address_zip" => "",
+                "mailing_address" => "",
+                "mailing_address_city" => "",
+                "mailing_address_state" => "",
+                "mailing_address_zip" => "",
+                "year" => date("Y")
+            );
+        }
 
         $job = $this->jobs_model->add_job($data);
 
@@ -212,4 +214,22 @@ class Jobs extends MY_Controller {
         $this->job($job_num, $year);
     }
 
+    function clone($job_id, $year) {
+        $job = $this->jobs_model->get_job($job_id, $year);
+        $job["year"] = intval($job["year"]) + 1;
+
+        if ($this->jobs_model->job_exists($job["id"], $job["year"])) {
+            $this->session->set_flashdata("error", "Job already exists for year " . $job["year"]);
+            $this->index();
+            return;
+        }
+
+        if ($this->jobs_model->clone_job($job)) {
+            $this->job($job["id"], $job["year"]);
+            return;
+        }
+
+        $this->session->set_flashdata("error", "There was a problem creating job " . $job["name"] . " for year " . $job["year"]);
+        $this->index();
+    }
 }
