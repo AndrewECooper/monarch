@@ -66,6 +66,45 @@ class Ajax extends Public_Controller {
         $this->output(array("success" => "false", "message" => "Problem changing the status."));
     }
 
+    public function edit_lead_sales() {
+        $this->load->model("leads_model");
+
+        if ($this->leads_model->edit_sales($this->data["id"], $this->data["sales"], $this->data["collector"])) {
+            $this->load->model("users_model");
+            $sales = $this->users_model->get_user($this->data["sales"]);
+            $collector = $this->users_model->get_user($this->data["collector"]);
+            $this->output(array(
+                "success" => "true",
+                "message" => "Updated Sales and Collector.",
+                "data" => array(
+                    "sales" => $sales,
+                    "collector" => $collector
+                )
+            ));
+        }
+
+        $this->output(array("success" => "false", "message" => "Problem changing the sales and collector."));
+    }
+
+    public function add_job_note() {
+        $this->load->model("jobs_model");
+
+        $insert_id = $this->jobs_model->add_note($this->data["id"], $this->data["message"]);
+
+        if ($insert_id > 0) {
+            $notes = $this->jobs_model->get_job_notes($this->data["id"]);
+            $this->output(array(
+                "success" => "true",
+                "message" => "Note added.",
+                "data" => array(
+                    "notes" => $notes
+                )
+            ));
+        }
+
+        $this->output(array("success" => "false", "message" => "Problem adding Note."));
+    }
+
     private function output($array) {
         echo json_encode($array);
         die;

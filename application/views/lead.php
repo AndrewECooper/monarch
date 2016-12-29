@@ -20,7 +20,7 @@
                     <?php echo $lead["status"]; ?>
                 </button>
 
-                <button data-toggle="modal" data-target="#lead-employees" class="btn btn-info btn-xs pull-right" style="margin-right: 5px">
+                <button type="button" class="btn btn-info btn-xs pull-right" id="btn-sales" style="margin-right: 5px">
                     <?php echo $lead["salesman"]; ?> / <?php echo $lead["collector"]; ?>
                 </button>
                 <div class="clearfix"></div>
@@ -261,7 +261,7 @@
                                     </div>
                                 </div>
 
-                                <table class="table table-condensed">
+                                <table class="table table-condensed" id="notes-table">
                                     <?php foreach ($lead["notes"] as $note): ?>
                                     <tr>
                                         <th class="info">
@@ -417,44 +417,20 @@
     </div>
 </div>
 
-<!-- <div class="modal fade" id="lead-employees" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Modal title</h4>
-            </div>
-            <div class="modal-body">
-                <div class="input-group" style="margin-bottom: 10px">
-                    <div class="input-group-btn">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">Sales <span class="caret"></span></button>
-                        <ul class="dropdown-menu">
-                            <?php foreach ($sales as $employee): ?>
-                            <li><a href="#"><?php echo $employee["last_name"] . ", " . $employee["first_name"]; ?></a></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
-                    <input type="text" class="form-control" aria-label="...">
-                </div>
+<div id="dialog-sales" title="Edit Sales / Collector">
+    <select id="options-sales" class="form-control" style="margin-bottom: 10px">
+        <?php foreach ($sales as $employee): ?>
+        <option value="<?php echo $employee["id"]; ?>" <?php echo $employee["id"] == $lead["sales_id"] ? "selected" : "" ?>>
+            <?php echo $employee["last_name"] . ", " . $employee["first_name"]; ?>
+        </option>
+        <?php endforeach; ?>
+    </select>
 
-                <div class="input-group">
-                    <div class="input-group-btn">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">Collector <span class="caret"></span></button>
-                        <ul class="dropdown-menu">
-                            <?php foreach ($collectors as $employee): ?>
-                            <li><a href="#"><?php echo $employee["last_name"] . ", " . $employee["first_name"]; ?></a></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
-                    <input type="text" class="form-control" aria-label="...">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div> -->
+    <select id="options-collector" class="form-control" style="margin-bottom: 10px">
+        <?php foreach ($collectors as $employee): ?>
+        <option value="<?php echo $employee["id"]; ?>" <?php echo $employee["id"] == $lead["collector_id"] ? "selected" : "" ?>>
+            <?php echo $employee["last_name"] . ", " . $employee["first_name"]; ?>
+        </option>
+        <?php endforeach; ?>
+    </select>
+</div>

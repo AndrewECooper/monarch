@@ -8,6 +8,7 @@ class Leads_model extends CI_Model {
     private $leads_table = "leads";
     private $years_table = "years";
     private $lead_notes_table = "lead_notes";
+    private $users_table = "users";
 
 
     /**
@@ -165,6 +166,21 @@ class Leads_model extends CI_Model {
     function edit_status($id, $status) {
         $sql = "update " . $this->leads_table . " set "
             . "status = " . $this->db->escape($status) . " "
+            . "where id = " . $id;
+
+        $this->db->query($sql);
+
+        if ($this->db->affected_rows()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    function edit_sales($id, $sales, $collector) {
+        $sql = "update " . $this->leads_table . " set "
+            . "sales_id = " . $this->db->escape($sales) . ", "
+            . "collector_id = " . $this->db->escape($collector) . " "
             . "where id = " . $id;
 
         $this->db->query($sql);

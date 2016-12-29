@@ -78,3 +78,5 @@ $route["users/(:num)"] = "user/user/$1";
 $route["api/lead/note/add"] = "ajax/add_lead_note";
 $route["api/lead/stage/edit"] = "ajax/edit_lead_stage";
 $route["api/lead/status/edit"] = "ajax/edit_lead_status";
+$route["api/lead/sales/edit"] = "ajax/edit_lead_sales";
+$route["api/job/note/add"] = "ajax/add_job_note";
