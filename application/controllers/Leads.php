@@ -63,17 +63,44 @@ class Leads extends MY_Controller {
 
         $lead = $this->leads_model->get_lead($lead_num);
         $salesman = $this->users_model->get_user($lead["sales_id"]);
-        $sales = $this->users_model->get_sales();
-        $collectors = $this->users_model->get_collectors();
         $collector = $this->users_model->get_user($lead["collector_id"]);
 
         $lead["salesman"] = $salesman["first_name"] . " " . $salesman["last_name"];
         $lead["collector"] = $collector["first_name"] . " " . $collector["last_name"];
-        $lead["notes"] = $this->leads_model->get_notes($lead_num);
 
         $data["lead"] = $lead;
-        $data["sales"] = $sales;
-        $data["collectors"] = $collectors;
+
+        // General info widget.
+        $data["general_info"] = $this->load->view("widgets/leads/general_info", $data, true);
+
+        // Address info widget.
+        $data["addresses"] = $this->load->view("widgets/leads/addresses", $data, true);
+
+        // Artwork widget.
+        $data["artwork"] = $this->load->view("widgets/leads/artwork", $data, true);
+
+        // Notes widget.
+        $notes_data["notes"] =  $this->leads_model->get_notes($lead_num);
+        $data["notes"] = $this->load->view("widgets/leads/notes", $notes_data, true);
+
+        // Edit Status Dialog.
+        $data["edit_status_dialog"] = $this->load->view("widgets/leads/edit_status_dialog", $data, true);
+
+        // Edit Stage Dialog.
+        $data["edit_stage_dialog"] = $this->load->view("widgets/leads/edit_stage_dialog", $data, true);
+
+        // Edit Sales and Collector Dialog.
+        $sales_collector_data["sales"] = $this->users_model->get_sales();
+        $sales_collector_data["collectors"] = $this->users_model->get_collectors();
+        $data["edit_sales_collector_dialog"] = $this->load->view(
+            "widgets/leads/edit_sales_collector_dialog",
+            $sales_collector_data,
+            true
+        );
+
+        // Lead Heading widget.
+        $data["lead_heading"] = $this->load->view("widgets/leads/lead_heading", $data, true);
+
         $data["lead_num"] = $lead_num;
         $data["menu_artwork"] = "/leads/" . $lead_num . "/artwork";
         $data['content'] = $this->load->view('lead', $data, TRUE);
