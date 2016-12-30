@@ -76,7 +76,6 @@ class Leads extends MY_Controller {
         $data["collectors"] = $collectors;
         $data["lead_num"] = $lead_num;
         $data["menu_artwork"] = "/leads/" . $lead_num . "/artwork";
-        $data["search_form"] = $this->load->view("widgets/search", $data, true);
         $data['content'] = $this->load->view('lead', $data, TRUE);
 
         $this->load->view($this->template, $data);

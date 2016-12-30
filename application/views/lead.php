@@ -182,18 +182,18 @@
 
                                 <div class="row">
                                     <!-- Artwork -->
-                                    <div class="col-md-12 panel panel-default">
+                                    <div class="col-md-12 panel panel-primary">
                                         <div class="panel-body">
                                             <div class="container-fluid">
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <h4 class="pull-left">Artwork</h4>
-                                                        <button class="btn btn-primary btn-xs pull-right">Upload Artwork</button>
+                                                        <button class="btn btn-info pull-right">Upload Artwork</button>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-2">
-                                                        <div class="panel panel-default">
+                                                        <div class="panel panel-primary">
                                                             <div class="panel-heading">
                                                                 2016
                                                             </div>
@@ -205,7 +205,7 @@
                                                     </div>
 
                                                     <div class="col-md-2">
-                                                        <div class="panel panel-default">
+                                                        <div class="panel panel-primary">
                                                             <div class="panel-heading">
                                                                 2015
                                                             </div>
@@ -217,7 +217,7 @@
                                                     </div>
 
                                                     <div class="col-md-2">
-                                                        <div class="panel panel-default">
+                                                        <div class="panel panel-primary">
                                                             <div class="panel-heading">
                                                                 2014
                                                             </div>
@@ -229,7 +229,7 @@
                                                     </div>
 
                                                     <div class="col-md-2">
-                                                        <div class="panel panel-default">
+                                                        <div class="panel panel-primary">
                                                             <div class="panel-heading">
                                                                 2013
                                                             </div>

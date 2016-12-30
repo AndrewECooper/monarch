@@ -31,7 +31,6 @@ class Logs extends MY_Controller {
         $data["logs"] = $this->log_model->get_logs($filter_data);
         $data["filter_data"] = $filter_data;
         $data["user"] = $this->user;
-        $data["search_form"] = $this->load->view("widgets/search", $data, true);
         $data['content'] = $this->load->view('logs', $data, TRUE);
 
         $this->load->view($this->template, $data);

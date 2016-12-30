@@ -60,7 +60,7 @@
                         <?php endif; ?>
                     <?php endif; ?>
                 </ul>
-                
+
                 <!-- Navbar right -->
                 <ul class="nav navbar-nav navbar-right">
                     <?php if ($this->session->userdata('logged_in')) : ?>
@@ -69,13 +69,13 @@
                             <a href="<?php echo base_url('/users/' . $user["id"]); ?>"><?php echo lang('core button account'); ?></a>
                         </li>
                         <?php endif; ?>
-                        
+
                         <?php if (in_array("add_users", $user["permissions"])): ?>
                         <li>
                             <a href="<?php echo base_url('/users'); ?>"><?php echo lang('core button employees'); ?></a>
                         </li>
                         <?php endif; ?>
-                    
+
                     <li>
                         <a href="/logout"><?php echo lang('core button logout'); ?></a>
                     </li>
@@ -85,12 +85,6 @@
                     </li>
                     <?php endif; ?>
                 </ul>
-                
-                <?php 
-                if (isset($search_form)) {
-                    echo $search_form;
-                };
-                ?>
             </div>
         </div>
     </nav>

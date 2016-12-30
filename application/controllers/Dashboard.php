@@ -10,7 +10,8 @@ class Dashboard extends MY_Controller {
 
         // load the users model
         $this->load->model('users_model');
-        
+        $this->load->model("jobs_model");
+
         // load the language files
         $this->lang->load('dashboard');
     }
@@ -23,16 +24,21 @@ class Dashboard extends MY_Controller {
         // setup page header data
         $this->add_js_theme( "dashboard_i18n.js", TRUE )
             ->set_title( lang('admin dashboard title') );
-		
+
         $data = $this->includes;
-        
-        // load views
         $data["user"] = $this->user;
-        $data["search_form"] = $this->load->view("widgets/search", $data, true);
+
+        if (in_array("view_all_jobs", $this->user["permissions"])) {
+            $data["jobs"] = $this->jobs_model->get_jobs_summary();
+        } else {
+            $data["jobs"] = $this->jobs_model->get_jobs_summary($this->user["id"]);
+        }
+
+        $data["row_count"] = 0;
         $data['content'] = $this->load->view('dashboard', $data, TRUE);
-        
+
         $this->load->view($this->template, $data);
-        
+
     }
 
 }

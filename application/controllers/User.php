@@ -5,7 +5,7 @@ class User extends MY_Controller {
     const FAILED_LOGIN = 1002;
     const CREATED_NEW_USER = 1003;
     const EDITED_USER = 1004;
-    
+
     /**
      * Constructor
      */
@@ -32,12 +32,11 @@ class User extends MY_Controller {
     function index() {
         $this->set_title( lang('admin dashboard title') );
         $data = $this->includes;
-        
+
         $data["user"] = $this->user;
         $data["employees"] = $this->users_model->get_all()["results"];
-        $data["search_form"] = $this->load->view("widgets/search", $data, true);
         $data['content'] = $this->load->view('employees', $data, TRUE);
-        
+
         $this->load->view($this->template, $data);
     }
 
@@ -107,14 +106,14 @@ class User extends MY_Controller {
         $this->session->sess_destroy();
         redirect('login');
     }
-    
+
     function user($id = null, $add_new = false) {
         $this->load->helper(array("form", "url"));
         $this->set_title( lang('admin dashboard title') );
         $data = $this->includes;
         $data["add_new"] = $add_new;
         $post_data = array();
-        
+
         if (is_null($id)) {
             $data["employee"] = array(
                 "username" => "",
@@ -129,10 +128,10 @@ class User extends MY_Controller {
             $data["employee"] = $this->users_model->get_user($id);
         }
         $data["user"] = $this->user;
-        
+
         if ($this->input->server("REQUEST_METHOD") == "POST") {
             $this->load->library("form_validation");
-            
+
             if (is_null($id)) {
                 $this->form_validation->set_rules("username", "Username", "required|callback__check_username");
             }
@@ -141,14 +140,14 @@ class User extends MY_Controller {
             $this->form_validation->set_rules("email", "Email", "required");
             $this->form_validation->set_rules("password", "Password", "matches_if_exists[password_confirm]");
             $this->form_validation->set_rules("password_confirm", "Confirm Password", "matches_if_exists[password]");
-            
+
             if ($this->form_validation->run() == true) {
                 $post_data = $this->set_post_data($this->input->post(), in_array("edit_users", $data["user"]["permissions"]));
                 if (is_null($id)) {
                     $id = $this->users_model->add_user($post_data);
                     $this->log_model->create(
-                        $data["user"]["id"], 
-                        self::CREATED_NEW_USER, 
+                        $data["user"]["id"],
+                        self::CREATED_NEW_USER,
                         $data["user"]["username"] . " created new user, " . $id,
                         json_encode($post_data)
                     );
@@ -157,8 +156,8 @@ class User extends MY_Controller {
                 } else {
                     $this->users_model->edit_user($id, $post_data);
                     $this->log_model->create(
-                        $data["user"]["id"], 
-                        self::EDITED_USER, 
+                        $data["user"]["id"],
+                        self::EDITED_USER,
                         $data["user"]["username"] . " edited user, " . $id,
                         json_encode($post_data)
                     );
@@ -169,23 +168,22 @@ class User extends MY_Controller {
                 $data["employee"] = $post_data;
             }
         }
-        
+
         $data["bob"] = json_encode($post_data);
-        $data["search_form"] = $this->load->view("widgets/search", $data, true);
         $data['content'] = $this->load->view('account', $data, TRUE);
-        
+
         $this->load->view($this->template, $data);
     }
-    
+
     function add() {
         $this->user(null, true);
     }
-    
+
     function delete($id) {
         $this->users_model->delete_user($id);
         $this->log_model->create(
-            $this->user["id"], 
-            self::EDITED_USER, 
+            $this->user["id"],
+            self::EDITED_USER,
             "Deleted user.",
             $this->user["username"] . " deleted user, " . $id
         );
@@ -195,7 +193,7 @@ class User extends MY_Controller {
     function set_post_data($data, $edit_perms = false, $perms_as_string = true) {
         unset($data["submit"]);
         unset($data["password_confirm"]);
-        
+
         if ($edit_perms) {
             $perms_array = array("edit_self");
 
@@ -215,7 +213,7 @@ class User extends MY_Controller {
         }
         return $data;
     }
-    
+
     /**
      * Registration Form
      */
@@ -398,22 +396,22 @@ class User extends MY_Controller {
 
         if ($login) {
             $this->log_model->create(
-                $this->users_model->username_exists($username), 
-                self::SUCCESSFUL_LOGIN, 
-                "Successful login.", 
+                $this->users_model->username_exists($username),
+                self::SUCCESSFUL_LOGIN,
+                "Successful login.",
                 "User, $username, successfully logged in."
             );
             $this->session->set_userdata('logged_in', $login);
             return TRUE;
         }
-        
+
         $this->log_model->create(
-            -1, 
-            self::FAILED_LOGIN, 
-            "Failed login.", 
+            -1,
+            self::FAILED_LOGIN,
+            "Failed login.",
             "User, $username, failed to log in."
         );
-        
+
         $this->session->set_flashdata('error', "User failed to log on. Invaild username or password.");
         return FALSE;
     }

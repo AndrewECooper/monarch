@@ -40,7 +40,6 @@ class Jobs extends MY_Controller {
 
         // load views
         $data["user"] = $this->user;
-        $data["search_form"] = $this->load->view("widgets/search", $data, true);
         $data['content'] = $this->load->view('jobs', $data, TRUE);
 
         $this->load->view($this->template, $data);
@@ -62,7 +61,6 @@ class Jobs extends MY_Controller {
         $data["user"] = $this->user;
         $data["job_name"] = $job["name"];
         $data["leads"] = $leads;
-        $data["search_form"] = $this->load->view("widgets/search", $data, true);
         $data['content'] = $this->load->view('leads', $data, TRUE);
 
         $this->load->view($this->template, $data);
@@ -139,7 +137,6 @@ class Jobs extends MY_Controller {
         }
 
         $data["post_data"] = $post_data;
-        $data["search_form"] = $this->load->view("widgets/search", $data, true);
         $data['content'] = $this->load->view('job', $data, TRUE);
 
         $this->load->view($this->template, $data);
