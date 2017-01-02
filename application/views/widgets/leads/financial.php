@@ -7,9 +7,12 @@
                     <div class="form-group col-md-6">
                         <label class="control-label">Sale Amount</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" value="<?php echo $lead["sale_amount"]; ?>">
+                            <input type="text" class="form-control" id="sale-amount"
+                                value="<?php echo number_format($lead["sale_amount"], 2, ".", ","); ?>">
                             <span class="input-group-btn">
-                                <button class="btn btn-info" type="button">Change</button>
+                                <button class="btn btn-info" type="button" id="btn-change-sale-amount">
+                                    Change
+                                </button>
                             </span>
                         </div>
                     </div>
@@ -31,7 +34,7 @@
                                 </option>
                             </select>
                             <span class="input-group-btn">
-                                <button class="btn btn-info" type="button">Change</button>
+                                <button class="btn btn-info" type="button" id="btn-change-ad-type">Change</button>
                             </span>
                         </div>
                     </div>
@@ -59,7 +62,7 @@
                             <?php endforeach; ?>
                             </tbody>
                         </table>
-                        <button class="btn btn-info">New Transaction</button>
+                        <button class="btn btn-info" id="btn-new-transaction">New Transaction</button>
                     </div>
                 </div>
             </div>
@@ -86,7 +89,7 @@
                     <?php endforeach; ?>
                 </tbody>
             </table>
-            <button class="btn btn-info">Create Invoice</button>
+            <button class="btn btn-info" id="btn-create-invoice">Create Invoice</button>
         </div>
     </div>
 </div>

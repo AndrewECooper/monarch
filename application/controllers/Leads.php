@@ -29,7 +29,10 @@ class Leads extends MY_Controller {
         $this->add_js_theme( "dashboard_i18n.js", TRUE )
             ->set_title( lang('admin dashboard title') );
 
-        $this->add_external_js(array("/js/lead_view.js"));
+        $this->add_external_js(array(
+            "/js/lead_view.js",
+            "/js/numeral.min.js"
+        ));
 
         $data = $this->includes;
         $data["user"] = $this->user;

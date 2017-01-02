@@ -120,6 +120,44 @@ class Leads_model extends CI_Model {
         return false;
     }
 
+    function update_sales_amount($lead_id, $amount) {
+        $sql = "update " . $this->leads_table
+            . " set sale_amount = " . $amount
+            . " where id = " . $lead_id;
+
+        $this->db->query($sql);
+
+        if ($this->db->affected_rows()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    function sales_amount($lead_id) {
+        $sql = "select sale_amount from " . $this->leads_table
+            . " where id = " . $lead_id;
+
+        $query = $this->db->query($sql);
+        $amount = $query->result_array()[0]["sale_amount"];
+
+        return $amount;
+    }
+
+    function update_ad_type($lead_id, $type) {
+        $sql = "update " . $this->leads_table
+            . " set ad_type = '" . $type . "'"
+            . " where id = " . $lead_id;
+
+        $this->db->query($sql);
+
+        if ($this->db->affected_rows()) {
+            return true;
+        }
+
+        return false;
+    }
+
     function add_lead($job_id, $year) {
         $sql = "select id from " . $this->years_table
                 . " where job_id = " . $job_id . " and year = '" . $year . "'";

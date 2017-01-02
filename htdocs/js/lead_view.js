@@ -36,11 +36,66 @@ $(document).ready(function() {
     $("#btn-stage").click(openStage);
     $("#btn-status").click(openStatus);
     $("#btn-sales").click(openSales);
+    $("#btn-change-sale-amount").click(updateSaleAmount);
+    $("#btn-change-ad-type").click(updateAdType);
+    $("#btn-new-transaction").click(openNewTransaction);
+    $("#btn-create-invoice").click(openNewInvoice);
 });
+
+function updateSaleAmount() {
+    var id = $("input[name='lead-id']").val();
+    var amount = $("#sale-amount").val();
+
+    if ($.isNumeric(amount)) {
+        $.ajax({
+            url: "/api/lead/sales/amount/edit",
+            data: {
+                id: id,
+                amount: amount
+            }
+        }).done(function(data) {
+            // alert(data);
+        });
+    } else {
+        alert("Sale Amount must be numeric value.");
+        $.ajax({
+            url: "/api/lead/sales/amount",
+            data: {
+                id: id
+            }
+        }).done(function(data) {
+            var response = $.parseJSON(data);
+            $("#sale-amount").val(numeral(response.data.amount).format("0,0.00"));
+        });
+    }
+}
+
+function updateAdType() {
+    var id = $("input[name='lead-id']").val();
+    var adType = $("#select-ad-type").val();
+
+    $.ajax({
+        url: "/api/lead/ad/type/edit",
+        data: {
+            id: id,
+            type: adType
+        }
+    }).done(function(data) {
+        // alert(data);
+    });
+}
+
+function openNewTransaction() {
+    alert("Creating new transaction!");
+}
+
+function openNewInvoice() {
+    alert("Creating new invoice!");
+}
 
 function addNote() {
     var id = $("input[name='lead-id']").val();
-    var message = $("#job-new-note").val();
+    var message = $("#lead-new-note").val();
 
     if (message.length < 1) {
         alert("Note must not be blank.");
@@ -54,7 +109,24 @@ function addNote() {
             message: message
         }
     }).done(function(data) {
-        // alert(data);
+        data = $.parseJSON(data);
+        $("#lead-new-note").val("");
+        reloadNotes(data.data.notes);
+    });
+}
+
+function reloadNotes($notesArray) {
+    table = $("#notes-table");
+
+    table.empty();
+
+    $notesArray.forEach(function(note) {
+        html = "<tr><th class='info'>"
+            + note.created
+            + "</th><tr><td>"
+            + note.message
+            + "</td></tr>";
+        table.append(html);
     });
 }
 

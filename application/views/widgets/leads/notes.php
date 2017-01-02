@@ -3,7 +3,7 @@
 <div class="form-group">
 
     <div>
-      <textarea class="form-control" rows="3" id="job-new-note"></textarea>
+      <textarea class="form-control" rows="3" id="lead-new-note"></textarea>
       <span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>
     </div>
 </div>

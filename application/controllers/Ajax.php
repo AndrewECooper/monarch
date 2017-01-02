@@ -40,7 +40,14 @@ class Ajax extends Public_Controller {
         $insert_id = $this->leads_model->add_note($this->data["id"], $this->data["message"]);
 
         if ($insert_id > 0) {
-            $this->output(array("success" => "true", "message" => "Note added."));
+            $notes = $this->leads_model->get_notes($this->data["id"]);
+            $this->output(array(
+                "success" => "true",
+                "message" => "Note added.",
+                "data" => array(
+                    "notes" => $notes
+                )
+            ));
         }
 
         $this->output(array("success" => "false", "message" => "Problem adding Note."));
@@ -103,6 +110,48 @@ class Ajax extends Public_Controller {
         }
 
         $this->output(array("success" => "false", "message" => "Problem adding Note."));
+    }
+
+    public function update_lead_sales_amount() {
+        $this->load->model("leads_model");
+
+        if ($this->leads_model->update_sales_amount($this->data["id"], $this->data["amount"])) {
+            $this->output(array(
+                "success" => "true",
+                "message" => "Updated Sales Amount."
+            ));
+        }
+
+        $this->output(array("success" => "false", "message" => "Problem updating sales amount."));
+    }
+
+    public function update_lead_ad_type() {
+        $this->load->model("leads_model");
+
+        if ($this->leads_model->update_ad_type($this->data["id"], $this->data["type"])) {
+            $this->output(array(
+                "success" => "true",
+                "message" => "Updated Ad Type."
+            ));
+        }
+
+        $this->output(array("success" => "false", "message" => "Problem updating Ad Type."));
+    }
+
+    public function get_lead_sales_amount() {
+        $this->load->model("leads_model");
+
+        $amount = $this->leads_model->sales_amount($this->data["id"]);
+
+        if ($amount) {
+            $this->output(array(
+                "success" => "true",
+                "message" => "Retrieved Sales Amount.",
+                "data" => ["amount" => $amount]
+            ));
+        }
+
+        $this->output(array("success" => "false", "message" => "Problem retrieving sales amount."));
     }
 
     private function output($array) {

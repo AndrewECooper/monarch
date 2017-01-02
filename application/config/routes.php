@@ -80,4 +80,7 @@ $route["api/lead/note/add"] = "ajax/add_lead_note";
 $route["api/lead/stage/edit"] = "ajax/edit_lead_stage";
 $route["api/lead/status/edit"] = "ajax/edit_lead_status";
 $route["api/lead/sales/edit"] = "ajax/edit_lead_sales";
+$route["api/lead/sales/amount"] = "ajax/get_lead_sales_amount";
+$route["api/lead/ad/type/edit"] = "ajax/update_lead_ad_type";
+$route["api/lead/sales/amount/edit"] = "ajax/update_lead_sales_amount";
 $route["api/job/note/add"] = "ajax/add_job_note";
