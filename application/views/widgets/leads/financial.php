@@ -78,7 +78,7 @@
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="invoice-table">
                     <?php foreach ($lead["invoices"] as $invoice): ?>
                     <tr>
                         <td><?php echo $invoice["created"]; ?></td>

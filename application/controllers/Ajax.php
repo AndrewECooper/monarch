@@ -161,6 +161,25 @@ class Ajax extends Public_Controller {
         $this->output(array("success" => "false", "message" => "Problem adding transaction."));
     }
 
+    public function add_lead_invoice() {
+        $this->load->model("leads_model");
+
+        $insert_id = $this->leads_model->add_invoice($this->data["id"]);
+
+        if ($insert_id > 0) {
+            $invoices = $this->leads_model->get_invoices($this->data["id"]);
+            $this->output(array(
+                "success" => "true",
+                "message" => "Invoice added.",
+                "data" => array(
+                    "invoices" => $invoices
+                )
+            ));
+        }
+
+        $this->output(array("success" => "false", "message" => "Problem adding invoice."));
+    }
+
     public function get_lead_sales_amount() {
         $this->load->model("leads_model");
 

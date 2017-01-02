@@ -10,6 +10,7 @@ class Leads_model extends CI_Model {
     private $lead_notes_table = "lead_notes";
     private $users_table = "users";
     private $collected_table = "collected";
+    private $invoices_table = "invoices";
 
 
     /**
@@ -77,11 +78,7 @@ class Leads_model extends CI_Model {
         $query = $this->db->query($sql);
         $results = $query->result_array()[0];
 
-        $sql = "select id, amount, invoice_number, created
-                from invoices
-                where lead_id = " . $lead_id;
-        $query = $this->db->query($sql);
-        $results["invoices"] = $query->result_array();
+        $results["invoices"] = $this->get_invoices($lead_id);
 
         $results["collected"] = $this->get_transactions($lead_id);
 
@@ -175,6 +172,38 @@ class Leads_model extends CI_Model {
     function get_transactions($lead_id) {
         $sql = "select id, amount, payment_type, check_number, created
                 from collected
+                where lead_id = " . $lead_id;
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
+    function add_invoice($lead_id) {
+        $lead = $this->get_lead($lead_id);
+        $total_collected = 0;
+
+        foreach ($lead["collected"] as $transaction) {
+            $total_collected += $transaction["amount"];
+        }
+
+        $invoice_amount = $lead["sale_amount"] - $total_collected;
+        $invoice_number = $lead_id . "-" . date("ymd") . "-" . date("hi") . "-" . date("s");
+
+        $sql = "insert into " . $this->invoices_table
+            . " (amount, invoice_number, lead_id) "
+            . "values (" . $invoice_amount . ", '" . $invoice_number . "', " . $lead_id . ")";
+
+        $this->db->query($sql);
+
+        if ($invoice_id = $this->db->insert_id()) {
+            return $invoice_id;
+        }
+
+        return false;
+    }
+
+    function get_invoices($lead_id) {
+        $sql = "select id, amount, invoice_number, created
+                from invoices
                 where lead_id = " . $lead_id;
         $query = $this->db->query($sql);
         return $query->result_array();

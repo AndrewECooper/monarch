@@ -58,7 +58,7 @@ $(document).ready(function() {
     $("#btn-change-sale-amount").click(updateSaleAmount);
     $("#btn-change-ad-type").click(updateAdType);
     $("#btn-new-transaction").click(openNewTransaction);
-    $("#btn-create-invoice").click(openNewInvoice);
+    $("#btn-create-invoice").click(createInvoice);
 });
 
 function newTransaction() {
@@ -140,8 +140,38 @@ function openNewTransaction() {
     $("#dialog-transaction").dialog("open");
 }
 
-function openNewInvoice() {
-    alert("Creating new invoice!");
+function createInvoice() {
+    var id = $("input[name='lead-id']").val();
+
+    $.ajax({
+        url: "/api/lead/invoice/new",
+        data: {
+            id: id
+        }
+    }).done(function(data) {
+        data = $.parseJSON(data);
+        $("#invoice-table").val("");
+        reloadInvoices(data.data.invoices);
+        $("#dialog-invoice").dialog("close");
+    });
+}
+
+function reloadInvoices(invoicesArray) {
+    table = $("#invoice-table");
+
+    table.empty();
+
+    invoicesArray.forEach(function(invoice) {
+        html = "<tr><td>"
+            + invoice.created
+            + "</td><td>"
+            + invoice.amount
+            + "</td><td>"
+            + invoice.invoice_number
+            + "</td><td><a href='#'>Download</a>"
+            + "</td></tr>";
+        table.append(html);
+    });
 }
 
 function addNote() {
