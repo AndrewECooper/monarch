@@ -79,6 +79,9 @@ class Leads extends MY_Controller {
         // Artwork widget.
         $data["artwork"] = $this->load->view("widgets/leads/artwork", $data, true);
 
+        // Financial widget.
+        $data["financial"] = $this->load->view("widgets/leads/financial", $data, true);
+
         // Notes widget.
         $notes_data["notes"] =  $this->leads_model->get_notes($lead_num);
         $data["notes"] = $this->load->view("widgets/leads/notes", $notes_data, true);

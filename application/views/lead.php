@@ -89,7 +89,7 @@
                         <div class="container-fluid" style="margin-top: 10px">
                             <div class="col-md-12 panel panel-primary">
                                 <div class="panel-body">
-                                    <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
+                                    <?php echo $financial; ?>
                                 </div>
                             </div>
                         </div>

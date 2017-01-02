@@ -45,6 +45,8 @@ class Leads_model extends CI_Model {
     }
 
     function get_lead($lead_id) {
+        $results = array();
+
         $sql = "
             select l.id as id,
                 l.company_name as company_name,
@@ -65,17 +67,26 @@ class Leads_model extends CI_Model {
                 l.mailing_address_state as mailing_address_state,
                 l.mailing_address_zip as mailing_address_zip,
                 l.primary_phone as primary_phone,
-                l.alternate_phone as alternate_phone
+                l.alternate_phone as alternate_phone,
+                l.sale_amount as sale_amount,
+                l.ad_type as ad_type
             from leads as l
             where l.id = " . $lead_id;
 
         $query = $this->db->query($sql);
+        $results = $query->result_array()[0];
 
-        if ($query->num_rows() > 0) {
-            $results = $query->result_array()[0];
-        } else {
-            $results = array();
-        }
+        $sql = "select id, amount, invoice_number, created
+                from invoices
+                where lead_id = " . $lead_id;
+        $query = $this->db->query($sql);
+        $results["invoices"] = $query->result_array();
+
+        $sql = "select id, amount, payment_type, check_number, created
+                from collected
+                where lead_id = " . $lead_id;
+        $query = $this->db->query($sql);
+        $results["collected"] = $query->result_array();
 
         return $results;
     }
