@@ -51,7 +51,7 @@
                                     <th>Check #</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="transaction-table">
                                 <?php foreach ($lead["collected"] as $transaction): ?>
                                 <tr>
                                     <td><?php echo $transaction["created"]; ?></td>
@@ -93,3 +93,5 @@
         </div>
     </div>
 </div>
+
+<?php echo $new_transaction_dialog; ?>

@@ -138,6 +138,29 @@ class Ajax extends Public_Controller {
         $this->output(array("success" => "false", "message" => "Problem updating Ad Type."));
     }
 
+    public function add_lead_transaction() {
+        $this->load->model("leads_model");
+
+        $insert_id = $this->leads_model->add_transaction($this->data["id"],
+            $this->data["amount"],
+            $this->data["payment_type"],
+            $this->data["check_number"]
+        );
+
+        if ($insert_id > 0) {
+            $transactions = $this->leads_model->get_transactions($this->data["id"]);
+            $this->output(array(
+                "success" => "true",
+                "message" => "Transaction added.",
+                "data" => array(
+                    "transactions" => $transactions
+                )
+            ));
+        }
+
+        $this->output(array("success" => "false", "message" => "Problem adding transaction."));
+    }
+
     public function get_lead_sales_amount() {
         $this->load->model("leads_model");
 

@@ -9,6 +9,7 @@ class Leads_model extends CI_Model {
     private $years_table = "years";
     private $lead_notes_table = "lead_notes";
     private $users_table = "users";
+    private $collected_table = "collected";
 
 
     /**
@@ -82,11 +83,7 @@ class Leads_model extends CI_Model {
         $query = $this->db->query($sql);
         $results["invoices"] = $query->result_array();
 
-        $sql = "select id, amount, payment_type, check_number, created
-                from collected
-                where lead_id = " . $lead_id;
-        $query = $this->db->query($sql);
-        $results["collected"] = $query->result_array();
+        $results["collected"] = $this->get_transactions($lead_id);
 
         return $results;
     }
@@ -156,6 +153,31 @@ class Leads_model extends CI_Model {
         }
 
         return false;
+    }
+
+    function add_transaction($lead_id, $amount, $payment_type, $check_number) {
+        $sql = "insert into " . $this->collected_table
+            . " (lead_id, amount, payment_type, check_number) "
+            . "values (" . $lead_id . ", "
+            . $amount . ", "
+            . "'" . $payment_type ."', "
+            . "'" . $check_number ."')";
+
+        $this->db->query($sql);
+
+        if ($transaction_id = $this->db->insert_id()) {
+            return $transaction_id;
+        }
+
+        return 0;
+    }
+
+    function get_transactions($lead_id) {
+        $sql = "select id, amount, payment_type, check_number, created
+                from collected
+                where lead_id = " . $lead_id;
+        $query = $this->db->query($sql);
+        return $query->result_array();
     }
 
     function add_lead($job_id, $year) {

@@ -4,6 +4,8 @@ $(document).ready(function() {
         autoOpen: false,
         modal: true,
         resizable: false,
+        show: { effect: "fade", duration: 500 },
+        hide: { effect: "fade", duration: 500 },
         buttons: {
            Cancel: function() {$(this).dialog("close");},
            Save: editStage
@@ -15,6 +17,8 @@ $(document).ready(function() {
         autoOpen: false,
         modal: true,
         resizable: false,
+        show: { effect: "fade", duration: 500 },
+        hide: { effect: "fade", duration: 500 },
         buttons: {
            Cancel: function() {$(this).dialog("close");},
            Save: editStatus
@@ -26,9 +30,24 @@ $(document).ready(function() {
         autoOpen: false,
         modal: true,
         resizable: false,
+        show: { effect: "fade", duration: 500 },
+        hide: { effect: "fade", duration: 500 },
         buttons: {
            Cancel: function() {$(this).dialog("close");},
            Save: editSales
+        }
+    });
+
+    $( "#dialog-transaction" ).dialog({
+        dialogClass: "no-close",
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        show: { effect: "fade", duration: 500 },
+        hide: { effect: "fade", duration: 500 },
+        buttons: {
+           Cancel: function() {$(this).dialog("close");},
+           Save: newTransaction
         }
     });
 
@@ -41,6 +60,38 @@ $(document).ready(function() {
     $("#btn-new-transaction").click(openNewTransaction);
     $("#btn-create-invoice").click(openNewInvoice);
 });
+
+function newTransaction() {
+    var id = $("input[name='lead-id']").val();
+    var amount = $("#transaction-amount").val();
+    var checkNumber = $("#transaction-check-number").val();
+    var paymentType = $("#transaction-payment-type").val();
+
+    if (amount == "" || !$.isNumeric(amount)) {
+        alert("Amount must be a numeric value.");
+        return;
+    }
+
+    if (paymentType == "check" && (checkNumber == "" || !$.isNumeric(checkNumber))) {
+        alert("If Payment Type is Check then a check number must be entered. Check number must be numeric.");
+        return;
+    }
+
+    $.ajax({
+        url: "/api/lead/transaction/new",
+        data: {
+            id: id,
+            amount: amount,
+            payment_type: paymentType,
+            check_number: checkNumber
+        }
+    }).done(function(data) {
+        data = $.parseJSON(data);
+        $("#transactions-table").val("");
+        reloadTransactions(data.data.transactions);
+        $("#dialog-transaction").dialog("close");
+    });
+}
 
 function updateSaleAmount() {
     var id = $("input[name='lead-id']").val();
@@ -86,7 +137,7 @@ function updateAdType() {
 }
 
 function openNewTransaction() {
-    alert("Creating new transaction!");
+    $("#dialog-transaction").dialog("open");
 }
 
 function openNewInvoice() {
@@ -115,12 +166,31 @@ function addNote() {
     });
 }
 
-function reloadNotes($notesArray) {
+function reloadTransactions(transactionArray) {
+    table = $("#transaction-table");
+
+    table.empty();
+
+    transactionArray.forEach(function(transaction) {
+        html = "<tr><td>"
+            + transaction.created
+            + "</td><td>"
+            + transaction.amount
+            + "</td><td>"
+            + transaction.payment_type
+            + "</td><td>"
+            + transaction.check_number
+            + "</td></tr>";
+        table.append(html);
+    });
+}
+
+function reloadNotes(notesArray) {
     table = $("#notes-table");
 
     table.empty();
 
-    $notesArray.forEach(function(note) {
+    notesArray.forEach(function(note) {
         html = "<tr><th class='info'>"
             + note.created
             + "</th><tr><td>"

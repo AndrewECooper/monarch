@@ -83,6 +83,7 @@ class Leads extends MY_Controller {
         $data["artwork"] = $this->load->view("widgets/leads/artwork", $data, true);
 
         // Financial widget.
+        $data["new_transaction_dialog"] = $this->load->view("widgets/leads/new_transaction_dialog", $data, true); 
         $data["financial"] = $this->load->view("widgets/leads/financial", $data, true);
 
         // Notes widget.
