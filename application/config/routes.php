@@ -23,6 +23,8 @@ $route["jobs/(:num)/(:num)/leads"] = "jobs/leads/$1/$2";
 $route["leads/(:num)"] = "leads/lead/$1";
 $route["leads/add/(:num)/(:num)"] = "leads/add/$1/$2";
 
+$route["invoices/(:num)"] = "invoices/view/$1";
+
 $route["users"] = "user";
 $route["users/add"] = "user/add";
 $route["users/delete/(:num)"] = "user/delete/$1";
