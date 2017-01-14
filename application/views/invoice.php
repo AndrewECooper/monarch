@@ -3,15 +3,14 @@
 <div class="container-fluid">
     <table class="table-invoice center-element">
         <tr>
-            <td class="cell-invoice" width="30%" rowspan="4">
+            <td class="cell-invoice" width="45%" rowspan="4">
                 <span>Monarch Calendar and Printing, Inc</span><br>
                 <span>P.O. Box 579</span><br>
                 <span>New Market, TN 37820 US</span>
                 <br><br>
                 <span>(423) 839-1818</span><br>
-                <span>artwork@monarchcalendarandprinting.com</span>
             </td>
-            <td class="cell-invoice" width="20%" rowspan="4"></td>
+            <td class="cell-invoice" width="1px" rowspan="4"></td>
             <td class="cell-invoice"></td>
             <td class="cell-invoice"></td>
             <td class="cell-invoice cell-invoice-title cell-invoice-small-info">Date</td>
@@ -86,9 +85,9 @@
                 <table class="table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th style="width: 100px">Date</th>
-                            <th style="width: 580px">Activity</th>
-                            <th style="width: 100px">Quantity</th>
+                            <th style="width: 110px">Date</th>
+                            <th style="width: 285px">Activity</th>
+                            <th style="width: 75px">Quantity</th>
                             <th style="width: 100px">Rate</th>
                             <th style="width: 100px">Amount</th>
                         </tr>

@@ -24,6 +24,7 @@ $route["leads/(:num)"] = "leads/lead/$1";
 $route["leads/add/(:num)/(:num)"] = "leads/add/$1/$2";
 
 $route["invoices/(:num)"] = "invoices/view/$1";
+$route["invoices/(:num)/download"] = "invoices/download/$1";
 
 $route["users"] = "user";
 $route["users/add"] = "user/add";

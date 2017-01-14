@@ -76,6 +76,7 @@
                         <th>Amount</th>
                         <th>Invoice #</th>
                         <th>&nbsp;</th>
+                        <th>&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody id="invoice-table">
@@ -84,7 +85,8 @@
                         <td><?php echo $invoice["created"]; ?></td>
                         <td><?php echo $invoice["amount"]; ?></td>
                         <td><?php echo $invoice["invoice_number"]; ?></td>
-                        <td><a href="<?php echo base_url('/invoices/' . $invoice["id"]); ?>">Download</a></td>
+                        <td><a href="<?php echo base_url('/invoices/' . $invoice["id"] . "/download"); ?>">Download</a></td>
+                        <td><a href="<?php echo base_url('/invoices/' . $invoice["id"]); ?>">View</a></td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>

@@ -1,0 +1,48 @@
+
+.center-element {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.table-invoice {
+    width: 600px;
+}
+
+.cell-invoice {
+    padding-left: 1px;
+}
+
+.cell-invoice-bill-to {
+    width: 250px;
+    text-align: left;
+}
+
+.cell-invoice-small-info {
+    width: 125px;
+    text-align: center;
+}
+
+.cell-invoice-title {
+    border: 1px solid black;
+    padding-left: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-right: 10px;
+    height: 10px;
+    background-color: lightgray;
+    font-weight: bold;
+}
+
+.cell-invoice-info-body {
+    border: 1px solid black;
+    padding-left: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-right: 10px;
+    height: 40px;
+}
+
+/*.table-bordered th,
+.table-bordered td {
+  border: 0px solid #000000 !important;
+}*/
