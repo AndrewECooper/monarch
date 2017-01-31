@@ -1,2 +1,5 @@
 *.clpprj
 *.csprj
+
+application/logs/*
+application/sessions/*
