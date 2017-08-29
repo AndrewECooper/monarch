@@ -3,3 +3,5 @@
 
 application/logs/*
 application/sessions/*
+nbproject/*
+netbeans/*

@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.16, for Linux (x86_64)
 --
--- Host: localhost    Database: luckygunner
+-- Host: localhost    Database: monarch
 -- ------------------------------------------------------
 -- Server version	5.7.16-0ubuntu0.16.04.1
 
@@ -16,28 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `captcha`
+-- Table structure for table `login_attempts`
 --
 
-DROP TABLE IF EXISTS `captcha`;
+DROP TABLE IF EXISTS `login_attempts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `captcha` (
-  `captcha_id` int(11) NOT NULL AUTO_INCREMENT,
-  `captcha_time` int(11) unsigned NOT NULL,
-  `ip_address` varchar(16) NOT NULL DEFAULT '0',
-  `word` varchar(20) NOT NULL,
-  PRIMARY KEY (`captcha_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `login_attempts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ip` varchar(20) NOT NULL,
+  `attempt` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `captcha`
+-- Dumping data for table `login_attempts`
 --
 
-LOCK TABLES `captcha` WRITE;
-/*!40000 ALTER TABLE `captcha` DISABLE KEYS */;
-/*!40000 ALTER TABLE `captcha` ENABLE KEYS */;
+LOCK TABLES `login_attempts` WRITE;
+/*!40000 ALTER TABLE `login_attempts` DISABLE KEYS */;
+INSERT INTO `login_attempts` VALUES (66,'127.0.0.1','2017-01-07 16:34:26'),(67,'127.0.0.1','2017-01-07 16:34:28');
+/*!40000 ALTER TABLE `login_attempts` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

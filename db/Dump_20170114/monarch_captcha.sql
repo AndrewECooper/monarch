@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.16, for Linux (x86_64)
 --
--- Host: localhost    Database: luckygunner
+-- Host: localhost    Database: monarch
 -- ------------------------------------------------------
 -- Server version	5.7.16-0ubuntu0.16.04.1
 
@@ -16,31 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `collected`
+-- Table structure for table `captcha`
 --
 
-DROP TABLE IF EXISTS `collected`;
+DROP TABLE IF EXISTS `captcha`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `collected` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `lead_id` int(11) NOT NULL,
-  `amount` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `payment_type` varchar(20) NOT NULL DEFAULT '"cash"',
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `check_number` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+CREATE TABLE `captcha` (
+  `captcha_id` int(11) NOT NULL AUTO_INCREMENT,
+  `captcha_time` int(11) unsigned NOT NULL,
+  `ip_address` varchar(16) NOT NULL DEFAULT '0',
+  `word` varchar(20) NOT NULL,
+  PRIMARY KEY (`captcha_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `collected`
+-- Dumping data for table `captcha`
 --
 
-LOCK TABLES `collected` WRITE;
-/*!40000 ALTER TABLE `collected` DISABLE KEYS */;
-INSERT INTO `collected` VALUES (7,1,30.50,'check','2017-01-02 20:11:57','456'),(8,1,50.00,'credit','2017-01-02 20:13:32','');
-/*!40000 ALTER TABLE `collected` ENABLE KEYS */;
+LOCK TABLES `captcha` WRITE;
+/*!40000 ALTER TABLE `captcha` DISABLE KEYS */;
+/*!40000 ALTER TABLE `captcha` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

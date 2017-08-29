@@ -85,8 +85,8 @@
                         <td><?php echo $invoice["created"]; ?></td>
                         <td><?php echo $invoice["amount"]; ?></td>
                         <td><?php echo $invoice["invoice_number"]; ?></td>
-                        <td><a href="<?php echo base_url('/invoices/' . $invoice["id"] . "/download"); ?>">Download</a></td>
-                        <td><a href="<?php echo base_url('/invoices/' . $invoice["id"]); ?>">View</a></td>
+                        <td><a target="_blank" href="<?php echo base_url('/invoices/' . $invoice["id"] . "/download"); ?>">Download</a></td>
+                        <td><a target="_blank" href="<?php echo base_url('/invoices/' . $invoice["id"]); ?>">View</a></td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>

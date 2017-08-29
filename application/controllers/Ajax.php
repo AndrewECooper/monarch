@@ -196,7 +196,7 @@ class Ajax extends Public_Controller {
         $this->output(array("success" => "false", "message" => "Problem retrieving sales amount."));
     }
 
-    public get_invoice_pdf($invoice_id) {
+    public function get_invoice_pdf($invoice_id) {
         $this->load->model("leads_model");
 
         // TODO: Create PDF invoice here.

@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.16, for Linux (x86_64)
 --
--- Host: localhost    Database: luckygunner
+-- Host: localhost    Database: monarch
 -- ------------------------------------------------------
 -- Server version	5.7.16-0ubuntu0.16.04.1
 
@@ -16,33 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `emails`
+-- Table structure for table `invoices`
 --
 
-DROP TABLE IF EXISTS `emails`;
+DROP TABLE IF EXISTS `invoices`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `emails` (
+CREATE TABLE `invoices` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(64) NOT NULL,
-  `email` varchar(256) NOT NULL,
-  `title` varchar(128) NOT NULL,
-  `message` text NOT NULL,
-  `created` datetime NOT NULL,
-  `read` datetime DEFAULT NULL,
-  `read_by` int(11) unsigned DEFAULT NULL,
+  `lead_id` int(11) NOT NULL,
+  `amount` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `invoice_number` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `emails`
+-- Dumping data for table `invoices`
 --
 
-LOCK TABLES `emails` WRITE;
-/*!40000 ALTER TABLE `emails` DISABLE KEYS */;
-INSERT INTO `emails` VALUES (1,'John Doe','john@doe.com','Test Message','This is only a test message. Notice that once you\'\'ve read it, the button changes from blue to grey, indicating that it has been reviewed.','2013-01-01 00:00:00',NULL,NULL);
-/*!40000 ALTER TABLE `emails` ENABLE KEYS */;
+LOCK TABLES `invoices` WRITE;
+/*!40000 ALTER TABLE `invoices` DISABLE KEYS */;
+INSERT INTO `invoices` VALUES (33,1,52.00,'2017-01-02 21:38:40','1-170102-0938-40');
+/*!40000 ALTER TABLE `invoices` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -54,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-14 15:22:18
+-- Dump completed on 2017-01-14 15:22:17

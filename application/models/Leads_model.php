@@ -32,7 +32,7 @@ class Leads_model extends CI_Model {
             l.contact_last_name as contact_last_name,
             l.primary_phone as primary_phone,
             l.alternate_phone as alternate_phone
-        from luckygunner.leads as l
+        from monarch.leads as l
         where l.job_year_id = " . $job_year_id;
 
         $query = $this->db->query($sql);

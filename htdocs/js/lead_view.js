@@ -168,7 +168,8 @@ function reloadInvoices(invoicesArray) {
             + invoice.amount
             + "</td><td>"
             + invoice.invoice_number
-            + "</td><td><a href='#'>Download</a>"
+            + "</td><td><a target='_blank' href='/invoices/" + invoice.id + "/download'>Download</a>"
+            + "</td><td><a target='_blank' href='/invoices/" + invoice.id + "'>View</a>"
             + "</td></tr>";
         table.append(html);
     });
@@ -284,7 +285,7 @@ function editSales() {
         data: {
             id: id,
             sales: sales,
-            collector, collector
+            collector: collector
         }
     }).done(function(data) {
         $("#dialog-sales").dialog("close");

@@ -207,7 +207,7 @@ class Jobs_model extends CI_Model {
 
     function job_exists($job_id, $year) {
         $sql = "select job_id, year
-            from luckygunner.years
+            from monarch.years
             where job_id = " . $job_id . " and year = " . $year;
 
         $query = $this->db->query($sql);
